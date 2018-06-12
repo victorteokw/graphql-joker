@@ -1,0 +1,88 @@
+{
+  "name": "generator-amur",
+  "version": "0.0.0",
+  "description": "Gimme a koa mongoose graphQL app",
+  "homepage": "https://github.com/zhangkaiyulw/generator-amur",
+  "author": {
+    "name": "Zhang Kaiyu",
+    "email": "yeannylam@gmail.com",
+    "url": ""
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "koa",
+    "mongoose",
+    "generator",
+    "yo",
+    "yeoman",
+    "graphql",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "yeoman-test": "^1.7.0",
+    "yeoman-assert": "^3.1.0",
+    "nsp": "^2.8.0",
+    "eslint": "^4.19.1",
+    "prettier": "^1.11.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-config-xo": "^0.20.1",
+    "jest": "^22.0.6"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.1.0",
+    "yosay": "^2.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "prepublishOnly": "nsp check",
+    "pretest": "eslint .",
+    "precommit": "lint-staged",
+    "test": "jest"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "printWidth": 90
+        }
+      ]
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "repository": "zhangkaiyulw/generator-amur",
+  "license": "MIT"
+}
