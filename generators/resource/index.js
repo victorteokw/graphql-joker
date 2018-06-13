@@ -130,15 +130,15 @@ module.exports = class extends Generator {
       if (f.foreignKey) {
         if (f.foreignKeyArray) {
           if (f.array) {
-            final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
           } else {
-            final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
           }
         } else {
           if (f.array) {
-            final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
           } else {
-            final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
           }
         }
       } else {

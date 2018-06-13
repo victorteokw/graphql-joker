@@ -22,7 +22,27 @@ If you don't specify app name, the app will be installed to your current working
 
 ## Generate Resources
 
-TODO here
+Amur resource generator follows the following style
+
+``` bash
+yo amur:resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
+```
+
+Let's say you have a model named user, and user has a name, age and also a list of posts.
+And you have a model named post, it has title, content and author.
+
+``` bash
+yo amur:resource User name:String age:Int posts:[Post]:author
+yo amur:resource Post title:String content:String author:User
+```
+
+## Destroy Resources
+
+If you mistakenly generated something or you spell something wrongly, you want to undo:
+
+``` bash
+yo amur:resource ResourceToDelete --destroy --force
+```
 
 ## License
 
