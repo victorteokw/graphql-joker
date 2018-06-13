@@ -112,11 +112,17 @@ module.exports = class extends Generator {
       this.destinationPath('scripts/console.js')
     );
 
+    // Schema definition
+
+    this.fs.copy(
+      this.templatePath('schemas/schema.js'),
+      this.destinationPath('schemas/schema.js')
+    );
+
     // Make directories
 
     fs.mkdirSync(this.destinationPath('data'));
     fs.mkdirSync(this.destinationPath('models'));
-    fs.mkdirSync(this.destinationPath('schemas'));
     fs.mkdirSync(this.destinationPath('resolvers'));
     fs.mkdirSync(this.destinationPath('tests'));
     fs.mkdirSync(this.destinationPath('tests/fixtures'));
