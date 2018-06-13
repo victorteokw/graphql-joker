@@ -126,8 +126,8 @@ module.exports = class extends Generator {
     // Schema definition
 
     this.fs.copy(
-      this.templatePath('schemas/schema.js'),
-      this.destinationPath('schemas/schema.js')
+      this.templatePath('schemas/schema.gql'),
+      this.destinationPath('schemas/schema.gql')
     );
 
     // Make directories
