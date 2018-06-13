@@ -41,6 +41,9 @@ module.exports = class extends Generator {
     collectionName = lowercase(collectionName);
 
     const sideEffects = {};
+    sideEffects['requiresObjectId'] = false;
+    sideEffects['requiresDate'] = false;
+    sideEffects['needsResolverModelBody'] = false;
 
     const fields = args.map((arg) => {
       const tokens = arg.split(':');
@@ -68,9 +71,6 @@ module.exports = class extends Generator {
         fieldGraphQLType = 'ID';
       }
 
-      sideEffects['requiresObjectId'] = false;
-      sideEffects['requiresDate'] = false;
-      sideEffects['needsResolverModelBody'] = false;
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
       } else {
@@ -105,10 +105,7 @@ module.exports = class extends Generator {
       )
     };
   }
-  // async techQuizzes(root, _, ctx) {
-  //   const { Quiz } = ctx.models;
-  //   return await Quiz.find({ _id: { $in: root.techQuizzes }});
-  // },
+
   _generateResolverModelBody(needs, modelName, fields) {
     if (!needs) return '';
     let final = '';
