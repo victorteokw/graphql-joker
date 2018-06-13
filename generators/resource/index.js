@@ -17,8 +17,10 @@ module.exports = class extends Generator {
       throw `Model/collection name format error.`;
     }
     let [modelName, collectionName] = arg0.split('/');
-    !collectionName && (collectionName = modelName + 's');
+    let pvarName = '';
+    !collectionName && (collectionName = uncapitalize(modelName) + 's');
     modelName = capitalize(modelName);
+    pvarName = collectionName;
     collectionName = lowercase(collectionName);
 
     const sideEffects = {};
@@ -71,8 +73,26 @@ module.exports = class extends Generator {
       fields,
       mongooseSchemaName: uncapitalize(modelName) + 'Schema',
       mongooseSchemaBody: this._generateMongooseSchemaBody(fields),
-      ...sideEffects
+      ...sideEffects,
+      svarName: uncapitalize(modelName),
+      pvarName,
+      schemaBody: this._generateSchemaBody(fields)
     };
+  }
+
+  _generateSchemaBody(fields) {
+    let final = '';
+    fields.forEach((f, i) => {
+      if (i > 0) {
+        final = final + '\n';
+      }
+      final = final + '  ';
+      final = final + f.fieldName + ": ";
+      if (f.array) final = final + '[';
+      final = final + f.fieldType;
+      if (f.array) final = final + ']';
+    });
+    return final;
   }
 
   _generateMongooseSchemaBody(fields) {
@@ -109,8 +129,8 @@ module.exports = class extends Generator {
       this._userArgs
     );
     this.fs.copyTpl(
-      this.templatePath('schemas/_Base.gql'),
-      this.destinationPath(`schemas/${this._userArgs.modelName}.gql`),
+      this.templatePath('resolvers/_Base.js'),
+      this.destinationPath(`resolvers/${this._userArgs.modelName}.js`),
       this._userArgs
     );
   }

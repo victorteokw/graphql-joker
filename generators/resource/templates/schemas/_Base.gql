@@ -1,0 +1,21 @@
+type <%- modelName %> {
+  _id: ID!
+<%- schemaBody %>
+  createdAt: Date
+  updatedAt: Date
+}
+
+input <%- modelName %>Input {
+<%- schemaBody %>
+}
+
+type Query {
+  <%- svarName %>(_id: ID!): <%- modelName %>
+  <%- pvarName %>: [<%- modelName %>]
+}
+
+type Mutation {
+  create<%- modelName %>(input: <%- modelName %>Input): <%- modelName %>
+  update<%- modelName %>(_id: ID!, input: <%- modelName %>Input): <%- modelName %>
+  delete<%- modelName %>(_id: ID!): <%- modelName %>
+}
