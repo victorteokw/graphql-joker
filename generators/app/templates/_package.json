@@ -1,6 +1,6 @@
 {
-  "name": "<%= name %>",
-  "title": "<%= title %>",
+  "name": "<%- name %>",
+  "title": "<%- title %>",
   "version": "0.0.1",
   "private": true,
   "main": "app.js",

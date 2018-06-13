@@ -54,11 +54,14 @@ module.exports = class extends Generator {
 
       if (primitiveTypes.includes(fieldType)) {
         primitive = true;
+        sideEffects['requiresObjectId'] = false;
       } else {
         sideEffects['requiresObjectId'] = true;
       }
       if (fieldType === 'Date') {
         sideEffects['requiresDate'] = true;
+      } else {
+        sideEffects['requiresDate'] = false;
       }
 
       return {
