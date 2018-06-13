@@ -71,6 +71,8 @@ module.exports = class extends Generator {
         fieldGraphQLType = 'ID';
       }
 
+      const foreignKey = tokens[2];
+
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
       } else {
@@ -82,7 +84,8 @@ module.exports = class extends Generator {
       }
 
       return {
-        fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType
+        fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType,
+        foreignKey
       };
 
     });
@@ -114,10 +117,18 @@ module.exports = class extends Generator {
       if (primitiveTypes.includes(f.fieldJSType)) return;
       final += `    async ${f.fieldName}(root, _, ctx) {\n`;
       final += `      const { ${f.fieldJSType} } = ctx.models;\n`;
-      if (f.array) {
-        final += `      return await ${f.fieldJSType}.find({ _id: { $in: root.${f.fieldName} }});\n`;
+      if (f.foreignKey) {
+        if (f.array) {
+          final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+        } else {
+          final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+        }
       } else {
-        final += `      return await ${f.fieldJSType}.findById(root.${f.fieldName});\n`;
+        if (f.array) {
+          final += `      return await ${f.fieldJSType}.find({ _id: { $in: root.${f.fieldName} }});\n`;
+        } else {
+          final += `      return await ${f.fieldJSType}.findById(root.${f.fieldName});\n`;
+        }
       }
       final += `    },\n`;
     });
@@ -150,6 +161,7 @@ module.exports = class extends Generator {
 
   _generateMongooseSchemaBody(fields) {
     let final = '';
+    fields = fields.filter((f) => !f.foreignKey);
     fields.forEach((f, i) => {
       if (i > 0) {
         final = final + '\n';
