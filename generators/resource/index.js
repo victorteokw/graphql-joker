@@ -4,6 +4,21 @@ const uncapitalize = require('../../utils/uncapitalize');
 const capitalize = require('../../utils/capitalize');
 const lowercase = require('../../utils/lowercase');
 
+const primitiveTypes = [
+  'String',
+  'Boolean',
+  'Number',
+  'Object',
+  'Array',
+  'Date',
+  'ObjectId',
+  'RegExp',
+  'Symbol',
+  'Int',
+  'Float',
+  'ID'
+];
+
 module.exports = class extends Generator {
 
   constructor(args, options) {
@@ -48,29 +63,19 @@ module.exports = class extends Generator {
       if ((fieldType === 'Int') || (fieldType === 'Float')) {
         fieldJSType = 'Number';
       }
+      if (fieldType === 'ObjectId') {
+        fieldGraphQLType = 'ID';
+      }
 
-      const primitiveTypes = [
-        'String',
-        'Boolean',
-        'Number',
-        'Object',
-        'Array',
-        'Date',
-        'ObjectId',
-        'RegExp',
-        'Symbol'
-      ];
-
+      sideEffects['requiresObjectId'] = false;
+      sideEffects['requiresDate'] = false;
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
-        sideEffects['requiresObjectId'] = false;
       } else {
         sideEffects['requiresObjectId'] = true;
       }
       if (fieldType === 'Date') {
         sideEffects['requiresDate'] = true;
-      } else {
-        sideEffects['requiresDate'] = false;
       }
 
       return {
@@ -88,11 +93,12 @@ module.exports = class extends Generator {
       ...sideEffects,
       svarName: uncapitalize(modelName),
       pvarName,
-      schemaBody: this._generateSchemaBody(fields)
+      schemaBody: this._generateSchemaBody(fields),
+      schemaInputBody: this._generateSchemaBody(fields, true)
     };
   }
 
-  _generateSchemaBody(fields) {
+  _generateSchemaBody(fields, input) {
     let final = '';
     fields.forEach((f, i) => {
       if (i > 0) {
@@ -101,7 +107,15 @@ module.exports = class extends Generator {
       final = final + '  ';
       final = final + f.fieldName + ": ";
       if (f.array) final = final + '[';
-      final = final + f.fieldGraphQLType;
+      if (primitiveTypes.includes(f.fieldGraphQLType)) {
+        final = final + f.fieldGraphQLType;
+      } else {
+        if (input) {
+          final = final + 'ID';
+        } else {
+          final = final + f.fieldGraphQLType;
+        }
+      }
       if (f.array) final = final + ']';
     });
     return final;

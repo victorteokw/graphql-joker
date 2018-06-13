@@ -6,7 +6,7 @@ type <%- modelName %> {
 }
 
 input <%- modelName %>Input {
-<%- schemaBody %>
+<%- schemaInputBody %>
 }
 
 type Query {
