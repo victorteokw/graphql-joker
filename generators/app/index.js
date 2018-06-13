@@ -3,6 +3,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const fs = require('fs');
 const path = require('path');
+const kebabCase = require('lodash.kebaase');
 
 module.exports = class extends Generator {
   prompting() {
@@ -33,7 +34,8 @@ module.exports = class extends Generator {
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
-        name: this.props.name
+        name: kebabCase(this.props.name),
+        title: this.props.name
       }
     );
     // readme
@@ -76,21 +78,21 @@ module.exports = class extends Generator {
       this.templatePath('config/_dev.json'),
       this.destinationPath('config/dev.json'),
       {
-        name: this.props.name
+        name: kebabCase(this.props.name)
       }
     );
     this.fs.copyTpl(
       this.templatePath('config/_prod.json'),
       this.destinationPath('config/prod.json'),
       {
-        name: this.props.name
+        name: kebabCase(this.props.name)
       }
     );
     this.fs.copyTpl(
       this.templatePath('config/_test.json'),
       this.destinationPath('config/test.json'),
       {
-        name: this.props.name
+        name: kebabCase(this.props.name)
       }
     );
 
