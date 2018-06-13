@@ -30,5 +30,6 @@ app.use(router.routes(), router.allowedMethods());
 // Export a module or start server
 if (!module.parent) {
   app.listen(config.app.port);
-  console.log(`App ${config.env} listening on port ${config.app.port}...`);
+  console.log(`Using env ${config.env}...`);
+  console.log(`Listening on port ${config.app.port}...`);
 }
