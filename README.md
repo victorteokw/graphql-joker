@@ -1,9 +1,11 @@
 # generator-amur [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > Gimme a koa mongoose graphQL app
 
-## Installation
+## Setup an Amur Project
 
-First, install [Yeoman](http://yeoman.io) and generator-amur using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+Assume that you have [node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
+
+First, install [Yeoman](http://yeoman.io) and [generator-amur](https://github.com/zhangkaiyulw/generator-amur/).
 
 ```bash
 npm install -g yo
@@ -13,19 +15,18 @@ npm install -g generator-amur
 Then generate your new project:
 
 ```bash
-yo amur
+yo amur my-new-app
 ```
 
-## Getting To Know Yeoman
+If you don't specify app name, the app will be installed to your current working directory.
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+## Generate Resources
+
+TODO here
 
 ## License
 
-MIT © [Zhang Kaiyu]()
+MIT © [Zhang Kaiyu](https://github.com/zhangkaiyulw)
 
 
 [npm-image]: https://badge.fury.io/js/generator-amur.svg

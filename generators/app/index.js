@@ -3,9 +3,18 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const fs = require('fs');
 const path = require('path');
-const kebabCase = require('lodash.kebaase');
+const kebabCase = require('lodash.kebabCase');
 
 module.exports = class extends Generator {
+
+  constructor(args, options) {
+    super(args, options);
+    // Allow set new project root just like ruby on rails
+    if (args[0]) {
+      this.destinationRoot(path.join(this.destinationRoot(), args[0]));
+    }
+  }
+
   prompting() {
     this.log(
       yosay(`Welcome to the grand ${chalk.red('generator-amur')} generator!`)
