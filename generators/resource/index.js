@@ -3,6 +3,7 @@ const fs = require('fs');
 const uncapitalize = require('../../utils/uncapitalize');
 const capitalize = require('../../utils/capitalize');
 const lowercase = require('../../utils/lowercase');
+const pluralize = require('pluralize');
 
 const primitiveTypes = [
   'String',
@@ -34,7 +35,7 @@ module.exports = class extends Generator {
     }
     let [modelName, collectionName] = arg0.split('/');
     let pvarName = '';
-    !collectionName && (collectionName = uncapitalize(modelName) + 's');
+    !collectionName && (collectionName = pluralize(uncapitalize(modelName)));
     modelName = capitalize(modelName);
     pvarName = collectionName;
     collectionName = lowercase(collectionName);
@@ -69,10 +70,12 @@ module.exports = class extends Generator {
 
       sideEffects['requiresObjectId'] = false;
       sideEffects['requiresDate'] = false;
+      sideEffects['needsResolverModelBody'] = false;
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
       } else {
         sideEffects['requiresObjectId'] = true;
+        sideEffects['needsResolverModelBody'] = true;
       }
       if (fieldType === 'Date') {
         sideEffects['requiresDate'] = true;
@@ -94,8 +97,35 @@ module.exports = class extends Generator {
       svarName: uncapitalize(modelName),
       pvarName,
       schemaBody: this._generateSchemaBody(fields),
-      schemaInputBody: this._generateSchemaBody(fields, true)
+      schemaInputBody: this._generateSchemaBody(fields, true),
+      resolverModelBody: this._generateResolverModelBody(
+        sideEffects['needsResolverModelBody'],
+        modelName,
+        fields
+      )
     };
+  }
+  // async techQuizzes(root, _, ctx) {
+  //   const { Quiz } = ctx.models;
+  //   return await Quiz.find({ _id: { $in: root.techQuizzes }});
+  // },
+  _generateResolverModelBody(needs, modelName, fields) {
+    if (!needs) return '';
+    let final = '';
+    final += `  ${modelName}: {\n`;
+    fields.forEach((f) => {
+      if (primitiveTypes.includes(f.fieldJSType)) return;
+      final += `    async ${f.fieldName}(root, _, ctx) {\n`;
+      final += `      const { ${f.fieldJSType} } = ctx.models;\n`;
+      if (f.array) {
+        final += `      return await ${f.fieldJSType}.find({ _id: { $in: root.${f.fieldName} }});\n`;
+      } else {
+        final += `      return await ${f.fieldJSType}.findById(root.${f.fieldName});\n`;
+      }
+      final += `    },\n`;
+    });
+    final += `  },`;
+    return final;
   }
 
   _generateSchemaBody(fields, input) {

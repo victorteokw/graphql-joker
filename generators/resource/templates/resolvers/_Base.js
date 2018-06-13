@@ -1,4 +1,7 @@
 module.exports = {
+<% if(needsResolverModelBody) { -%>
+<%- resolverModelBody %>
+<% } -%>
   Query: {
     async <%- svarName %>(root, { _id }, ctx) {
       const { <%- modelName %> } = ctx.models;

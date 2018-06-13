@@ -61,7 +61,7 @@
     "prefer-const": "warn",
     "arrow-body-style": ["warn", "as-needed", {"requireReturnForObjectLiteral": false}],
     "arrow-spacing": ["warn"],
-    "max-len": ["warn", { "code": 80 }],
+    "max-len": ["warn", { "code": 200 }],
     "no-undef": "error"
   },
   "parserOptions": {
