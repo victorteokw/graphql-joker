@@ -22,19 +22,21 @@ If you don't specify app name, the app will be installed to your current working
 
 ## Generate Resources
 
-Amur resource generator follows the following style
+Amur resource generator follows this style
 
 ``` bash
 yo amur:resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
 ```
 
 Let's say you have a model named user, and user has a name, age and also a list of posts.
-And you have a model named post, it has title, content and author.
+And you have a model named post, it has title, content and author. Just type like this:
 
 ``` bash
 yo amur:resource User name:String age:Int posts:[Post]:author
 yo amur:resource Post title:String content:String author:User
 ```
+
+And then open `npm start` to try out auto generated API suite.
 
 ## Destroy Resources
 
@@ -43,6 +45,17 @@ If you mistakenly generated something or you spell something wrongly, you want t
 ``` bash
 yo amur:resource ResourceToDelete --destroy --force
 ```
+
+## Todo List
+
+There is still a long way to go. Feel free to discuss with me and find a task that you like.
+
+1. Update README to have better documentation.
+2. Create github wiki pages for documentation and manuals.
+3. Create tests to test generator behavior.
+4. After tests are created, we could make code quality much more better.
+5. Separate the generators into model generator, schema generator and resolver generator.
+6. Open an issue or pull request, this is very welcome.
 
 ## License
 
