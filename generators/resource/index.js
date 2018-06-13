@@ -140,6 +140,9 @@ module.exports = class extends Generator {
   }
 
   _generateSchemaBody(fields, input) {
+    if (input) {
+      fields = fields.filter((f) => !f.foreignKey);
+    }
     let final = '';
     fields.forEach((f, i) => {
       if (i > 0) {
