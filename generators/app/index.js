@@ -131,6 +131,14 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies();
+    this.npmInstall([
+      'koa', 'mongoose', 'graphql',
+      'koa-body', 'koa-logger', 'koa-router', 'koa2-mongoose', '@koa/cors',
+      'graphql-tools', 'merge-graphql-schemas', 'apollo-server-koa',
+      'noenv', 'lodash', 'glob'
+    ], { 'save': true });
+    this.npmInstall([
+      'eslint', 'nodemon', 'nonula', 'jest', 'jest-cli'
+    ], { 'save-dev': true });
   }
 };
