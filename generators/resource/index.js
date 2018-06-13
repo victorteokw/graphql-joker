@@ -1,4 +1,5 @@
 const Generator = require('yeoman-generator');
+const fs = require('fs');
 const uncapitalize = require('../../utils/uncapitalize');
 const capitalize = require('../../utils/capitalize');
 const lowercase = require('../../utils/lowercase');
@@ -121,6 +122,20 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    const dateSchemaFile = this.destinationPath('schemas/Date.gql');
+    const dateResolverFile = this.destinationPath('resolvers/Date.js');
+    if (!fs.existsSync(dateSchemaFile)) {
+      this.fs.copy(
+        this.templatePath('schemas/Date.gql'),
+        this.destinationPath('schemas/Date.gql')
+      );
+    }
+    if (!fs.existsSync(dateResolverFile)) {
+      this.fs.copy(
+        this.templatePath('resolvers/Date.js'),
+        this.destinationPath('resolvers/Date.js')
+      );
+    }
     this.fs.copyTpl(
       this.templatePath('models/_Base.js'),
       this.destinationPath(`models/${this._userArgs.modelName}.js`),
