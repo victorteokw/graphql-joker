@@ -1,0 +1,5 @@
+{
+  "verbose": false,
+  "ignore": ["data/**/*", "test/**/*", "scripts/**/*", "package.json"],
+  "ext": "js json gql"
+}

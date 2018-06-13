@@ -1,0 +1,80 @@
+{
+  "rules": {
+    "for-direction": "error",
+    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "linebreak-style": ["warn", "unix"],
+    "semi": ["warn", "always"],
+    "no-console": "off",
+    "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "argsIgnorePattern": "^_"}],
+    "no-unreachable": "warn",
+    "object-curly-spacing": ["warn", "always", {"objectsInObjects": false, "arraysInObjects": false}],
+    "no-constant-condition": ["warn", {"checkLoops": false}],
+    "no-this-before-super": "warn",
+    "no-dupe-args": ["error"],
+    "no-dupe-keys": ["error"],
+    "no-dupe-class-members": "error",
+    "no-duplicate-imports": ["error", { "includeExports": false }],
+    "no-duplicate-case": ["error"],
+    "no-new-symbol": "error",
+    "no-empty": ["warn", {"allowEmptyCatch": true}],
+    "no-empty-character-class": ["warn"],
+    "no-ex-assign": ["warn"],
+    "no-extra-boolean-cast": ["warn"],
+    "no-extra-parens": ["warn", "all", {
+      "conditionalAssign": false,
+      "returnAssign": false,
+      "nestedBinaryExpressions": false,
+      "ignoreJSX": "all",
+      "enforceForArrowConditionals": false
+    }],
+    "no-extra-semi": ["warn"],
+    "no-func-assign": "error",
+    "no-inner-declarations": ["warn", "both"],
+    "no-invalid-regexp": ["warn", { "allowConstructorFlags": ["u", "y"] }],
+    "no-irregular-whitespace": ["error", {
+      "skipStrings": true,
+      "skipComments": true,
+      "skipRegExps": true,
+      "skipTemplates": true
+    }],
+    "no-obj-calls": "error",
+    "no-prototype-builtins": "warn",
+    "no-template-curly-in-string": "warn",
+    "no-unexpected-multiline": "warn",
+    "no-regex-spaces": "warn",
+    "no-sparse-arrays": "warn",
+    "use-isnan": "error",
+    "valid-jsdoc": "warn",
+    "valid-typeof": "error",
+    "no-unsafe-finally": "warn",
+    "no-useless-return": "warn",
+    "array-callback-return": "warn",
+    "require-await": "warn",
+    "yoda": ["warn", "never", { "exceptRange": true }],
+    "no-unused-labels": "warn",
+    "no-unused-expressions": ["warn", {
+      "allowShortCircuit": true,
+      "allowTernary": true,
+      "allowTaggedTemplates": true
+    }],
+    "no-const-assign": "error",
+    "prefer-const": "warn",
+    "arrow-body-style": ["warn", "as-needed", {"requireReturnForObjectLiteral": false}],
+    "arrow-spacing": ["warn"],
+    "max-len": ["warn", { "code": 80 }],
+    "no-undef": "error"
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "es6": true
+    }
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  }
+}
