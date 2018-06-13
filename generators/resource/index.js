@@ -86,7 +86,9 @@ module.exports = class extends Generator {
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
       } else {
-        sideEffects['requiresObjectId'] = true;
+        if (!foreignKey) {
+          sideEffects['requiresObjectId'] = true;
+        }
         sideEffects['needsResolverModelBody'] = true;
       }
       if (fieldType === 'Date') {
@@ -123,7 +125,7 @@ module.exports = class extends Generator {
     if (!needs) return '';
     let final = '';
     final += `  ${modelName}: {\n`;
-    fields.forEach((f) => {
+    fields.forEach((f, i) => {
       if (primitiveTypes.includes(f.fieldJSType)) return;
       final += `    async ${f.fieldName}(root, _, ctx) {\n`;
       final += `      const { ${f.fieldJSType} } = ctx.models;\n`;
@@ -148,7 +150,11 @@ module.exports = class extends Generator {
           final += `      return await ${f.fieldJSType}.findById(root.${f.fieldName});\n`;
         }
       }
-      final += `    },\n`;
+      if (i !== fields.length - 1) {
+        final += '    },\n';
+      } else {
+        final += '    }\n';
+      }
     });
     final += `  },`;
     return final;
