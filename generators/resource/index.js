@@ -40,6 +40,14 @@ module.exports = class extends Generator {
         array = true;
       }
       fieldType = capitalize(fieldType);
+      let fieldJSType = fieldType;
+      let fieldGraphQLType = fieldType;
+      if (fieldType === 'Number') {
+        fieldGraphQLType = 'Int';
+      }
+      if ((fieldType === 'Int') || (fieldType === 'Float')) {
+        fieldJSType = 'Number';
+      }
 
       const primitiveTypes = [
         'String',
@@ -53,7 +61,7 @@ module.exports = class extends Generator {
         'Symbol'
       ];
 
-      if (primitiveTypes.includes(fieldType)) {
+      if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
         sideEffects['requiresObjectId'] = false;
       } else {
@@ -66,7 +74,7 @@ module.exports = class extends Generator {
       }
 
       return {
-        fieldName, fieldType, array, primitive
+        fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType
       };
 
     });
@@ -93,7 +101,7 @@ module.exports = class extends Generator {
       final = final + '  ';
       final = final + f.fieldName + ": ";
       if (f.array) final = final + '[';
-      final = final + f.fieldType;
+      final = final + f.fieldGraphQLType;
       if (f.array) final = final + ']';
     });
     return final;
@@ -109,7 +117,7 @@ module.exports = class extends Generator {
       final = final + f.fieldName + ": ";
       if (f.array) final = final + '[';
       if (f.primitive) {
-        final = final + f.fieldType;
+        final = final + f.fieldJSType;
       } else {
         final = final + `{ type: ObjectId, ref: '${f.fieldType}' }`;
       }
