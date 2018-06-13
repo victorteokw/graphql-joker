@@ -74,7 +74,14 @@ module.exports = class extends Generator {
         fieldGraphQLType = 'ID';
       }
 
-      const foreignKey = tokens[2];
+      let foreignKey = tokens[2];
+      let foreignKeyArray = false;
+      if (foreignKey) {
+        if (foreignKey.match(/^\[(.*)\]$/)) {
+          foreignKeyArray = true;
+          foreignKey = foreignKey.match(/^\[(.*)\]$/)[1];
+        }
+      }
 
       if (primitiveTypes.includes(fieldJSType)) {
         primitive = true;
@@ -88,7 +95,7 @@ module.exports = class extends Generator {
 
       return {
         fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType,
-        foreignKey
+        foreignKey, foreignKeyArray
       };
 
     });
@@ -121,10 +128,18 @@ module.exports = class extends Generator {
       final += `    async ${f.fieldName}(root, _, ctx) {\n`;
       final += `      const { ${f.fieldJSType} } = ctx.models;\n`;
       if (f.foreignKey) {
-        if (f.array) {
-          final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+        if (f.foreignKeyArray) {
+          if (f.array) {
+            final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+          } else {
+            final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+          }
         } else {
-          final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+          if (f.array) {
+            final += `      await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+          } else {
+            final += `      await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+          }
         }
       } else {
         if (f.array) {
