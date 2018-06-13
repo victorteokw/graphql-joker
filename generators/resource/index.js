@@ -24,6 +24,9 @@ module.exports = class extends Generator {
 
   constructor(args, options) {
     super(args, options);
+    if (options.destroy) {
+      this.__destroy = true;
+    }
     this._resourceParseArgs(args);
   }
 
@@ -183,6 +186,18 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    if (this.__destroy) {
+      this.fs.delete(
+        this.destinationPath(`models/${this._userArgs.modelName}.js`),
+      );
+      this.fs.delete(
+        this.destinationPath(`schemas/${this._userArgs.modelName}.gql`),
+      );
+      this.fs.delete(
+        this.destinationPath(`resolvers/${this._userArgs.modelName}.js`),
+      );
+      return;
+    }
     const dateSchemaFile = this.destinationPath('schemas/Date.gql');
     const dateResolverFile = this.destinationPath('resolvers/Date.js');
     if (!fs.existsSync(dateSchemaFile)) {
