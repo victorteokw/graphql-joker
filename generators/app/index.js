@@ -62,7 +62,7 @@ module.exports = class extends Generator {
     );
     // git
     this.fs.copy(
-      this.templatePath('.gitignore'),
+      this.templatePath('.git_ignore'),
       this.destinationPath('.gitignore')
     );
     // nonula

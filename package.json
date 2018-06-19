@@ -1,6 +1,6 @@
 {
   "name": "generator-amur",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gimme a koa mongoose graphQL app",
   "homepage": "https://github.com/zhangkaiyulw/generator-amur",
   "author": {
@@ -8,7 +8,8 @@
     "email": "yeannylam@gmail.com"
   },
   "files": [
-    "generators"
+    "generators",
+    "utils"
   ],
   "main": "generators/index.js",
   "keywords": [
