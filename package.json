@@ -37,7 +37,7 @@
     "yeoman-test": "^1.7.0"
   },
   "engines": {
-    "npm": ">= 6.0.0"
+    "npm": ">= 8.0.0"
   },
   "dependencies": {
     "chalk": "^2.1.0",
