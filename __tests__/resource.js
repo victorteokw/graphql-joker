@@ -234,4 +234,27 @@ describe('yo amur:resource', () => {
       assert.fileContent('resolvers/User.js', c);
     });
   });
+  describe('supports index unique required', () => {
+    const dir = path.join(__dirname, 'expected/index-unique-required');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments(['Article/articles', 'title:String!$', 'content:String!', 'keyName:String!^$']);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/Article.js')).toString();
+      assert.fileContent('models/Article.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Article.gql')).toString();
+      assert.fileContent('schemas/Article.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Article.js')).toString();
+      assert.fileContent('resolvers/Article.js', c);
+    });
+  });
 });

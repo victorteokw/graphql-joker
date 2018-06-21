@@ -31,17 +31,18 @@ module.exports = class extends Generator {
   }
 
   _resourceParseArgs(args) {
+    if (args.length < 2) {
+      throw `Arguments error. You need to specify at least two arguments.`;
+    }
     // Model name and collection name
     const arg0 = args.shift();
     if (!arg0.match(/^[a-zA-Z]\w*(\/[a-zA-Z]\w*)?$/)) {
       throw `Model/collection name format error.`;
     }
-    let [modelName, collectionName] = arg0.split('/');
-    let pvarName = '';
-    !collectionName && (collectionName = pluralize(uncapitalize(modelName)));
+    let [modelName, pvarName] = arg0.split('/');
+    !pvarName && (pvarName = pluralize(uncapitalize(modelName)));
     modelName = capitalize(modelName);
-    pvarName = collectionName;
-    collectionName = lowercase(collectionName);
+    const collectionName = lowercase(pvarName);
 
     const sideEffects = {};
     sideEffects['requiresObjectId'] = false;
@@ -51,15 +52,32 @@ module.exports = class extends Generator {
     const fields = args.map((arg) => {
       const tokens = arg.split(':');
 
-      let fieldName = tokens[0];
-      fieldName = uncapitalize(fieldName);
+      const fieldName = uncapitalize(tokens[0]);
+      let fieldType = 'String',
+        modifier = '',
+        array = false;
+      const modifiers = {};
 
-      let array = false, primitive = false;
-      let fieldType = tokens[1] || 'String';
-      const matchData = fieldType.match(/^\[(.*)\]$/);
+      const typeDesc = tokens[1] || 'String';
+
+      const matchData = typeDesc.match(/^\[(.*)\](.*)$/);
       if (matchData) {
         fieldType = matchData[1];
+        modifier = matchData[2];
         array = true;
+      } else {
+        const pmatchData = typeDesc.match(/^([a-zA-Z0-9]*)(.*)/);
+        fieldType = pmatchData[1];
+        modifier = pmatchData[2];
+      }
+      if (modifier.match(/!/)) {
+        modifiers.required = true;
+      }
+      if (modifier.match(/\^/)) {
+        modifiers.index = true;
+      }
+      if (modifier.match(/\$/)) {
+        modifiers.unique = true;
       }
       fieldType = capitalize(fieldType);
       let fieldJSType = fieldType;
@@ -74,6 +92,8 @@ module.exports = class extends Generator {
         fieldGraphQLType = 'ID';
       }
 
+      const primitive = primitiveTypes.includes(fieldType);
+
       let foreignKey = tokens[2];
       let foreignKeyArray = false;
       if (foreignKey) {
@@ -83,9 +103,7 @@ module.exports = class extends Generator {
         }
       }
 
-      if (primitiveTypes.includes(fieldJSType)) {
-        primitive = true;
-      } else {
+      if (!primitive) {
         if (!foreignKey) {
           sideEffects['requiresObjectId'] = true;
         }
@@ -97,7 +115,7 @@ module.exports = class extends Generator {
 
       return {
         fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType,
-        foreignKey, foreignKeyArray
+        foreignKey, foreignKeyArray, modifiers
       };
 
     });
@@ -186,6 +204,11 @@ module.exports = class extends Generator {
     return final;
   }
 
+  _fm(modifiers) {
+    const keys = Object.keys(modifiers);
+    return keys.map((k) => `${k}: ${modifiers[k].toString()}`).join(', ');
+  }
+
   _generateMongooseSchemaBody(fields) {
     let final = '';
     fields = fields.filter((f) => !f.foreignKey);
@@ -197,9 +220,17 @@ module.exports = class extends Generator {
       final = final + f.fieldName + ": ";
       if (f.array) final = final + '[';
       if (f.primitive) {
-        final = final + f.fieldJSType;
+        if (Object.keys(f.modifiers).length === 0) {
+          final = final + f.fieldJSType;
+        } else {
+          final = final + `{ type: ${f.fieldType}, ${this._fm(f.modifiers)} }`;
+        }
       } else {
-        final = final + `{ type: ObjectId, ref: '${f.fieldType}' }`;
+        if (Object.keys(f.modifiers).length === 0) {
+          final = final + `{ type: ObjectId, ref: '${f.fieldType}' }`;
+        } else {
+          final = final + `{ type: ObjectId, ref: '${f.fieldType}', ${this._fm(f.modifiers)} }`;
+        }
       }
       if (f.array) final = final + ']';
       if (i !== fields.length - 1) {
