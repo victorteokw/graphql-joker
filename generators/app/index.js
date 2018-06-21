@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 const fs = require('fs');
 const path = require('path');
-const kebabCase = require('lodash.kebabCase');
+const kebabCase = require('lodash.kebabcase');
 
 module.exports = class extends Generator {
 
