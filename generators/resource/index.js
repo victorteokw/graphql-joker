@@ -103,7 +103,7 @@ module.exports = class extends Generator {
             modifiers['default'] = token2.match(/`(.*)`/)[1];
           } else {
             if (fieldJSType === 'String') {
-              modifiers['default'] = token2;
+              modifiers['default'] = JSON.stringify(token2);
             }
             if (fieldJSType === 'Number') {
               modifiers['default'] = parseFloat(token2);
@@ -232,14 +232,7 @@ module.exports = class extends Generator {
 
   _fm(modifiers) {
     const keys = Object.keys(modifiers);
-    const value = (v) => {
-      if (typeof v === 'string') {
-        return JSON.stringify(v);
-      } else {
-        return v.toString();
-      }
-    };
-    return keys.map((k) => `${k}: ${value(modifiers[k])}`).join(', ');
+    return keys.map((k) => `${k}: ${modifiers[k].toString()}`).join(', ');
   }
 
   _generateMongooseSchemaBody(fields) {

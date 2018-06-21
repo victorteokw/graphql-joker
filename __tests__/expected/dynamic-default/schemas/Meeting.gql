@@ -1,0 +1,21 @@
+type Meeting {
+  _id: ID!
+  startedAt: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+input MeetingInput {
+  startedAt: Date
+}
+
+type Query {
+  meeting(_id: ID!): Meeting
+  meetings: [Meeting]
+}
+
+type Mutation {
+  createMeeting(input: MeetingInput): Meeting
+  updateMeeting(_id: ID!, input: MeetingInput): Meeting
+  deleteMeeting(_id: ID!): Meeting
+}
