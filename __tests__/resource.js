@@ -257,4 +257,27 @@ describe('yo amur:resource', () => {
       assert.fileContent('resolvers/Article.js', c);
     });
   });
+  describe('supports default values', () => {
+    const dir = path.join(__dirname, 'expected/default-values');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments(['User', 'name:String!^$:Untitled', 'disabled:Boolean!:false', 'age:Int!:18', 'posts:[Post]:user']);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/Article.js')).toString();
+      assert.fileContent('models/Article.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Article.gql')).toString();
+      assert.fileContent('schemas/Article.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Article.js')).toString();
+      assert.fileContent('resolvers/Article.js', c);
+    });
+  });
 });

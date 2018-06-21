@@ -94,12 +94,38 @@ module.exports = class extends Generator {
 
       const primitive = primitiveTypes.includes(fieldType);
 
-      let foreignKey = tokens[2];
+      const token2 = tokens[2];
+      let foreignKey;
       let foreignKeyArray = false;
-      if (foreignKey) {
-        if (foreignKey.match(/^\[(.*)\]$/)) {
-          foreignKeyArray = true;
-          foreignKey = foreignKey.match(/^\[(.*)\]$/)[1];
+      if (token2) {
+        if (primitive) {
+          if (token2.match(/`(.*)`/)) {
+            modifiers['default'] = token2.match(/`(.*)`/)[1];
+          } else {
+            if (fieldJSType === 'String') {
+              modifiers['default'] = token2;
+            }
+            if (fieldJSType === 'Number') {
+              modifiers['default'] = parseFloat(token2);
+            }
+            if (fieldJSType === 'Boolean') {
+              modifiers['default'] = JSON.parse(token2);
+            }
+            if (fieldJSType === 'Date') {
+              if (token2.match(/^[0-9]+$/)) {
+                modifiers['default'] = new Date(parseFloat(token2));
+              } else {
+                modifiers['default'] = new Date(token2);
+              }
+            }
+          }
+        } else {
+          if (token2.match(/^\[(.*)\]$/)) {
+            foreignKeyArray = true;
+            foreignKey = token2.match(/^\[(.*)\]$/)[1];
+          } else {
+            foreignKey = token2;
+          }
         }
       }
 
@@ -206,7 +232,14 @@ module.exports = class extends Generator {
 
   _fm(modifiers) {
     const keys = Object.keys(modifiers);
-    return keys.map((k) => `${k}: ${modifiers[k].toString()}`).join(', ');
+    const value = (v) => {
+      if (typeof v === 'string') {
+        return JSON.stringify(v);
+      } else {
+        return v.toString();
+      }
+    };
+    return keys.map((k) => `${k}: ${value(modifiers[k])}`).join(', ');
   }
 
   _generateMongooseSchemaBody(fields) {
@@ -223,13 +256,13 @@ module.exports = class extends Generator {
         if (Object.keys(f.modifiers).length === 0) {
           final = final + f.fieldJSType;
         } else {
-          final = final + `{ type: ${f.fieldType}, ${this._fm(f.modifiers)} }`;
+          final = final + `{ type: ${f.fieldJSType}, ${this._fm(f.modifiers)} }`;
         }
       } else {
         if (Object.keys(f.modifiers).length === 0) {
-          final = final + `{ type: ObjectId, ref: '${f.fieldType}' }`;
+          final = final + `{ type: ObjectId, ref: '${f.fieldJSType}' }`;
         } else {
-          final = final + `{ type: ObjectId, ref: '${f.fieldType}', ${this._fm(f.modifiers)} }`;
+          final = final + `{ type: ObjectId, ref: '${f.fieldJSType}', ${this._fm(f.modifiers)} }`;
         }
       }
       if (f.array) final = final + ']';
