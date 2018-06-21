@@ -70,6 +70,11 @@ module.exports = class extends Generator {
       this.templatePath('.nonularc'),
       this.destinationPath('.nonularc')
     );
+    // dobukulbira
+    this.fs.copy(
+      this.templatePath('dobukulbira.config.js'),
+      this.destinationPath('dobukulbira.config.js')
+    );
     // nodemon
     this.fs.copy(
       this.templatePath('nodemon.json'),
@@ -116,13 +121,6 @@ module.exports = class extends Generator {
       this.destinationPath('middlewares/router.js')
     );
 
-    // Scripts directory
-
-    this.fs.copy(
-      this.templatePath('scripts/console.js'),
-      this.destinationPath('scripts/console.js')
-    );
-
     // Schema definition
 
     this.fs.copy(
@@ -135,6 +133,7 @@ module.exports = class extends Generator {
     fs.mkdirSync(this.destinationPath('data'));
     fs.mkdirSync(this.destinationPath('models'));
     fs.mkdirSync(this.destinationPath('resolvers'));
+    fs.mkdirSync(this.destinationPath('scripts'));
     fs.mkdirSync(this.destinationPath('tests'));
     fs.mkdirSync(this.destinationPath('tests/fixtures'));
     fs.mkdirSync(this.destinationPath('tests/models'));
@@ -149,7 +148,7 @@ module.exports = class extends Generator {
       'noenv', 'lodash', 'glob'
     ], { 'save': true });
     this.npmInstall([
-      'eslint', 'nodemon', 'nonula', 'jest', 'jest-cli'
+      'eslint', 'nodemon', 'nonula', 'dobukulbira', 'jest', 'jest-cli'
     ], { 'save-dev': true });
   }
 };
