@@ -1,5 +1,6 @@
 # Generator Amur
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+
 Gimme a koa mongoose graphQL app
 
 ## Setup an Amur Project
