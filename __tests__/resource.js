@@ -303,4 +303,27 @@ describe('yo amur:resource', () => {
       assert.fileContent('resolvers/Meeting.js', c);
     });
   });
+  describe('supports string match', () => {
+    const dir = path.join(__dirname, 'expected/string-match');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments(['User', 'email:String/^\\w+@\\w+\\.\\w+$/g!']);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assert.fileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assert.fileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assert.fileContent('resolvers/User.js', c);
+    });
+  });
 });

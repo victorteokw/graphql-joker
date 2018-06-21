@@ -70,6 +70,12 @@ module.exports = class extends Generator {
         fieldType = pmatchData[1];
         modifier = pmatchData[2];
       }
+      if ((fieldType === 'String') && modifier.match(/\/(.*)\/(.*)/)) {
+        const md = modifier.match(/(\/.*\/[\w]*)(.*)/);
+        const regex = md[1];
+        modifier = md[2];
+        modifiers.match = regex;
+      }
       if (modifier.match(/!/)) {
         modifiers.required = true;
       }
