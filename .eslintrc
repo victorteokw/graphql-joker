@@ -1,4 +1,5 @@
 {
+  "plugins": ["jest"],
   "rules": {
     "for-direction": "error",
     "indent": ["warn", 2, {"SwitchCase": 1}],
@@ -70,7 +71,8 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "jsx": true,
-      "es6": true
+      "es6": true,
+      "jest": true
     }
   },
   "env": {

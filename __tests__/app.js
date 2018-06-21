@@ -11,6 +11,6 @@ describe('generator-amur:app', () => {
   });
 
   it('creates files', () => {
-    assert.file(['dummyfile.txt']);
+    assert.file(['app.js']);
   });
 });
