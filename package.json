@@ -27,6 +27,7 @@
     "eslint-config-xo": "^0.20.1",
     "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "glob": "^7.1.2",
     "husky": "^0.14.3",
     "jest": "^22.0.6",
     "lint-staged": "^6.1.1",
@@ -36,7 +37,7 @@
     "yeoman-test": "^1.7.0"
   },
   "engines": {
-    "npm": ">= 4.0.0"
+    "npm": ">= 6.0.0"
   },
   "dependencies": {
     "chalk": "^2.1.0",
