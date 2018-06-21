@@ -52,10 +52,8 @@ There is still a long way to go. Feel free to discuss with me and find a task th
 
 1. Update README to have better documentation.
 2. Create github wiki pages for documentation and manuals.
-3. Create tests to test generator behavior.
-4. After tests are created, we could make code quality much more better.
-5. Separate the generators into model generator, schema generator and resolver generator.
-6. Open an issue or pull request, this is very welcome.
+3. Separate the generators into model generator, schema generator and resolver generator.
+4. Open an issue or pull request, this is very welcome.
 
 ## License
 
