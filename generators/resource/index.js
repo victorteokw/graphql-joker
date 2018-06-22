@@ -1,23 +1,22 @@
 const Generator = require('yeoman-generator');
 const fs = require('fs');
-const uncapitalize = require('../../utils/uncapitalize');
-const capitalize = require('../../utils/capitalize');
-const lowercase = require('../../utils/lowercase');
-const pluralize = require('pluralize');
+const modelDescriptor = require('../../utils/modelDescriptor');
 
-const primitiveTypes = [
+const primitiveJsTypes = [
   'String',
   'Boolean',
   'Number',
-  'Object',
-  'Array',
-  'Date',
   'ObjectId',
-  'RegExp',
-  'Symbol',
-  'Int',
+  'Date'
+];
+
+const primitiveGraphQLTypes = [
+  'String',
+  'Boolean',
   'Float',
-  'ID'
+  'Int',
+  'ID',
+  'Date'
 ];
 
 module.exports = class extends Generator {
@@ -31,144 +30,17 @@ module.exports = class extends Generator {
   }
 
   _resourceParseArgs(args) {
-    if (args.length < 2) {
-      throw `Arguments error. You need to specify at least two arguments.`;
-    }
-    // Model name and collection name
-    const arg0 = args.shift();
-    if (!arg0.match(/^[a-zA-Z]\w*(\/[a-zA-Z]\w*)?$/)) {
-      throw `Model/collection name format error.`;
-    }
-    let [modelName, pvarName] = arg0.split('/');
-    !pvarName && (pvarName = pluralize(uncapitalize(modelName)));
-    modelName = capitalize(modelName);
-    const collectionName = lowercase(pvarName);
-
-    const sideEffects = {};
-    sideEffects['requiresObjectId'] = false;
-    sideEffects['requiresDate'] = false;
-    sideEffects['needsResolverModelBody'] = false;
-
-    const fields = args.map((arg) => {
-      const tokens = arg.split(':');
-
-      const fieldName = uncapitalize(tokens[0]);
-      let fieldType = 'String',
-        modifier = '',
-        array = false;
-      const modifiers = {};
-
-      const typeDesc = tokens[1] || 'String';
-
-      const matchData = typeDesc.match(/^\[(.*)\](.*)$/);
-      if (matchData) {
-        fieldType = matchData[1];
-        modifier = matchData[2];
-        array = true;
-      } else {
-        const pmatchData = typeDesc.match(/^([a-zA-Z0-9]*)(.*)/);
-        fieldType = pmatchData[1];
-        modifier = pmatchData[2];
-      }
-      if ((fieldType === 'String') && modifier.match(/\/(.*)\/(.*)/)) {
-        const md = modifier.match(/(\/.*\/[\w]*)(.*)/);
-        const regex = md[1];
-        modifier = md[2];
-        modifiers.match = regex;
-      }
-      if (modifier.match(/!/)) {
-        modifiers.required = true;
-      }
-      if (modifier.match(/\^/)) {
-        modifiers.index = true;
-      }
-      if (modifier.match(/\$/)) {
-        modifiers.unique = true;
-      }
-      fieldType = capitalize(fieldType);
-      let fieldJSType = fieldType;
-      let fieldGraphQLType = fieldType;
-      if (fieldType === 'Number') {
-        fieldGraphQLType = 'Int';
-      }
-      if ((fieldType === 'Int') || (fieldType === 'Float')) {
-        fieldJSType = 'Number';
-      }
-      if (fieldType === 'ObjectId') {
-        fieldGraphQLType = 'ID';
-      }
-
-      const primitive = primitiveTypes.includes(fieldType);
-
-      const token2 = tokens[2];
-      let foreignKey;
-      let foreignKeyArray = false;
-      if (token2) {
-        if (primitive) {
-          if (token2.match(/`(.*)`/)) {
-            modifiers['default'] = token2.match(/`(.*)`/)[1];
-          } else {
-            if (fieldJSType === 'String') {
-              modifiers['default'] = JSON.stringify(token2);
-            }
-            if (fieldJSType === 'Number') {
-              modifiers['default'] = parseFloat(token2);
-            }
-            if (fieldJSType === 'Boolean') {
-              modifiers['default'] = JSON.parse(token2);
-            }
-            if (fieldJSType === 'Date') {
-              if (token2.match(/^[0-9]+$/)) {
-                modifiers['default'] = new Date(parseFloat(token2));
-              } else {
-                modifiers['default'] = new Date(token2);
-              }
-            }
-          }
-        } else {
-          if (token2.match(/^\[(.*)\]$/)) {
-            foreignKeyArray = true;
-            foreignKey = token2.match(/^\[(.*)\]$/)[1];
-          } else {
-            foreignKey = token2;
-          }
-        }
-      }
-
-      if (!primitive) {
-        if (!foreignKey) {
-          sideEffects['requiresObjectId'] = true;
-        }
-        sideEffects['needsResolverModelBody'] = true;
-      }
-      if (fieldType === 'Date') {
-        sideEffects['requiresDate'] = true;
-      }
-
-      return {
-        fieldName, fieldType, array, primitive, fieldJSType, fieldGraphQLType,
-        foreignKey, foreignKeyArray, modifiers
-      };
-
-    });
-
-    this._userArgs = {
-      modelName,
-      collectionName,
-      fields,
-      mongooseSchemaName: uncapitalize(modelName) + 'Schema',
-      mongooseSchemaBody: this._generateMongooseSchemaBody(fields),
-      ...sideEffects,
-      svarName: uncapitalize(modelName),
-      pvarName,
-      schemaBody: this._generateSchemaBody(fields),
-      schemaInputBody: this._generateSchemaBody(fields, true),
+    const result = modelDescriptor(args);
+    this._userArgs = Object.assign({}, result, {
+      mongooseSchemaBody: this._generateMongooseSchemaBody(result.fields),
+      schemaBody: this._generateSchemaBody(result.fields),
+      schemaInputBody: this._generateSchemaBody(result.fields, true),
       resolverModelBody: this._generateResolverModelBody(
-        sideEffects['needsResolverModelBody'],
-        modelName,
-        fields
+        result.sideEffects['needsResolverModelBody'],
+        result.modelName,
+        result.fields
       )
-    };
+    });
   }
 
   _generateResolverModelBody(needs, modelName, fields) {
@@ -176,28 +48,28 @@ module.exports = class extends Generator {
     let final = '';
     final += `  ${modelName}: {\n`;
     fields.forEach((f, i) => {
-      if (primitiveTypes.includes(f.fieldJSType)) return;
-      final += `    async ${f.fieldName}(root, _, ctx) {\n`;
-      final += `      const { ${f.fieldJSType} } = ctx.models;\n`;
+      if (primitiveJsTypes.includes(f.jsType)) return;
+      final += `    async ${f.name}(root, _, ctx) {\n`;
+      final += `      const { ${f.jsType} } = ctx.models;\n`;
       if (f.foreignKey) {
-        if (f.foreignKeyArray) {
-          if (f.array) {
-            final += `      return await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+        if (f.foreignKeyIsArray) {
+          if (f.isArray) {
+            final += `      return await ${f.jsType}.find({ ${f.foreignKey}: root._id });\n`;
           } else {
-            final += `      return await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.jsType}.findOne({ ${f.foreignKey}: root._id });\n`;
           }
         } else {
-          if (f.array) {
-            final += `      return await ${f.fieldJSType}.find({ ${f.foreignKey}: root._id });\n`;
+          if (f.isArray) {
+            final += `      return await ${f.jsType}.find({ ${f.foreignKey}: root._id });\n`;
           } else {
-            final += `      return await ${f.fieldJSType}.findOne({ ${f.foreignKey}: root._id });\n`;
+            final += `      return await ${f.jsType}.findOne({ ${f.foreignKey}: root._id });\n`;
           }
         }
       } else {
-        if (f.array) {
-          final += `      return await ${f.fieldJSType}.find({ _id: { $in: root.${f.fieldName} }});\n`;
+        if (f.isArray) {
+          final += `      return await ${f.jsType}.find({ _id: { $in: root.${f.name} }});\n`;
         } else {
-          final += `      return await ${f.fieldJSType}.findById(root.${f.fieldName});\n`;
+          final += `      return await ${f.jsType}.findById(root.${f.name});\n`;
         }
       }
       if (i !== fields.length - 1) {
@@ -220,18 +92,18 @@ module.exports = class extends Generator {
         final = final + '\n';
       }
       final = final + '  ';
-      final = final + f.fieldName + ": ";
-      if (f.array) final = final + '[';
-      if (primitiveTypes.includes(f.fieldGraphQLType)) {
-        final = final + f.fieldGraphQLType;
+      final = final + f.name + ": ";
+      if (f.isArray) final = final + '[';
+      if (primitiveGraphQLTypes.includes(f.graphQLType)) {
+        final = final + f.graphQLType;
       } else {
         if (input) {
           final = final + 'ID';
         } else {
-          final = final + f.fieldGraphQLType;
+          final = final + f.graphQLType;
         }
       }
-      if (f.array) final = final + ']';
+      if (f.isArray) final = final + ']';
     });
     return final;
   }
@@ -249,22 +121,22 @@ module.exports = class extends Generator {
         final = final + '\n';
       }
       final = final + '  ';
-      final = final + f.fieldName + ": ";
-      if (f.array) final = final + '[';
+      final = final + f.name + ": ";
+      if (f.isArray) final = final + '[';
       if (f.primitive) {
         if (Object.keys(f.modifiers).length === 0) {
-          final = final + f.fieldJSType;
+          final = final + f.jsType;
         } else {
-          final = final + `{ type: ${f.fieldJSType}, ${this._fm(f.modifiers)} }`;
+          final = final + `{ type: ${f.jsType}, ${this._fm(f.modifiers)} }`;
         }
       } else {
         if (Object.keys(f.modifiers).length === 0) {
-          final = final + `{ type: ObjectId, ref: '${f.fieldJSType}' }`;
+          final = final + `{ type: ObjectId, ref: '${f.jsType}' }`;
         } else {
-          final = final + `{ type: ObjectId, ref: '${f.fieldJSType}', ${this._fm(f.modifiers)} }`;
+          final = final + `{ type: ObjectId, ref: '${f.jsType}', ${this._fm(f.modifiers)} }`;
         }
       }
-      if (f.array) final = final + ']';
+      if (f.isArray) final = final + ']';
       if (i !== fields.length - 1) {
         final = final + ',';
       }

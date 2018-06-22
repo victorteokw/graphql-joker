@@ -1,13 +1,13 @@
 module.exports = {
-<% if(needsResolverModelBody) { -%>
+<% if(sideEffects.needsResolverModelBody) { -%>
 <%- resolverModelBody %>
 <% } -%>
   Query: {
-    async <%- svarName %>(root, { _id }, ctx) {
+    async <%- varName %>(root, { _id }, ctx) {
       const { <%- modelName %> } = ctx.models;
       return await <%- modelName %>.findById(_id);
     },
-    async <%- pvarName %>(root, { _ }, ctx) {
+    async <%- pluralVarName %>(root, { _ }, ctx) {
       const { <%- modelName %> } = ctx.models;
       return await <%- modelName %>.find();
     }

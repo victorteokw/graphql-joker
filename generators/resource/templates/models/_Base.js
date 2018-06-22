@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-<% if(requiresObjectId) { -%>
+<% if(sideEffects.requiresObjectId) { -%>
 const { ObjectId } = Schema.Types;
 <% } -%>
 
-const <%= mongooseSchemaName %> = new Schema({
+const <%= varName %>Schema = new Schema({
 <%- mongooseSchemaBody %>
 }, {
   timestamps: true,
   collection: '<%= collectionName %>'
 });
 
-module.exports = mongoose.model('<%= modelName %>', <%= mongooseSchemaName %>);
+module.exports = mongoose.model('<%= modelName %>', <%= varName %>Schema);

@@ -10,8 +10,8 @@ input <%- modelName %>Input {
 }
 
 type Query {
-  <%- svarName %>(_id: ID!): <%- modelName %>
-  <%- pvarName %>: [<%- modelName %>]
+  <%- varName %>(_id: ID!): <%- modelName %>
+  <%- pluralVarName %>: [<%- modelName %>]
 }
 
 type Mutation {
