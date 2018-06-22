@@ -48,15 +48,6 @@ If you mistakenly generated something or you spell something wrongly, you want t
 yo amur:resource ResourceToDelete --destroy --force
 ```
 
-## Todo List
-
-There is still a long way to go. Feel free to discuss with me and find a task that you like.
-
-1. Update README to have better documentation.
-2. Create github wiki pages for documentation and manuals.
-3. Separate the generators into model generator, schema generator and resolver generator.
-4. Open an issue or pull request, this is very welcome.
-
 ## License
 
 MIT © [Zhang Kaiyu](https://github.com/zhangkaiyulw)
