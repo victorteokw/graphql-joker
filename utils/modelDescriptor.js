@@ -18,6 +18,9 @@ module.exports = (args) => {
   !pluralVarName && (pluralVarName = pluralize(varName));
   modelName = capitalize(modelName);
   const collectionName = lowercase(pluralVarName);
+  if (pluralVarName === varName) {
+    pluralVarName = `all${capitalize(pluralVarName)}`;
+  }
 
   // Code side effects
   const sideEffects = {};

@@ -93,6 +93,33 @@ describe('model descriptor', () => {
     });
   });
 
+  it('handles uncountable model names', () => {
+    const desc = modelDescriptor(['Fish', 'name:String']);
+    assert.deepEqual(desc, {
+      modelName: 'Fish',
+      collectionName: 'fish',
+      varName: 'fish',
+      pluralVarName: 'allFish',
+      fields: [{
+        name: 'name',
+        type: 'String',
+        jsType: 'String',
+        graphQLType: 'String',
+        isArray: false,
+        primitive: true,
+        modifiers: {},
+        foreignKey: undefined,
+        foreignKeyIsArray: undefined
+      }],
+      sideEffects: {
+        requiresObjectId: false,
+        requiresDate: false,
+        needsResolverModelBody: false
+      }
+    });
+  });
+
+
   it('handles references', () => {
     const desc = modelDescriptor(['User', 'name:String!', 'posts:[Post]']);
     assert.deepEqual(desc, {
