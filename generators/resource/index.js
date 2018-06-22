@@ -2,6 +2,7 @@ const Generator = require('yeoman-generator');
 const fs = require('fs');
 const modelDescriptor = require('../../utils/modelDescriptor');
 const mongooseSchemaBody = require('../../utils/mongooseSchemaBody');
+const graphQLSchemaBody = require('../../utils/graphQLSchemaBody');
 
 const primitiveJsTypes = [
   'String',
@@ -34,8 +35,8 @@ module.exports = class extends Generator {
     const result = modelDescriptor(args);
     this._userArgs = Object.assign({}, result, {
       mongooseSchemaBody: mongooseSchemaBody(result.fields),
-      schemaBody: this._generateSchemaBody(result.fields),
-      schemaInputBody: this._generateSchemaBody(result.fields, true),
+      schemaBody: graphQLSchemaBody(result.modelName, result.fields),
+      schemaInputBody: graphQLSchemaBody(result.modelName, result.fields, true),
       resolverModelBody: this._generateResolverModelBody(
         result.sideEffects['needsResolverModelBody'],
         result.modelName,
@@ -80,32 +81,6 @@ module.exports = class extends Generator {
       }
     });
     final += `  },`;
-    return final;
-  }
-
-  _generateSchemaBody(fields, input) {
-    if (input) {
-      fields = fields.filter((f) => !f.foreignKey);
-    }
-    let final = '';
-    fields.forEach((f, i) => {
-      if (i > 0) {
-        final = final + '\n';
-      }
-      final = final + '  ';
-      final = final + f.name + ": ";
-      if (f.isArray) final = final + '[';
-      if (primitiveGraphQLTypes.includes(f.graphQLType)) {
-        final = final + f.graphQLType;
-      } else {
-        if (input) {
-          final = final + 'ID';
-        } else {
-          final = final + f.graphQLType;
-        }
-      }
-      if (f.isArray) final = final + ']';
-    });
     return final;
   }
 

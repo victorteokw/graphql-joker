@@ -32,10 +32,12 @@ const schemaBody = (fields, indentLevel = 1, indentSpace = 2) => {
     if (field.isObject) {
       let line = '';
       line += ' '.repeat(indentLevel * indentSpace);
+      line += field.name;
       line += ': ';
       if (field.isArray) line += '[';
       line += '{\n';
-      line += schemaBody(fields, indentLevel + 1, indentSpace);
+      line += schemaBody(field.fields, indentLevel + 1, indentSpace);
+      line += '\n';
       line += ' '.repeat(indentLevel * indentSpace);
       line += '}';
       if (field.isArray) line += ']';

@@ -1,0 +1,25 @@
+type User {
+  _id: ID!
+  name: String
+  settings: UserSettings
+  age: Int
+  createdAt: Date
+  updatedAt: Date
+}
+
+input UserInput {
+  name: String
+  settings: UserSettings
+  age: Int
+}
+
+type Query {
+  user(_id: ID!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}
