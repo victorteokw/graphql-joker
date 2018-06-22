@@ -47,7 +47,8 @@ describe('model descriptor', () => {
       sideEffects: {
         requiresObjectId: false,
         requiresDate: false,
-        needsResolverModelBody: false
+        needsResolverModelBody: false,
+        needsExtraSchemaTypes: false
       }
     });
   });
@@ -88,7 +89,8 @@ describe('model descriptor', () => {
       sideEffects: {
         requiresObjectId: false,
         requiresDate: false,
-        needsResolverModelBody: false
+        needsResolverModelBody: false,
+        needsExtraSchemaTypes: false
       }
     });
   });
@@ -114,7 +116,8 @@ describe('model descriptor', () => {
       sideEffects: {
         requiresObjectId: false,
         requiresDate: false,
-        needsResolverModelBody: false
+        needsResolverModelBody: false,
+        needsExtraSchemaTypes: false
       }
     });
   });
@@ -156,7 +159,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId":true,
         "requiresDate":false,
-        "needsResolverModelBody":true
+        "needsResolverModelBody":true,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -200,7 +204,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": true,
         "requiresDate": false,
-        "needsResolverModelBody": true
+        "needsResolverModelBody": true,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -228,7 +233,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": true
+        "needsResolverModelBody": true,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -258,7 +264,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -288,7 +295,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -318,7 +326,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
 
@@ -349,7 +358,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -381,7 +391,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -411,7 +422,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -444,7 +456,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -472,7 +485,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -500,7 +514,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -528,7 +543,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -556,7 +572,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": true,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -584,7 +601,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": true,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
       }
     });
   });
@@ -647,7 +665,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": true
       }
     });
   });
@@ -710,7 +729,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": true
       }
     });
   });
@@ -839,7 +859,8 @@ describe('model descriptor', () => {
       "sideEffects": {
         "requiresObjectId": false,
         "requiresDate": false,
-        "needsResolverModelBody": false
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": true
       }
     });
   });

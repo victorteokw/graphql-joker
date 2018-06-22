@@ -31,10 +31,12 @@ module.exports = (args) => {
   }
 
   // Code side effects
-  const sideEffects = {};
-  sideEffects['requiresObjectId'] = false;
-  sideEffects['requiresDate'] = false;
-  sideEffects['needsResolverModelBody'] = false;
+  const sideEffects = {
+    requiresObjectId: false,
+    requiresDate: false,
+    needsResolverModelBody: false,
+    needsExtraSchemaTypes: false
+  };
 
   // Fields
   const fields = [];
@@ -195,6 +197,7 @@ module.exports = (args) => {
       sideEffects['requiresObjectId'] = true;
     }
 
+    if (nestingContext.length > 0) sideEffects.needsExtraSchemaTypes = true;
     root(fields, nestingContext).push({
       name,
       type,

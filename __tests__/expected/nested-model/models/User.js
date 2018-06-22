@@ -11,7 +11,16 @@ const userSchema = new Schema({
       second: Boolean
     }
   },
-  age: Number
+  age: Number,
+  address: {
+    city: String,
+    province: String,
+    region: String,
+    address: {
+      one: String,
+      two: String
+    }
+  }
 }, {
   timestamps: true,
   collection: 'users'

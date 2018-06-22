@@ -1,3 +1,6 @@
+<% if(sideEffects.needsExtraSchemaTypes) { -%>
+<%- extraSchemaTypes %>
+<% } -%>
 type <%- modelName %> {
   _id: ID!
 <%- schemaBody %>

@@ -1,8 +1,32 @@
+type UserSettingsPush {
+  first: Boolean
+  second: Boolean
+}
+
+type UserSettings {
+  sms: Boolean
+  email: Boolean
+  push: UserSettingsPush
+}
+
+type UserAddressAddress {
+  one: String
+  two: String
+}
+
+type UserAddress {
+  city: String
+  province: String
+  region: String
+  address: UserAddressAddress
+}
+
 type User {
   _id: ID!
   name: String
   settings: UserSettings
   age: Int
+  address: UserAddress
   createdAt: Date
   updatedAt: Date
 }
@@ -11,6 +35,7 @@ input UserInput {
   name: String
   settings: UserSettings
   age: Int
+  address: UserAddress
 }
 
 type Query {

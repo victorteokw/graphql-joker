@@ -3,6 +3,7 @@ const fs = require('fs');
 const modelDescriptor = require('../../utils/modelDescriptor');
 const mongooseSchemaBody = require('../../utils/mongooseSchemaBody');
 const graphQLSchemaBody = require('../../utils/graphQLSchemaBody');
+const graphQLExtraSchemaTypes = require('../../utils/graphQLExtraSchemaTypes');
 
 const primitiveJsTypes = [
   'String',
@@ -37,6 +38,7 @@ module.exports = class extends Generator {
       mongooseSchemaBody: mongooseSchemaBody(result.fields),
       schemaBody: graphQLSchemaBody(result.modelName, result.fields),
       schemaInputBody: graphQLSchemaBody(result.modelName, result.fields, true),
+      extraSchemaTypes: graphQLExtraSchemaTypes(result.modelName, result.fields),
       resolverModelBody: this._generateResolverModelBody(
         result.sideEffects['needsResolverModelBody'],
         result.modelName,
