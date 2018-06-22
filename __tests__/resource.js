@@ -377,4 +377,30 @@ permissions:[String] }] name:String".split(' '));
       assert.fileContent('resolvers/User.js', c);
     });
   });
+
+  describe('supports deep nested array model without refs', () => {
+    const dir = path.join(__dirname, 'expected/deep-nested-array-model');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments("Product names:[{ langCode:String!:cn name:String! \
+}] description:String! solds:Int comments:[{ title:String addresses:[{ \
+region:String! country:String! }] }]".split(' '));
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/Product.js')).toString();
+      assert.fileContent('models/Product.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Product.gql')).toString();
+      assert.fileContent('schemas/Product.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Product.js')).toString();
+      assert.fileContent('resolvers/Product.js', c);
+    });
+  });
 });

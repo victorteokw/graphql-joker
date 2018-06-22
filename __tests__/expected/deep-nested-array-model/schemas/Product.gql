@@ -1,0 +1,42 @@
+type ProductName {
+  langCode: String
+  name: String
+}
+
+type ProductCommentAddress {
+  region: String
+  country: String
+}
+
+type ProductComment {
+  title: String
+  addresses: [ProductCommentAddress]
+}
+
+type Product {
+  _id: ID!
+  names: [ProductName]
+  description: String
+  solds: Int
+  comments: [ProductComment]
+  createdAt: Date
+  updatedAt: Date
+}
+
+input ProductInput {
+  names: [ProductName]
+  description: String
+  solds: Int
+  comments: [ProductComment]
+}
+
+type Query {
+  product(_id: ID!): Product
+  products: [Product]
+}
+
+type Mutation {
+  createProduct(input: ProductInput): Product
+  updateProduct(_id: ID!, input: ProductInput): Product
+  deleteProduct(_id: ID!): Product
+}

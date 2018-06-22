@@ -18,9 +18,9 @@ const extraSchemaDesc = (modelName, fields) => {
     if (!field.isObject) return;
     sections = [
       ...sections,
-      ...extraSchemaDesc(modelName + capitalize(field.name), field.fields),
+      ...extraSchemaDesc(modelName + capitalize(field.isArray ? singular(field.name) : field.name), field.fields),
       {
-        name: field.isArray ? modelName + capitalize(singular(field.name)) : modelName + capitalize(field.name),
+        name: modelName + capitalize(field.isArray ? singular(field.name) : field.name),
         fields: field.fields
       }
     ];
