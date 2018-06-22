@@ -92,6 +92,20 @@ module.exports = (args) => {
       modifiers.match = regex;
     }
 
+    // min & max <= >= modifiers
+    const minChecker = />=([\da-fx\.]*)/;
+    const maxChecker = /<=([\da-fx\.]*)/;
+    if (modifier.match(minChecker)) {
+      modifiers[type === 'String' ? 'minlength' : 'min']
+        = modifier.match(minChecker)[1];
+      modifier = modifier.replace(minChecker, '');
+    }
+    if (modifier.match(maxChecker)) {
+      modifiers[type === 'String' ? 'maxlength' : 'max']
+        = modifier.match(maxChecker)[1];
+      modifier = modifier.replace(maxChecker, '');
+    }
+
     // Required
     if (modifier.match(/!/)) {
       modifiers.required = true;

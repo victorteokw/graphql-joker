@@ -327,6 +327,54 @@ describe('yo amur:resource', () => {
     });
   });
 
+  describe('supports number min max', () => {
+    const dir = path.join(__dirname, 'expected/number-min-and-max');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments(['Result', 'score:Float<=100.0>=0.5', 'hexKey:Int<=0xabcd>=0x1234' ]);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/Result.js')).toString();
+      assert.fileContent('models/Result.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Result.gql')).toString();
+      assert.fileContent('schemas/Result.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Result.js')).toString();
+      assert.fileContent('resolvers/Result.js', c);
+    });
+  });
+
+  describe('supports string minlength maxlength', () => {
+    const dir = path.join(__dirname, 'expected/string-minlength-and-maxlength');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments(['User', 'name:String<=30>=2']);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assert.fileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assert.fileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assert.fileContent('resolvers/User.js', c);
+    });
+  });
+
   describe('supports nested model without refs', () => {
     const dir = path.join(__dirname, 'expected/nested-model');
     beforeAll(() => {

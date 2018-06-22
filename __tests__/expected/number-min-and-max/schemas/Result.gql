@@ -1,0 +1,23 @@
+type Result {
+  _id: ID!
+  score: Float
+  hexKey: Int
+  createdAt: Date
+  updatedAt: Date
+}
+
+input ResultInput {
+  score: Float
+  hexKey: Int
+}
+
+type Query {
+  result(_id: ID!): Result
+  results: [Result]
+}
+
+type Mutation {
+  createResult(input: ResultInput): Result
+  updateResult(_id: ID!, input: ResultInput): Result
+  deleteResult(_id: ID!): Result
+}
