@@ -1,4 +1,5 @@
 const capitalize = require('./capitalize');
+const { singular } = require('pluralize');
 
 const primitiveGraphQLTypes = [
   'String',
@@ -19,7 +20,7 @@ const extraSchemaDesc = (modelName, fields) => {
       ...sections,
       ...extraSchemaDesc(modelName + capitalize(field.name), field.fields),
       {
-        name: modelName + capitalize(field.name),
+        name: field.isArray ? modelName + capitalize(singular(field.name)) : modelName + capitalize(field.name),
         fields: field.fields
       }
     ];
@@ -37,7 +38,11 @@ const extraSchemaTypes = (modelName, fields, indentSpace = 2) => {
       t += `${' '.repeat(indentSpace)}${f.name}: `;
       if (f.isArray) t += '[';
       if (f.isObject) {
-        t += `${desc.name}${capitalize(f.name)}`;
+        if (f.isArray) {
+          t += `${desc.name}${capitalize(singular(f.name))}`;
+        } else {
+          t += `${desc.name}${capitalize(f.name)}`;
+        }
       } else {
         t += f.graphQLType;
       }

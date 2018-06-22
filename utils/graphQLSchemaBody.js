@@ -1,4 +1,5 @@
 const capitalize = require('./capitalize');
+const { singular } = require('pluralize');
 
 const primitiveGraphQLTypes = [
   'String',
@@ -22,7 +23,12 @@ const schemaBody = (modelName, fields, input, indentLevel = 1, indentSpace = 2) 
     final = final + f.name + ": ";
     if (f.isArray) final = final + '[';
     if (f.isObject) {
-      final += modelName + capitalize(f.name);
+      if (f.isArray) {
+        final += modelName + capitalize(singular(f.name));
+      } else {
+        final += modelName + capitalize(f.name);
+      }
+
     } else if (primitiveGraphQLTypes.includes(f.graphQLType)) {
       final = final + f.graphQLType;
     } else {

@@ -352,4 +352,29 @@ province:String Region:String address:{ one:String two:String } }".split(' '));
       assert.fileContent('resolvers/User.js', c);
     });
   });
+
+  describe('supports nested array model without refs', () => {
+    const dir = path.join(__dirname, 'expected/nested-model-array');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments("User age:String roles:[{ name:String \
+permissions:[String] }] name:String".split(' '));
+    });
+
+    it('create correct model file with special singular names', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assert.fileContent('models/User.js', c);
+    });
+
+    it('create correct schema file with special singular names', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assert.fileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file with special singular names', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assert.fileContent('resolvers/User.js', c);
+    });
+  });
 });
