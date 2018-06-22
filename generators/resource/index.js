@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator');
 const fs = require('fs');
 const modelDescriptor = require('../../utils/modelDescriptor');
+const mongooseSchemaBody = require('../../utils/mongooseSchemaBody');
 
 const primitiveJsTypes = [
   'String',
@@ -32,7 +33,7 @@ module.exports = class extends Generator {
   _resourceParseArgs(args) {
     const result = modelDescriptor(args);
     this._userArgs = Object.assign({}, result, {
-      mongooseSchemaBody: this._generateMongooseSchemaBody(result.fields),
+      mongooseSchemaBody: mongooseSchemaBody(result.fields),
       schemaBody: this._generateSchemaBody(result.fields),
       schemaInputBody: this._generateSchemaBody(result.fields, true),
       resolverModelBody: this._generateResolverModelBody(
@@ -104,42 +105,6 @@ module.exports = class extends Generator {
         }
       }
       if (f.isArray) final = final + ']';
-    });
-    return final;
-  }
-
-  _fm(modifiers) {
-    const keys = Object.keys(modifiers);
-    return keys.map((k) => `${k}: ${modifiers[k].toString()}`).join(', ');
-  }
-
-  _generateMongooseSchemaBody(fields) {
-    let final = '';
-    fields = fields.filter((f) => !f.foreignKey);
-    fields.forEach((f, i) => {
-      if (i > 0) {
-        final = final + '\n';
-      }
-      final = final + '  ';
-      final = final + f.name + ": ";
-      if (f.isArray) final = final + '[';
-      if (f.primitive) {
-        if (Object.keys(f.modifiers).length === 0) {
-          final = final + f.jsType;
-        } else {
-          final = final + `{ type: ${f.jsType}, ${this._fm(f.modifiers)} }`;
-        }
-      } else {
-        if (Object.keys(f.modifiers).length === 0) {
-          final = final + `{ type: ObjectId, ref: '${f.jsType}' }`;
-        } else {
-          final = final + `{ type: ObjectId, ref: '${f.jsType}', ${this._fm(f.modifiers)} }`;
-        }
-      }
-      if (f.isArray) final = final + ']';
-      if (i !== fields.length - 1) {
-        final = final + ',';
-      }
     });
     return final;
   }
