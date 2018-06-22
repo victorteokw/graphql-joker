@@ -121,11 +121,10 @@ module.exports = (args) => {
       modifiers.unique = true;
     }
 
-    // // Handle sparse index
-    // if (modifier.unique && !modifier.required) {
-    //   modifiers.sparse = true;
-    // }
-    //
+    // Handle sparse index
+    if (modifiers.unique && !modifiers.required) {
+      modifiers.sparse = true;
+    }
 
     // Normalize js types and graphQL types
     switch (type) {

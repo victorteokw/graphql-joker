@@ -349,7 +349,8 @@ describe('model descriptor', () => {
           "isArray": false,
           "primitive": true,
           "modifiers": {
-            "unique": true
+            "unique": true,
+            "sparse": true
           },
           foreignKey: undefined,
           foreignKeyIsArray: undefined
