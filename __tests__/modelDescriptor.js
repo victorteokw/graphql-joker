@@ -588,4 +588,259 @@ describe('model descriptor', () => {
       }
     });
   });
+
+  it('handles nesting structure', () => {
+    const desc = modelDescriptor(['User', 'settings:{', 'sms:Boolean!:true', 'email:Boolean!:true', '}', 'name:String']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "settings",
+          "isObject": true,
+          "isArray": false,
+          "fields": [
+            {
+              "name": "sms",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            },
+            {
+              "name": "email",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "jsType": "String",
+          "graphQLType": "String",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('handles nesting array structure', () => {
+    const desc = modelDescriptor(['User', 'settings:[{', 'sms:Boolean!:true', 'email:Boolean!:true', '}]', 'name:String']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "settings",
+          "isObject": true,
+          "isArray": true,
+          "fields": [
+            {
+              "name": "sms",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            },
+            {
+              "name": "email",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "jsType": "String",
+          "graphQLType": "String",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('handles deep nesting structure', () => {
+    const desc = modelDescriptor([
+      'User',
+      'age:Int',
+      'settings:[{', 'sms:Boolean!:true', 'email:Boolean!:true', 'pn:{',
+      'ipad:Boolean!:true', 'iphone:Boolean!:true', '}',
+      'webSocket:Boolean!:true', '}]', 'name:String'
+    ]);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "age",
+          "type": "Int",
+          "jsType": "Number",
+          "graphQLType": "Int",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        },
+        {
+          "name": "settings",
+          "isObject": true,
+          "isArray": true,
+          "fields": [
+            {
+              "name": "sms",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            },
+            {
+              "name": "email",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            },
+            {
+              "name": "pn",
+              "isObject": true,
+              "isArray": false,
+              "fields": [
+                {
+                  "name": "ipad",
+                  "type": "Boolean",
+                  "jsType": "Boolean",
+                  "graphQLType": "Boolean",
+                  "isArray": false,
+                  "primitive": true,
+                  "modifiers": {
+                    "required": true,
+                    "default": true
+                  },
+                  foreignKey: undefined,
+                  foreignKeyIsArray: undefined
+                },
+                {
+                  "name": "iphone",
+                  "type": "Boolean",
+                  "jsType": "Boolean",
+                  "graphQLType": "Boolean",
+                  "isArray": false,
+                  "primitive": true,
+                  "modifiers": {
+                    "required": true,
+                    "default": true
+                  },
+                  foreignKey: undefined,
+                  foreignKeyIsArray: undefined
+                }
+              ]
+            },
+            {
+              "name": "webSocket",
+              "type": "Boolean",
+              "jsType": "Boolean",
+              "graphQLType": "Boolean",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "required": true,
+                "default": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            }
+          ]
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "jsType": "String",
+          "graphQLType": "String",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
 });

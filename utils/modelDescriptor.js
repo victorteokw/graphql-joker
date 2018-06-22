@@ -3,6 +3,14 @@ const capitalize = require('./capitalize');
 const lowercase = require('./lowercase');
 const pluralize = require('pluralize');
 
+// Find a nesting context for current argument
+const root = (fields, nestingContext) => {
+  nestingContext.forEach((name) => {
+    fields = fields.find((f) => (f.name === name) && f.isObject).fields;
+  });
+  return fields;
+};
+
 module.exports = (args) => {
   if (args.length < 2) {
     throw `Unexpected arguments '${args.join(' ')}'.`;
@@ -30,12 +38,29 @@ module.exports = (args) => {
 
   // Fields
   const fields = [];
+  const nestingContext = []; // for nested
 
   args.forEach((arg) => {
     const tokens = arg.split(':');
     if (tokens.length > 3) {
       throw `Unexpected field descriptor '${arg}'.`;
     }
+
+    // Nesting Structure
+    if (tokens[1] && tokens[1].match(/^\[?{$/)) {
+      root(fields, nestingContext).push({
+        name: tokens[0],
+        isObject: true,
+        isArray: !!tokens[1].match(/^\[{$/),
+        fields: []
+      });
+      nestingContext.push(tokens[0]);
+      return;
+    } else if (tokens[0].match(/}\]?/)) {
+      nestingContext.pop();
+      return;
+    }
+
     // Default to String type if no type is specified
     tokens[1] || (tokens[1] = 'String');
 
@@ -170,7 +195,7 @@ module.exports = (args) => {
       sideEffects['requiresObjectId'] = true;
     }
 
-    fields.push({
+    root(fields, nestingContext).push({
       name,
       type,
       jsType,
