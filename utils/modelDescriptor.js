@@ -163,6 +163,10 @@ module.exports = (args) => {
       sideEffects['requiresDate'] = true;
     }
 
+    if (jsType === 'ObjectId') {
+      sideEffects['requiresObjectId'] = true;
+    }
+
     fields.push({
       name,
       type,

@@ -421,4 +421,144 @@ describe('model descriptor', () => {
       }
     });
   });
+
+  it('set correct types for user input Number', () => {
+    const desc = modelDescriptor(['User', 'age:Number']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "age",
+          "type": "Number",
+          "jsType": "Number",
+          "graphQLType": "Int",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('set correct types for user input Int', () => {
+    const desc = modelDescriptor(['User', 'age:Int']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "age",
+          "type": "Int",
+          "jsType": "Number",
+          "graphQLType": "Int",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('set correct types for user input Float', () => {
+    const desc = modelDescriptor(['User', 'rate:Float']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "rate",
+          "type": "Float",
+          "jsType": "Number",
+          "graphQLType": "Float",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('set correct types for user input ID', () => {
+    const desc = modelDescriptor(['User', 'link:ID']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "link",
+          "type": "ID",
+          "jsType": "ObjectId",
+          "graphQLType": "ID",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": true,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
+
+  it('set correct types for user input ObjectId', () => {
+    const desc = modelDescriptor(['User', 'link:ObjectId']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "link",
+          "type": "ObjectId",
+          "jsType": "ObjectId",
+          "graphQLType": "ID",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {},
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": true,
+        "requiresDate": false,
+        "needsResolverModelBody": false
+      }
+    });
+  });
 });
