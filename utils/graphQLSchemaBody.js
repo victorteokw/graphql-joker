@@ -23,12 +23,19 @@ const schemaBody = (modelName, fields, input, indentLevel = 1, indentSpace = 2) 
     final = final + f.name + ": ";
     if (f.isArray) final = final + '[';
     if (f.isObject) {
-      if (f.isArray) {
-        final += modelName + capitalize(singular(f.name));
+      if (!input) {
+        if (f.isArray) {
+          final += modelName + capitalize(singular(f.name));
+        } else {
+          final += modelName + capitalize(f.name);
+        }
       } else {
-        final += modelName + capitalize(f.name);
+        if (f.isArray) {
+          final += modelName + capitalize(singular(f.name)) + 'Input';
+        } else {
+          final += modelName + capitalize(f.name) + 'Input';
+        }
       }
-
     } else if (primitiveGraphQLTypes.includes(f.graphQLType)) {
       final = final + f.graphQLType;
     } else {

@@ -3,6 +3,11 @@ type UserRole {
   permissions: [String]
 }
 
+input UserRoleInput {
+  name: String
+  permissions: [String]
+}
+
 type User {
   _id: ID!
   age: String
@@ -14,7 +19,7 @@ type User {
 
 input UserInput {
   age: String
-  roles: [UserRole]
+  roles: [UserRoleInput]
   name: String
 }
 

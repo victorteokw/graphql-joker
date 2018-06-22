@@ -49,6 +49,25 @@ const extraSchemaTypes = (modelName, fields, indentSpace = 2) => {
       if (f.isArray) t += ']';
       t += '\n';
     });
+    t += '}\n\n';
+    t += `input ${desc.name}Input {\n`;
+    desc.fields.forEach((f) => {
+      t += `${' '.repeat(indentSpace)}${f.name}: `;
+      if (f.isArray) t += '[';
+      if (f.isObject) {
+        if (f.isArray) {
+          t += `${desc.name}${capitalize(singular(f.name))}Input`;
+        } else {
+          t += `${desc.name}${capitalize(f.name)}Input`;
+        }
+      } else if (f.primitive) {
+        t += f.graphQLType;
+      } else {
+        t += 'ID';
+      }
+      if (f.isArray) t += ']';
+      t += '\n';
+    });
     t += '}\n';
     if (i < descs.length - 1) {
       t += '\n';

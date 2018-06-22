@@ -3,7 +3,17 @@ type ProductName {
   name: String
 }
 
+input ProductNameInput {
+  langCode: String
+  name: String
+}
+
 type ProductCommentAddress {
+  region: String
+  country: String
+}
+
+input ProductCommentAddressInput {
   region: String
   country: String
 }
@@ -11,6 +21,11 @@ type ProductCommentAddress {
 type ProductComment {
   title: String
   addresses: [ProductCommentAddress]
+}
+
+input ProductCommentInput {
+  title: String
+  addresses: [ProductCommentAddressInput]
 }
 
 type Product {
@@ -24,10 +39,10 @@ type Product {
 }
 
 input ProductInput {
-  names: [ProductName]
+  names: [ProductNameInput]
   description: String
   solds: Int
-  comments: [ProductComment]
+  comments: [ProductCommentInput]
 }
 
 type Query {
