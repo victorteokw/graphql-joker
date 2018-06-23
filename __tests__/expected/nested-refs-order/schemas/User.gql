@@ -1,0 +1,71 @@
+type UserSettingsMobile {
+  ios: IOSSetting
+  android: AndroidSetting
+}
+
+input UserSettingsMobileInput {
+  ios: ID
+  android: ID
+}
+
+type UserSettings {
+  push: PushSetting
+  mobile: UserSettingsMobile
+}
+
+input UserSettingsInput {
+  push: ID
+  mobile: UserSettingsMobileInput
+}
+
+type UserArticlesCommentsContent {
+  commentor: User
+}
+
+input UserArticlesCommentsContentInput {
+  commentor: ID
+}
+
+type UserArticlesComments {
+  contents: [UserArticlesCommentsContent]
+}
+
+input UserArticlesCommentsInput {
+  contents: [UserArticlesCommentsContentInput]
+}
+
+type UserArticles {
+  titles: [Title]
+  posts: [Post]
+  comments: UserArticlesComments
+}
+
+input UserArticlesInput {
+  titles: [ID]
+  posts: [ID]
+  comments: UserArticlesCommentsInput
+}
+
+type User {
+  _id: ID!
+  settings: UserSettings
+  articles: UserArticles
+  createdAt: Date
+  updatedAt: Date
+}
+
+input UserInput {
+  settings: UserSettingsInput
+  articles: UserArticlesInput
+}
+
+type Query {
+  user(_id: ID!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}

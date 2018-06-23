@@ -10,18 +10,19 @@ const primitiveJsTypes = [
 ];
 
 const rootsThatRequiresBody = (modelName, fields) => {
-  let retval = [];
+  let retval = [], nested = [];
   const methodsFields = fields.filter((f) => !f.primitive && !f.isObject);
   const nestedFields = fields.filter((f) => f.isObject);
-  if (methodsFields.length > 0) {
-    retval.push({ modelName, fields: methodsFields });
-  }
   nestedFields.forEach((f) => {
-    retval = [
-      ...retval,
+    nested = [
+      ...nested,
       ...rootsThatRequiresBody(modelName + capitalize(f.isArray ? singular(f.name) : f.name), f.fields)
     ];
   });
+  retval = [
+    ...nested,
+    ...methodsFields.length > 0 ? [{ modelName, fields: methodsFields }] : []
+  ];
   return retval;
 };
 
