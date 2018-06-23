@@ -60,14 +60,14 @@ const resolverBody = (modelName, fields, indentSpace = 2) => {
       final += `${' '.repeat(indentSpace * 2)}}\n`;
     }
   });
-  final += `${' '.repeat(indentSpace)}},`;
+  final += `${' '.repeat(indentSpace)}}`;
   return final;
 };
 
 const resolverBodies = (modelName, fields, indentSpace = 2) => {
   const roots = rootsThatRequiresBody(modelName, fields, indentSpace);
   return roots.map(({ modelName, fields }) =>
-    resolverBody(modelName, fields, indentSpace)).join('\n');
+    resolverBody(modelName, fields, indentSpace)).join(',\n');
 };
 
 module.exports = resolverBodies;

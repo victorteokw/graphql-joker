@@ -1,6 +1,6 @@
 module.exports = {
 <% if(sideEffects.needsResolverModelBody) { -%>
-<%- resolverModelBody %>
+<%- resolverModelBody %>,
 <% } -%>
   Query: {
     async <%- varName %>(root, { _id }, ctx) {

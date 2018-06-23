@@ -1,0 +1,16 @@
+type Post {
+  _id: ID!
+  comments: [Comment]
+  author: Author
+  title: String
+  content: String
+  subtitle: String
+}
+
+input PostInput {
+  comments: [ID]
+  author: ID
+  title: String
+  content: String
+  subtitle: String
+}
