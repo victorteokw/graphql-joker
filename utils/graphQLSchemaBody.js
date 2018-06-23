@@ -10,7 +10,7 @@ const primitiveGraphQLTypes = [
   'Date'
 ];
 
-const schemaBody = (modelName, fields, input, indentLevel = 1, indentSpace = 2) => {
+const schemaBody = (modelName, fields, input, indentSpace = 2) => {
   if (input) {
     fields = fields.filter((f) => !f.foreignKey);
   }
@@ -19,7 +19,7 @@ const schemaBody = (modelName, fields, input, indentLevel = 1, indentSpace = 2) 
     if (i > 0) {
       final = final + '\n';
     }
-    final = final + '  ';
+    final = final + ' '.repeat(indentSpace);
     final = final + f.name + ": ";
     if (f.isArray) final = final + '[';
     if (f.isObject) {
