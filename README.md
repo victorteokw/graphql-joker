@@ -43,9 +43,9 @@ If you mistakenly generated something or you spell something wrongly, you want t
 amur resource ResourceToDelete --destroy --force
 ```
 
-[npm-image]: https://badge.fury.io/js/generator-amur.svg
-[npm-url]: https://npmjs.org/package/generator-amur
-[travis-image]: https://travis-ci.org/zhangkaiyulw/generator-amur.svg?branch=master
-[travis-url]: https://travis-ci.org/zhangkaiyulw/generator-amur
-[daviddm-image]: https://david-dm.org/zhangkaiyulw/generator-amur.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/zhangkaiyulw/generator-amur
+[npm-image]: https://badge.fury.io/js/amur.svg
+[npm-url]: https://npmjs.org/package/amur
+[travis-image]: https://travis-ci.org/zhangkaiyulw/amur.svg?branch=master
+[travis-url]: https://travis-ci.org/zhangkaiyulw/amur
+[daviddm-image]: https://david-dm.org/zhangkaiyulw/amur.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/zhangkaiyulw/amur
