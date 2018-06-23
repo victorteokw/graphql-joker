@@ -48,11 +48,6 @@ If you mistakenly generated something or you spell something wrongly, you want t
 yo amur:resource ResourceToDelete --destroy --force
 ```
 
-## License
-
-MIT © [Zhang Kaiyu](https://github.com/zhangkaiyulw)
-
-
 [npm-image]: https://badge.fury.io/js/generator-amur.svg
 [npm-url]: https://npmjs.org/package/generator-amur
 [travis-image]: https://travis-ci.org/zhangkaiyulw/generator-amur.svg?branch=master
