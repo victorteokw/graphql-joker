@@ -3,7 +3,7 @@ const fs = require('fs');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('yo amur:schema', () => {
+describe('amur schema', () => {
 
   describe('simple schema', () => {
     const dir = path.join(__dirname, 'expected/simple-schema');

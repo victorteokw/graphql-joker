@@ -3,7 +3,7 @@ const fs = require('fs');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('yo amur:resource', () => {
+describe('amur resource', () => {
   describe('supports string type', () => {
     const dir = path.join(__dirname, 'expected/string');
     beforeAll(() => {

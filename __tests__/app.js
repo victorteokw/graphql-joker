@@ -4,7 +4,7 @@ const glob = require('glob');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('yo amur:app brand-new-app', () => {
+describe('amur app brand-new-app', () => {
   let context;
   beforeAll(() => {
     context = helpers
