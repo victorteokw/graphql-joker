@@ -12,7 +12,7 @@ npm install -g amur
 ## Setup an Amur Project
 
 ```bash
-yo amur my-new-app
+amur my-new-app
 ```
 
 If you don't specify app name, the app will be installed to your current working directory.
@@ -40,7 +40,7 @@ And then open `npm start` to try out auto generated API suite.
 If you mistakenly generated something or you spell something wrongly, you want to undo:
 
 ``` bash
-amur resource ResourceToDelete --destroy --force
+amur resource ResourceToDelete -d
 ```
 
 [npm-image]: https://badge.fury.io/js/amur.svg
