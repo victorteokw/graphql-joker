@@ -26,4 +26,28 @@ describe('yo amur:schema', () => {
       assert.noFile('resolvers/Address.js');
     });
   });
+
+  describe('nested schema', () => {
+    const dir = path.join(__dirname, 'expected/nested-schema');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/schema'))
+        .withArguments(['Address', 'country:String', 'region:String', 'line:{',
+          'one:String!', 'two:String', '}', 'city:String!',
+          'postalCode:String']);
+    });
+    it('create correct mongoose schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
+      assert.fileContent('models/addressSchema.js', c);
+    });
+
+    it('create correct graphQL schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
+      assert.fileContent('schemas/Address.gql', c);
+    });
+
+    it('doesn\'t create resolver file because it\'s not needed', () => {
+      assert.noFile('resolvers/Address.js');
+    });
+  });
 });

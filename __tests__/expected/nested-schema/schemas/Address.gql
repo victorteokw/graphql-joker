@@ -1,0 +1,26 @@
+type AddressLine {
+  one: String
+  two: String
+}
+
+input AddressLineInput {
+  one: String
+  two: String
+}
+
+type Address {
+  _id: ID!
+  country: String
+  region: String
+  line: AddressLine
+  city: String
+  postalCode: String
+}
+
+input AddressInput {
+  country: String
+  region: String
+  line: AddressLineInput
+  city: String
+  postalCode: String
+}
