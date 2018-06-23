@@ -1,0 +1,14 @@
+type Address {
+  _id: ID!
+  region: String
+  line1: String
+  line2: String
+  country: String
+}
+
+input AddressInput {
+  region: String
+  line1: String
+  line2: String
+  country: String
+}
