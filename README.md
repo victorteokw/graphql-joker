@@ -1,20 +1,15 @@
-# Generator Amur
+# Amur
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 Gimme a koa mongoose graphQL app
 
-## Setup an Amur Project
-
-Assume that you have [node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-
-First, install [Yeoman](http://yeoman.io) and [Generator Amur](https://github.com/zhangkaiyulw/generator-amur/).
+## Installation
 
 ```bash
-npm install -g yo
-npm install -g generator-amur
+npm install -g amur
 ```
 
-Then generate your new project:
+## Setup an Amur Project
 
 ```bash
 yo amur my-new-app
@@ -27,15 +22,15 @@ If you don't specify app name, the app will be installed to your current working
 Amur resource generator follows this style
 
 ``` bash
-yo amur:resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
+amur resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
 ```
 
 Let's say you have a model named user, and user has a name, age and also a list of posts.
 And you have a model named post, it has title, content and author. Just type like this:
 
 ``` bash
-yo amur:resource User name:String age:Int posts:[Post]:author
-yo amur:resource Post title:String content:String author:User
+amur resource User name:String age:Int posts:[Post]:author
+amur resource Post title:String content:String author:User
 ```
 
 And then open `npm start` to try out auto generated API suite.
@@ -45,7 +40,7 @@ And then open `npm start` to try out auto generated API suite.
 If you mistakenly generated something or you spell something wrongly, you want to undo:
 
 ``` bash
-yo amur:resource ResourceToDelete --destroy --force
+amur resource ResourceToDelete --destroy --force
 ```
 
 [npm-image]: https://badge.fury.io/js/generator-amur.svg
