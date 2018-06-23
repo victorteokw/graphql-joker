@@ -50,4 +50,28 @@ describe('yo amur:schema', () => {
       assert.noFile('resolvers/Address.js');
     });
   });
+
+  describe('schema with references', () => {
+    const dir = path.join(__dirname, 'expected/schema-with-refs');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/schema'))
+        .withArguments(['Post', 'comments:[Comment]', 'author:Author',
+          'title:String', 'content:String', 'subtitle:String']);
+    });
+    it('create correct mongoose schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/postSchema.js')).toString();
+      assert.fileContent('models/postSchema.js', c);
+    });
+
+    it('create correct graphQL schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Post.gql')).toString();
+      assert.fileContent('schemas/Post.gql', c);
+    });
+
+    it('create correct graphQL resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Post.js')).toString();
+      assert.fileContent('resolvers/Post.js', c);
+    });
+  });
 });
