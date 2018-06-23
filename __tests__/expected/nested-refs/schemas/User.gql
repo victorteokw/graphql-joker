@@ -1,0 +1,31 @@
+type UserArticle {
+  post: Post
+  comments: [Comment]
+}
+
+input UserArticleInput {
+  post: ID
+  comments: [ID]
+}
+
+type User {
+  _id: ID!
+  article: UserArticle
+  createdAt: Date
+  updatedAt: Date
+}
+
+input UserInput {
+  article: UserArticleInput
+}
+
+type Query {
+  user(_id: ID!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}

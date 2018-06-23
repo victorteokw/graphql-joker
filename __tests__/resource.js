@@ -475,4 +475,28 @@ region:String! country:String! }] }]".split(' '));
       assert.fileContent('resolvers/Product.js', c);
     });
   });
+
+  describe('supports nested model with refs', () => {
+    const dir = path.join(__dirname, 'expected/nested-refs');
+    beforeAll(() => {
+      return helpers
+        .run(path.join(__dirname, '../generators/resource'))
+        .withArguments("User article:{ post:Post comments:[Comment] }".split(' '));
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assert.fileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assert.fileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assert.fileContent('resolvers/User.js', c);
+    });
+  });
 });
