@@ -1,15 +1,6 @@
 const capitalize = require('./capitalize');
 const { singular } = require('pluralize');
 
-const primitiveGraphQLTypes = [
-  'String',
-  'Boolean',
-  'Float',
-  'Int',
-  'ID',
-  'Date'
-];
-
 const extraSchemaDesc = (modelName, fields) => {
 
   let sections = [];
