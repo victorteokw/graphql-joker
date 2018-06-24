@@ -121,7 +121,7 @@ module.exports = ({ args, options, projDir }) => {
 
   copyTpl(
     template('resolvers/Date.js'),
-    destination('resolvers/Date.gql')
+    destination('resolvers/Date.js')
   );
 
   // Make directories

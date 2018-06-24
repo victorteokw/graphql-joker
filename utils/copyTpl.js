@@ -5,7 +5,7 @@ const ejs = require('ejs');
 const chalk = require('chalk');
 
 module.exports = (src, dest, ctx) => {
-  mkdirp(path.dirname(dest));
+  mkdirp.sync(path.dirname(dest));
   let message = chalk.green('create');
   if (fs.existsSync(dest)) {
     message = chalk.yellow('overwrite');

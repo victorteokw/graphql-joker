@@ -1,528 +1,616 @@
 const path = require('path');
-const fs = require('fs');
-const assert = require('yeoman-assert');
-const helpers = require('yeoman-test');
+const fs = require('fs-extra');
+const runGenerator = require('./setup/runGenerator');
+const fileContent = require('./assertions/fileContent');
 
 describe('amur resource', () => {
   describe('supports string type', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/string');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'name:String']);
+      destDir = runGenerator('resource', ['User', 'name:String']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports array of strings', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/array-of-string');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'names:[String]']);
+      destDir = runGenerator('resource', ['User', 'names:[String]']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports int type and change int to number in mongoose schema', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/int');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'age:Int']);
+      destDir = runGenerator('resource', ['User', 'age:Int']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports float type and change float to number in mongoose schema', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/float');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'rate:Float']);
+      destDir = runGenerator('resource', ['User', 'rate:Float']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports number type and change number to int in graphql schema', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/int');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'age:Number']);
+      destDir = runGenerator('resource', ['User', 'age:Number']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports boolean type', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/boolean');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'good:Boolean']);
+      destDir = runGenerator('resource', ['User', 'good:Boolean']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports reference type', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/ref');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'records:[Record]']);
+      destDir = runGenerator('resource', ['User', 'records:[Record]']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports reference type with foreign key', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/ref-with-foreign-key');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'records:[Record]:owner']);
+      destDir = runGenerator('resource', ['User', 'records:[Record]:owner']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports custom collection name', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/custom-collection-name');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User/people', 'name:String']);
+      destDir = runGenerator('resource', ['User/people', 'name:String']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports multiple arguments', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/multiple-args');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'name:String', 'age:Int', 'popularity:Float']);
+      destDir = runGenerator('resource', ['User', 'name:String', 'age:Int', 'popularity:Float']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports index unique required', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/index-unique-required');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['Article/articles', 'title:String!$', 'content:String!', 'keyName:String!^$']);
+      destDir = runGenerator('resource', ['Article/articles', 'title:String!$', 'content:String!', 'keyName:String!^$']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/Article.js')).toString();
-      assert.fileContent('models/Article.js', c);
+      assertFileContent('models/Article.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Article.gql')).toString();
-      assert.fileContent('schemas/Article.gql', c);
+      assertFileContent('schemas/Article.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/Article.js')).toString();
-      assert.fileContent('resolvers/Article.js', c);
+      assertFileContent('resolvers/Article.js', c);
     });
   });
   describe('supports default values', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/default-values');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'name:String!^$:Untitled', 'disabled:Boolean!:false', 'age:Int!:18', 'posts:[Post]:user']);
+      destDir = runGenerator('resource', ['User', 'name:String!^$:Untitled', 'disabled:Boolean!:false', 'age:Int!:18', 'posts:[Post]:user']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
   describe('supports dynamic default values', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/dynamic-default');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['Meeting', 'startedAt:Date!:`new Date()`']);
+      destDir = runGenerator('resource', ['Meeting', 'startedAt:Date!:`new Date()`']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/Meeting.js')).toString();
-      assert.fileContent('models/Meeting.js', c);
+      assertFileContent('models/Meeting.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Meeting.gql')).toString();
-      assert.fileContent('schemas/Meeting.gql', c);
+      assertFileContent('schemas/Meeting.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/Meeting.js')).toString();
-      assert.fileContent('resolvers/Meeting.js', c);
+      assertFileContent('resolvers/Meeting.js', c);
     });
   });
   describe('supports string match', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/string-match');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'email:String/^\\w+@\\w+\\.\\w+$/g!']);
+      destDir = runGenerator('resource', ['User', 'email:String/^\\w+@\\w+\\.\\w+$/g!']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('supports number min max', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/number-min-and-max');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['Result', 'score:Float<=100.0>=0.5', 'hexKey:Int<=0xabcd>=0x1234' ]);
+      destDir = runGenerator('resource', ['Result', 'score:Float<=100.0>=0.5', 'hexKey:Int<=0xabcd>=0x1234']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/Result.js')).toString();
-      assert.fileContent('models/Result.js', c);
+      assertFileContent('models/Result.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Result.gql')).toString();
-      assert.fileContent('schemas/Result.gql', c);
+      assertFileContent('schemas/Result.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/Result.js')).toString();
-      assert.fileContent('resolvers/Result.js', c);
+      assertFileContent('resolvers/Result.js', c);
     });
   });
 
   describe('supports string minlength maxlength', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/string-minlength-and-maxlength');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'name:String<=30>=2']);
+      destDir = runGenerator('resource', ['User', 'name:String<=30>=2']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('auto supports sparse index when unique and not required', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/sparse-index');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments(['User', 'name:String$']);
+      destDir = runGenerator('resource', ['User', 'name:String$']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('supports nested model without refs', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-model');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments("User name:String settings:{ sms:Boolean email:Boolean \
+      destDir = runGenerator('resource', "User name:String settings:{ sms:Boolean email:Boolean \
 push:{ first:Boolean second:Boolean } } age:Int address:{ city:String \
 province:String Region:String address:{ one:String two:String } }".split(' '));
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('supports nested array model without refs', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-model-array');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments("User age:String roles:[{ name:String \
+      destDir = runGenerator('resource', "User age:String roles:[{ name:String \
 permissions:[String] }] name:String".split(' '));
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file with special singular names', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file with special singular names', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file with special singular names', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('supports deep nested array model without refs', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/deep-nested-array-model');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments("Product names:[{ langCode:String!:cn name:String! \
+      destDir = runGenerator('resource', "Product names:[{ langCode:String!:cn name:String! \
 }] description:String! solds:Int comments:[{ title:String addresses:[{ \
 region:String! country:String! }] }]".split(' '));
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/Product.js')).toString();
-      assert.fileContent('models/Product.js', c);
+      assertFileContent('models/Product.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Product.gql')).toString();
-      assert.fileContent('schemas/Product.gql', c);
+      assertFileContent('schemas/Product.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/Product.js')).toString();
-      assert.fileContent('resolvers/Product.js', c);
+      assertFileContent('resolvers/Product.js', c);
     });
   });
 
   describe('supports nested model with refs', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-refs');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments("User article:{ post:Post comments:[Comment] }".split(' '));
+      destDir = runGenerator('resource', "User article:{ post:Post comments:[Comment] }".split(' '));
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
     });
 
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 
   describe('nested model refs has correct order in resolver files', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-refs-order');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/resource'))
-        .withArguments("User settings:{ push:PushSetting mobile:{ \
+      destDir = runGenerator('resource', "User settings:{ push:PushSetting mobile:{ \
 ios:IOSSetting android:AndroidSetting } } articles:{ titles:[Title] \
 posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
+      assertFileContent = fileContent(destDir);
     });
 
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+    
     it('create correct model file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
-      assert.fileContent('models/User.js', c);
+      assertFileContent('models/User.js', c);
     });
 
     it('create correct schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
-      assert.fileContent('schemas/User.gql', c);
+      assertFileContent('schemas/User.gql', c);
     });
 
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
-      assert.fileContent('resolvers/User.js', c);
+      assertFileContent('resolvers/User.js', c);
     });
   });
 });

@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = (dep, dev) => {
 
   const pkg = require(path.join(process.cwd(), 'package.json'));
-  console.log(pkg);
+
   let msg = chalk.green('installing');
   if (pkg.dependencies[dep]) {
     msg = chalk.yellow('installed');

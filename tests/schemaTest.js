@@ -1,77 +1,93 @@
 const path = require('path');
-const fs = require('fs');
-const assert = require('yeoman-assert');
-const helpers = require('yeoman-test');
+const fs = require('fs-extra');
+const assert = require('assert');
+const runGenerator = require('./setup/runGenerator');
+const fileContent = require('./assertions/fileContent');
 
 describe('amur schema', () => {
 
   describe('simple schema', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/simple-schema');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/schema'))
-        .withArguments(['Address', 'region:String', 'line1:String', 'line2:String', 'country:String']);
+      destDir = runGenerator('schema', ['Address', 'region:String', 'line1:String', 'line2:String', 'country:String']);
+      assertFileContent = fileContent(destDir);
     });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
     it('create correct mongoose schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
-      assert.fileContent('models/addressSchema.js', c);
+      assertFileContent('models/addressSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
-      assert.fileContent('schemas/Address.gql', c);
+      assertFileContent('schemas/Address.gql', c);
     });
 
     it('doesn\'t create resolver file because it\'s not needed', () => {
-      assert.noFile('resolvers/Address.js');
+      assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
 
   describe('nested schema', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-schema');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/schema'))
-        .withArguments(['Address', 'country:String', 'region:String', 'line:{',
-          'one:String!', 'two:String', '}', 'city:String!',
-          'postalCode:String']);
+      destDir = runGenerator('schema', ['Address', 'country:String', 'region:String', 'line:{',
+        'one:String!', 'two:String', '}', 'city:String!',
+        'postalCode:String']);
+      assertFileContent = fileContent(destDir);
     });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
     it('create correct mongoose schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
-      assert.fileContent('models/addressSchema.js', c);
+      assertFileContent('models/addressSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
-      assert.fileContent('schemas/Address.gql', c);
+      assertFileContent('schemas/Address.gql', c);
     });
 
     it('doesn\'t create resolver file because it\'s not needed', () => {
-      assert.noFile('resolvers/Address.js');
+      assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
 
   describe('schema with references', () => {
+    let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/schema-with-refs');
     beforeAll(() => {
-      return helpers
-        .run(path.join(__dirname, '../generators/schema'))
-        .withArguments(['Post', 'comments:[Comment]', 'author:Author',
-          'title:String', 'content:String', 'subtitle:String']);
+      destDir = runGenerator('schema', ['Post', 'comments:[Comment]', 'author:Author',
+        'title:String', 'content:String', 'subtitle:String']);
+      assertFileContent = fileContent(destDir);
     });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
     it('create correct mongoose schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'models/postSchema.js')).toString();
-      assert.fileContent('models/postSchema.js', c);
+      assertFileContent('models/postSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
       const c = fs.readFileSync(path.join(dir, 'schemas/Post.gql')).toString();
-      assert.fileContent('schemas/Post.gql', c);
+      assertFileContent('schemas/Post.gql', c);
     });
 
     it('create correct graphQL resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/Post.js')).toString();
-      assert.fileContent('resolvers/Post.js', c);
+      assertFileContent('resolvers/Post.js', c);
     });
   });
 });

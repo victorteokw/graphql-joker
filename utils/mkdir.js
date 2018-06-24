@@ -10,6 +10,5 @@ module.exports = (dest) => {
   } else {
     mkdirp.sync(dest);
   }
-
   console.log(`  ${message} ${path.relative(process.cwd(), dest)}`);
 };
