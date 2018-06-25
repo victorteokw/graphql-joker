@@ -1,0 +1,37 @@
+enum UserPostKind {
+  science
+  math
+  english
+}
+
+type UserPost {
+  title: String
+  kind: UserPostKind
+}
+
+input UserPostInput {
+  title: String
+  kind: UserPostKind
+}
+
+type User {
+  _id: ID!
+  posts: [UserPost]
+  createdAt: Date
+  updatedAt: Date
+}
+
+input UserInput {
+  posts: [UserPostInput]
+}
+
+type Query {
+  user(_id: ID!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}

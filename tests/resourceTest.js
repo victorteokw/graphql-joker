@@ -669,4 +669,32 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
       assertFileContent('resolvers/Account.js', c);
     });
   });
+
+  describe('supports enum in nested arrays', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/enum-in-nested-arrays');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'posts:[{', 'title:String', 'kind:Enum{science,math,english}']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
 });

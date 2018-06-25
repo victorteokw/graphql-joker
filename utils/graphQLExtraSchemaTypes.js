@@ -33,7 +33,6 @@ const extraSchemaDesc = (modelName, fields) => {
 
 const extraSchemaTypes = (modelName, fields, indentSpace = 2) => {
   const descs = extraSchemaDesc(modelName, fields);
-  console.log(descs);
   let t = '';
   descs.forEach((desc, i) => {
     if (desc.enum) {
