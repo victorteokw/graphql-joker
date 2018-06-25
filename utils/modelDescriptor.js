@@ -92,6 +92,7 @@ module.exports = (args) => {
       modifiers['enum'] = arrayEnumMatchData[1].split(',').map(quote);
       isArray = true;
       modifier = tokens[1].match(arrayEnumTypeChecker)[2];
+      sideEffects.needsExtraSchemaTypes = true;
     } else if (tokens[1].match(enumTypeChecker)) {
       jsType = 'String';
       type = graphQLType = modelName +
@@ -99,6 +100,7 @@ module.exports = (args) => {
         (isArray ? capitalize(singular(name)) : capitalize(name));
       modifiers['enum'] = enumMatchData[1].split(',').map(quote);
       modifier = tokens[1].match(enumTypeChecker)[2];
+      sideEffects.needsExtraSchemaTypes = true;
     } else if (tokens[1].match(arrayTypeChecker)) {
       isArray = true;
       modifier = tokens[1].match(arrayTypeChecker)[2];

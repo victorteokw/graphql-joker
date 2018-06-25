@@ -1,3 +1,8 @@
+enum UserGender {
+  male
+  female
+}
+
 type User {
   _id: ID!
   gender: UserGender

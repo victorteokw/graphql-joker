@@ -896,7 +896,7 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": true
       }
     });
   });
@@ -935,11 +935,10 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": true
       }
     });
   });
-
 
   it('handles enum in nested structure', () => {
     const desc = modelDescriptor(['User', 'info:{', 'gender:Enum{male,female}!']);
