@@ -117,4 +117,31 @@ describe('amur schema', () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
+
+  describe('schema with schema reference', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/referencing-schema-in-schema');
+    beforeAll(() => {
+      destDir = runGenerator('schema', ['Person', 'address:addressSchema', 'name:String']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct mongoose schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/personSchema.js')).toString();
+      assertFileContent('models/personSchema.js', c);
+    });
+
+    it('create correct graphQL schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Person.gql')).toString();
+      assertFileContent('schemas/Person.gql', c);
+    });
+
+    it('doesn\'t create resolver file because it\'s not needed', () => {
+      assert(!fs.existsSync(path.join(destDir, 'resolvers/Person.js')));
+    });
+  });
 });

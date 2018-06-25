@@ -1,0 +1,10 @@
+type Person {
+  _id: ID!
+  address: Address
+  name: String
+}
+
+input PersonInput {
+  address: AddressInput
+  name: String
+}
