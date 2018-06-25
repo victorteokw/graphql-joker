@@ -865,4 +865,124 @@ describe('model descriptor', () => {
       }
     });
   });
+
+  it('handles enum', () => {
+    const desc = modelDescriptor(['User', 'gender:Enum{male,female}!']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "gender",
+          "type": "UserGender",
+          "jsType": "String",
+          "graphQLType": "UserGender",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "required": true
+          },
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
+      }
+    });
+  });
+
+  it('handles enum in nested structure', () => {
+    const desc = modelDescriptor(['User', 'info:{', 'gender:Enum{male,female}!']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "info",
+          "isObject": true,
+          "isArray": false,
+          "fields": [
+            {
+              "name": "gender",
+              "type": "UserInfoGender",
+              "jsType": "String",
+              "graphQLType": "UserInfoGender",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "required": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            }
+          ]
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": true
+      }
+    });
+  });
+
+  it('handles enum in nested array structure', () => {
+    const desc = modelDescriptor(['Building', 'users:[{', 'gender:Enum{male,female}!']);
+    assert.deepEqual(desc, {
+      "modelName": "Building",
+      "collectionName": "buildings",
+      "varName": "building",
+      "pluralVarName": "buildings",
+      "fields": [
+        {
+          "name": "users",
+          "isObject": true,
+          "isArray": true,
+          "fields": [
+            {
+              "name": "gender",
+              "type": "BuildingUserGender",
+              "jsType": "String",
+              "graphQLType": "BuildingUserGender",
+              "isArray": false,
+              "primitive": true,
+              "modifiers": {
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "required": true
+              },
+              foreignKey: undefined,
+              foreignKeyIsArray: undefined
+            }
+          ]
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": true
+      }
+    });
+  });
+
 });

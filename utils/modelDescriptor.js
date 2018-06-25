@@ -2,6 +2,7 @@ const uncapitalize = require('./uncapitalize');
 const capitalize = require('./capitalize');
 const lowercase = require('./lowercase');
 const pluralize = require('pluralize');
+const { singular } = pluralize;
 
 // Find a nesting context for current argument
 const root = (fields, nestingContext) => {
@@ -40,7 +41,7 @@ module.exports = (args) => {
 
   // Fields
   const fields = [];
-  const nestingContext = []; // for nested
+  const nestingContext = [], singularNestingContext = []; // for nested
 
   args.forEach((arg) => {
     const tokens = arg.split(':');
@@ -50,16 +51,19 @@ module.exports = (args) => {
 
     // Nesting Structure
     if (tokens[1] && tokens[1].match(/^\[?{$/)) {
+      const isArray = !!tokens[1].match(/^\[{$/);
       root(fields, nestingContext).push({
         name: tokens[0],
         isObject: true,
-        isArray: !!tokens[1].match(/^\[{$/),
+        isArray,
         fields: []
       });
       nestingContext.push(tokens[0]);
+      singularNestingContext.push(isArray ? singular(tokens[0]) : tokens[0]);
       return;
     } else if (tokens[0].match(/}\]?/)) {
       nestingContext.pop();
+      singularNestingContext.pop();
       return;
     }
 
@@ -71,8 +75,8 @@ module.exports = (args) => {
     let type = '', jsType = '', graphQLType = '';
     const modifiers = {};
 
-    const arrayTypeChecker = /^\[(.*)\](.*)$/;
-    const singleTypeChecker = /^([a-zA-Z0-9]*)(.*)$/;
+    const arrayTypeChecker = /^\[([a-zA-Z0-9,{}]*)\](.*)$/;
+    const singleTypeChecker = /^([a-zA-Z0-9,{}]*)(.*)$/;
     if (tokens[1].match(arrayTypeChecker)) {
       isArray = true;
       modifier = tokens[1].match(arrayTypeChecker)[2];
@@ -82,6 +86,17 @@ module.exports = (args) => {
       type = capitalize(tokens[1].match(singleTypeChecker)[1]);
     } else {
       throw `Unexpected type '${tokens[1]}'.`;
+    }
+
+    // Parsing enums
+    const enumChecker = /Enum{([a-z,]*)}/;
+    const enumMatchData = type.match(enumChecker);
+    if (enumMatchData) {
+      jsType = 'String';
+      type = graphQLType = modelName +
+        singularNestingContext.map((n) => capitalize(n)).join('') +
+        (isArray ? capitalize(singular(name)) : capitalize(name));
+      modifiers['enum'] = enumMatchData[1].split(',');
     }
 
     // String regexp match modifier
