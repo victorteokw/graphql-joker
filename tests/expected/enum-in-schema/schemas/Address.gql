@@ -1,0 +1,13 @@
+enum AddressCountry {
+  China
+  US
+}
+
+type Address {
+  _id: ID!
+  country: AddressCountry
+}
+
+input AddressInput {
+  country: AddressCountry
+}

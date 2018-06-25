@@ -90,4 +90,31 @@ describe('amur schema', () => {
       assertFileContent('resolvers/Post.js', c);
     });
   });
+
+  describe('schema with enum', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/enum-in-schema');
+    beforeAll(() => {
+      destDir = runGenerator('schema', ['Address', 'country:Enum{China,US}']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct mongoose schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
+      assertFileContent('models/addressSchema.js', c);
+    });
+
+    it('create correct graphQL schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
+      assertFileContent('schemas/Address.gql', c);
+    });
+
+    it('doesn\'t create resolver file because it\'s not needed', () => {
+      assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
+    });
+  });
 });
