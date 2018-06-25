@@ -128,7 +128,6 @@ module.exports = ({ args, options, projDir }) => {
 
   mkdir(destination('data'));
   mkdir(destination('models'));
-  mkdir(destination('resolvers'));
   mkdir(destination('scripts'));
   mkdir(destination('tests/fixtures'));
   mkdir(destination('tests/models'));
