@@ -184,7 +184,7 @@ describe('model descriptor', () => {
             "required": true,
             "index": true,
             "unique": true,
-            "default": "\"No Name\""
+            "default": "'No Name'"
           },
           foreignKey: undefined,
           foreignKeyIsArray: undefined
@@ -883,8 +883,8 @@ describe('model descriptor', () => {
           "primitive": true,
           "modifiers": {
             "enum": [
-              "male",
-              "female"
+              "'male'",
+              "'female'"
             ],
             "required": true
           },
@@ -923,8 +923,8 @@ describe('model descriptor', () => {
               "primitive": true,
               "modifiers": {
                 "enum": [
-                  "male",
-                  "female"
+                  "'male'",
+                  "'female'"
                 ],
                 "required": true
               },
@@ -965,8 +965,8 @@ describe('model descriptor', () => {
               "primitive": true,
               "modifiers": {
                 "enum": [
-                  "male",
-                  "female"
+                  "'male'",
+                  "'female'"
                 ],
                 "required": true
               },

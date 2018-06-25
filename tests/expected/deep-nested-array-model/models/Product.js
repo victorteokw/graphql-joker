@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema({
   names: [{
-    langCode: { type: String, required: true, default: "cn" },
+    langCode: { type: String, required: true, default: 'cn' },
     name: { type: String, required: true }
   }],
   description: { type: String, required: true },

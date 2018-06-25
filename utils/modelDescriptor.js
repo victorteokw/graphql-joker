@@ -3,6 +3,7 @@ const capitalize = require('./capitalize');
 const lowercase = require('./lowercase');
 const pluralize = require('pluralize');
 const { singular } = pluralize;
+const quote = require('./quote');
 
 // Find a nesting context for current argument
 const root = (fields, nestingContext) => {
@@ -96,7 +97,7 @@ module.exports = (args) => {
       type = graphQLType = modelName +
         singularNestingContext.map((n) => capitalize(n)).join('') +
         (isArray ? capitalize(singular(name)) : capitalize(name));
-      modifiers['enum'] = enumMatchData[1].split(',');
+      modifiers['enum'] = enumMatchData[1].split(',').map(quote);
     }
 
     // String regexp match modifier
@@ -183,7 +184,7 @@ module.exports = (args) => {
           modifiers['default'] = tokens[2].match(/`(.*)`/)[1];
         } else {
           if (jsType === 'String') {
-            modifiers['default'] = JSON.stringify(tokens[2]);
+            modifiers['default'] = quote(tokens[2]);
           }
           if (jsType === 'Number') {
             modifiers['default'] = parseFloat(tokens[2]);

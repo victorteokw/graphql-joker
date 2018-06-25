@@ -1,6 +1,13 @@
+const formatData = (data) => {
+  if (Array.isArray(data)) {
+    return `[${data.map(formatData).join(', ')}]`;
+  }
+  return data.toString();
+};
+
 const formatModifiers = (modifiers) => {
   const keys = Object.keys(modifiers);
-  return keys.map((k) => `${k}: ${modifiers[k].toString()}`).join(', ');
+  return keys.map((k) => `${k}: ${formatData(modifiers[k])}`).join(', ');
 };
 
 const schemaLine = (field, indentLevel = 1, indentSpace = 2) => {
