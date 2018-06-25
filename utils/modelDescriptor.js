@@ -68,6 +68,21 @@ module.exports = (args) => {
       return;
     }
 
+    // Schema referencing
+    if (tokens[1] && tokens[1].match(/^\[?.*Schema\]?$/)) {
+      const isArray = !!tokens[1].match(/\[.*\]/);
+      const type = capitalize(tokens[1].match(/^\[?(.*)Schema\]?$/)[1]);
+      root(fields, nestingContext).push({
+        name: tokens[0],
+        jsType: uncapitalize(type) + 'Schema',
+        graphQLType: type,
+        type: type,
+        isArray,
+        isSchema: true
+      });
+      return;
+    }
+
     // Default to String type if no type is specified
     tokens[1] || (tokens[1] = 'String');
 
@@ -83,7 +98,7 @@ module.exports = (args) => {
 
     // Separate type and modifiers
     const arrayEnumMatchData = tokens[1].match(arrayEnumTypeChecker);
-    const enumMatchData = tokens[1].match(enumTypeChecker)
+    const enumMatchData = tokens[1].match(enumTypeChecker);
     if (tokens[1].match(arrayEnumTypeChecker)) {
       jsType = 'String';
       type = graphQLType = modelName +

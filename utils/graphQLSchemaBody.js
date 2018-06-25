@@ -19,9 +19,9 @@ const schemaBody = (modelName, fields, input, indentSpace = 2) => {
     if (i > 0) {
       final = final + '\n';
     }
-    final = final + ' '.repeat(indentSpace);
-    final = final + f.name + ": ";
-    if (f.isArray) final = final + '[';
+    final += ' '.repeat(indentSpace);
+    final += f.name + ": ";
+    if (f.isArray) final += '[';
     if (f.isObject) {
       if (!input) {
         if (f.isArray) {
@@ -37,17 +37,15 @@ const schemaBody = (modelName, fields, input, indentSpace = 2) => {
         }
       }
     } else if (primitiveGraphQLTypes.includes(f.graphQLType)) {
-      final = final + f.graphQLType;
-    } else if (f.modifiers.enum) {
-      final = final + f.graphQLType;
+      final += f.graphQLType;
+    } else if (f.isSchema) {
+      final += f.graphQLType + (input ? 'Input' : '');
+    } else if (f.modifiers && f.modifiers.enum) {
+      final += f.graphQLType;
     } else {
-      if (input) {
-        final = final + 'ID';
-      } else {
-        final = final + f.graphQLType;
-      }
+      final += input ? 'ID' : f.graphQLType;
     }
-    if (f.isArray) final = final + ']';
+    if (f.isArray) final += ']';
   });
   return final;
 };

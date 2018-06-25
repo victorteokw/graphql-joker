@@ -22,6 +22,8 @@ const schemaLine = (field, indentLevel = 1, indentSpace = 2) => {
     } else {
       line += `{ type: ${field.jsType}, ${formatModifiers(field.modifiers)} }`;
     }
+  } else if (field.isSchema) {
+    line += field.jsType;
   } else {
     if (Object.keys(field.modifiers).length === 0) {
       line += `{ type: ObjectId, ref: '${field.jsType}' }`;
