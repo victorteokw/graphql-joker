@@ -1,0 +1,40 @@
+enum AccountInfoGender {
+  Male
+  Female
+}
+
+type AccountInfo {
+  name: String
+  gender: AccountInfoGender
+}
+
+input AccountInfoInput {
+  name: String
+  gender: AccountInfoGender
+}
+
+type Account {
+  _id: ID!
+  email: String
+  info: AccountInfo
+  password: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+input AccountInput {
+  email: String
+  info: AccountInfoInput
+  password: String
+}
+
+type Query {
+  account(_id: ID!): Account
+  accounts: [Account]
+}
+
+type Mutation {
+  createAccount(input: AccountInput): Account
+  updateAccount(_id: ID!, input: AccountInput): Account
+  deleteAccount(_id: ID!): Account
+}

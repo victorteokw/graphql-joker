@@ -641,4 +641,32 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
       assertFileContent('resolvers/User.js', c);
     });
   });
+
+  describe('supports enum in nested structures', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/enum-in-nested-structures');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['Account', 'email:String/.*@wtf\\.com/!', 'info:{', 'name:String!', 'gender:Enum{Male,Female}', '}', 'password:String!']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/Account.js')).toString();
+      assertFileContent('models/Account.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/Account.gql')).toString();
+      assertFileContent('schemas/Account.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/Account.js')).toString();
+      assertFileContent('resolvers/Account.js', c);
+    });
+  });
 });
