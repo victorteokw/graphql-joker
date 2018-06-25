@@ -48,7 +48,8 @@ describe('model descriptor', () => {
         requiresObjectId: false,
         requiresDate: false,
         needsResolverModelBody: false,
-        needsExtraSchemaTypes: false
+        needsExtraSchemaTypes: false,
+        "schemaRequirements": []
       }
     });
   });
@@ -90,7 +91,8 @@ describe('model descriptor', () => {
         requiresObjectId: false,
         requiresDate: false,
         needsResolverModelBody: false,
-        needsExtraSchemaTypes: false
+        needsExtraSchemaTypes: false,
+        "schemaRequirements": []
       }
     });
   });
@@ -117,7 +119,8 @@ describe('model descriptor', () => {
         requiresObjectId: false,
         requiresDate: false,
         needsResolverModelBody: false,
-        needsExtraSchemaTypes: false
+        needsExtraSchemaTypes: false,
+        "schemaRequirements": []
       }
     });
   });
@@ -160,7 +163,8 @@ describe('model descriptor', () => {
         "requiresObjectId":true,
         "requiresDate":false,
         "needsResolverModelBody":true,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -205,7 +209,8 @@ describe('model descriptor', () => {
         "requiresObjectId": true,
         "requiresDate": false,
         "needsResolverModelBody": true,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -234,7 +239,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": true,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -265,7 +271,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -296,7 +303,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -327,7 +335,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
 
@@ -360,7 +369,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -393,7 +403,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -424,7 +435,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -458,7 +470,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -487,7 +500,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -516,7 +530,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -545,7 +560,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -574,7 +590,8 @@ describe('model descriptor', () => {
         "requiresObjectId": true,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -603,7 +620,8 @@ describe('model descriptor', () => {
         "requiresObjectId": true,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false
+        "needsExtraSchemaTypes": false,
+        "schemaRequirements": []
       }
     });
   });
@@ -667,7 +685,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -731,7 +750,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -861,7 +881,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -896,7 +917,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -935,7 +957,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -977,7 +1000,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });
@@ -1019,7 +1043,8 @@ describe('model descriptor', () => {
         "requiresObjectId": false,
         "requiresDate": false,
         "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true
+        "needsExtraSchemaTypes": true,
+        "schemaRequirements": []
       }
     });
   });

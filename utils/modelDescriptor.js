@@ -37,7 +37,8 @@ module.exports = (args) => {
     requiresObjectId: false,
     requiresDate: false,
     needsResolverModelBody: false,
-    needsExtraSchemaTypes: false
+    needsExtraSchemaTypes: false,
+    schemaRequirements: []
   };
 
   // Fields
@@ -72,14 +73,18 @@ module.exports = (args) => {
     if (tokens[1] && tokens[1].match(/^\[?.*Schema\]?$/)) {
       const isArray = !!tokens[1].match(/\[.*\]/);
       const type = capitalize(tokens[1].match(/^\[?(.*)Schema\]?$/)[1]);
+      const jsType = uncapitalize(type) + 'Schema';
       root(fields, nestingContext).push({
         name: tokens[0],
-        jsType: uncapitalize(type) + 'Schema',
+        jsType,
         graphQLType: type,
         type: type,
         isArray,
         isSchema: true
       });
+      if (!sideEffects.schemaRequirements.includes(jsType)) {
+        sideEffects.schemaRequirements.push(jsType);
+      }
       return;
     }
 
