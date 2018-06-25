@@ -8,7 +8,7 @@
     "no-console": "off",
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "argsIgnorePattern": "^_"}],
     "no-unreachable": "warn",
-    "object-curly-spacing": ["warn", "always", {"objectsInObjects": false, "arraysInObjects": false}],
+    "object-curly-spacing": ["warn", "always", {"objectsInObjects": false, "arraysInObjects": true}],
     "no-constant-condition": ["warn", {"checkLoops": false}],
     "no-this-before-super": "warn",
     "no-dupe-args": ["error"],
