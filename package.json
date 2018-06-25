@@ -7,6 +7,8 @@
     "name": "Zhang Kaiyu",
     "email": "yeannylam@gmail.com"
   },
+  "repository": "zhangkaiyulw/amur",
+  "license": "GPL-3.0",
   "bin": {
     "amur": "cli/index.js"
   },
@@ -23,21 +25,8 @@
     "generator",
     "graphql"
   ],
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-config-xo": "^0.20.1",
-    "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "glob": "^7.1.2",
-    "husky": "^0.14.3",
-    "jest": "^22.0.6",
-    "lint-staged": "^6.1.1",
-    "nsp": "^2.8.0",
-    "prettier": "^1.11.1"
-  },
-  "engines": {
-    "npm": ">= 8.0.0"
+  "scripts": {
+    "test": "jest --silent"
   },
   "dependencies": {
     "chalk": "^2.4.1",
@@ -49,9 +38,13 @@
     "ora": "^2.1.0",
     "pluralize": "^7.0.0"
   },
-  "scripts": {
-    "test": "jest --silent"
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-jest": "^21.17.0",
+    "glob": "^7.1.2",
+    "jest": "^22.0.6"
   },
-  "repository": "zhangkaiyulw/amur",
-  "license": "GPL-3.0"
+  "engines": {
+    "npm": ">= 8.0.0"
+  }
 }
