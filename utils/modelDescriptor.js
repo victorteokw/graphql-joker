@@ -77,8 +77,29 @@ module.exports = (args) => {
     const modifiers = {};
 
     const arrayTypeChecker = /^\[([a-zA-Z0-9,{}]*)\](.*)$/;
-    const singleTypeChecker = /^([a-zA-Z0-9,{}]*)(.*)$/;
-    if (tokens[1].match(arrayTypeChecker)) {
+    const singleTypeChecker = /^([a-zA-Z0-9,{}]*}?)(.*)$/;
+    const enumTypeChecker = /^Enum{(.*)}(.*)$/;
+    const arrayEnumTypeChecker = /^\[Enum{(.*)}\](.*)$/;
+
+    // Separate type and modifiers
+    const arrayEnumMatchData = tokens[1].match(arrayEnumTypeChecker);
+    const enumMatchData = tokens[1].match(enumTypeChecker)
+    if (tokens[1].match(arrayEnumTypeChecker)) {
+      jsType = 'String';
+      type = graphQLType = modelName +
+        singularNestingContext.map((n) => capitalize(n)).join('') +
+        (isArray ? capitalize(singular(name)) : capitalize(name));
+      modifiers['enum'] = arrayEnumMatchData[1].split(',').map(quote);
+      isArray = true;
+      modifier = tokens[1].match(arrayEnumTypeChecker)[2];
+    } else if (tokens[1].match(enumTypeChecker)) {
+      jsType = 'String';
+      type = graphQLType = modelName +
+        singularNestingContext.map((n) => capitalize(n)).join('') +
+        (isArray ? capitalize(singular(name)) : capitalize(name));
+      modifiers['enum'] = enumMatchData[1].split(',').map(quote);
+      modifier = tokens[1].match(enumTypeChecker)[2];
+    } else if (tokens[1].match(arrayTypeChecker)) {
       isArray = true;
       modifier = tokens[1].match(arrayTypeChecker)[2];
       type = capitalize(tokens[1].match(arrayTypeChecker)[1]);
@@ -87,17 +108,6 @@ module.exports = (args) => {
       type = capitalize(tokens[1].match(singleTypeChecker)[1]);
     } else {
       throw `Unexpected type '${tokens[1]}'.`;
-    }
-
-    // Parsing enums
-    const enumChecker = /Enum{([a-z,]*)}/;
-    const enumMatchData = type.match(enumChecker);
-    if (enumMatchData) {
-      jsType = 'String';
-      type = graphQLType = modelName +
-        singularNestingContext.map((n) => capitalize(n)).join('') +
-        (isArray ? capitalize(singular(name)) : capitalize(name));
-      modifiers['enum'] = enumMatchData[1].split(',').map(quote);
     }
 
     // String regexp match modifier

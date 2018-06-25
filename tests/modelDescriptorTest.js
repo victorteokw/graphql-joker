@@ -901,6 +901,46 @@ describe('model descriptor', () => {
     });
   });
 
+  it('handles special chars in enum', () => {
+    const desc = modelDescriptor(['User', 'level:Enum{A+,A,A-,B+,B,B-}!']);
+    assert.deepEqual(desc, {
+      "modelName": "User",
+      "collectionName": "users",
+      "varName": "user",
+      "pluralVarName": "users",
+      "fields": [
+        {
+          "name": "level",
+          "type": "UserLevel",
+          "jsType": "String",
+          "graphQLType": "UserLevel",
+          "isArray": false,
+          "primitive": true,
+          "modifiers": {
+            "enum": [
+              "'A+'",
+              "'A'",
+              "'A-'",
+              "'B+'",
+              "'B'",
+              "'B-'"
+            ],
+            "required": true
+          },
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined
+        }
+      ],
+      "sideEffects": {
+        "requiresObjectId": false,
+        "requiresDate": false,
+        "needsResolverModelBody": false,
+        "needsExtraSchemaTypes": false
+      }
+    });
+  });
+
+
   it('handles enum in nested structure', () => {
     const desc = modelDescriptor(['User', 'info:{', 'gender:Enum{male,female}!']);
     assert.deepEqual(desc, {
