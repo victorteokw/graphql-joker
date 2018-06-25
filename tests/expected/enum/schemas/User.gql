@@ -11,7 +11,7 @@ type User {
 }
 
 input UserInput {
-  gender: ID
+  gender: UserGender
 }
 
 type Query {

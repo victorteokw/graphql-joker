@@ -38,6 +38,8 @@ const schemaBody = (modelName, fields, input, indentSpace = 2) => {
       }
     } else if (primitiveGraphQLTypes.includes(f.graphQLType)) {
       final = final + f.graphQLType;
+    } else if (f.modifiers.enum) {
+      final = final + f.graphQLType;
     } else {
       if (input) {
         final = final + 'ID';
