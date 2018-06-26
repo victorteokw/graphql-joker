@@ -725,4 +725,35 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
       assertFileContent('resolvers/User.js', c);
     });
   });
+
+  describe('support reference schema in resources', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/referencing-schema-and-models');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'name:String!',
+        'gender:Enum{male,female}', 'age:Int>=0<=200',
+        'addresses:[addressSchema]', 'phoneNo:String/1[358]\\d{9,10}/',
+        'email:String/.*@.*\\..*/', 'orders:[Order]:user']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
 });

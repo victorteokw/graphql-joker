@@ -11,8 +11,8 @@ const primitiveJsTypes = [
 
 const rootsThatRequiresBody = (modelName, fields) => {
   let retval = [], nested = [];
-  const methodsFields = fields.filter((f) => !f.primitive && !f.isObject);
-  const nestedFields = fields.filter((f) => f.isObject);
+  const methodsFields = fields.filter((f) => !f.primitive && !f.isObject && !f.isSchema);
+  const nestedFields = fields.filter((f) => f.isObject); // f.isObject || f.isSchema and parsing schema from schema file
   nestedFields.forEach((f) => {
     nested = [
       ...nested,
