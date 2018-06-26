@@ -77,7 +77,7 @@ describe('amur app brand-new-app', () => {
           });
         });
         [
-          'eslint', 'nodemon', 'nonula', 'dobukulbira', 'jest', 'jest-cli'
+          'eslint', 'nodemon', 'nonula', 'dobukulbira', 'jest'
         ].forEach((name) => {
           it(`installs the dev dependency ${name}`, () => {
             const fileContents = fs.readFileSync(path.join(projDir, path.relative(expectedDir, f))).toString();
