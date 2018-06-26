@@ -21,7 +21,7 @@
     "koa-body": "^2.5.0",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
-    "koa2-mongoose": "^0.1.1",
+    "koa-mon": "^0.3.0",
     "lodash": "^4.17.10",
     "merge-graphql-schemas": "^1.5.1",
     "mongoose": "^5.1.5",
