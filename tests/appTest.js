@@ -66,7 +66,7 @@ describe('amur app brand-new-app', () => {
         });
         [
           'koa', 'mongoose', 'graphql',
-          'koa-body', 'koa-logger', 'koa-router', 'koa2-mongoose', '@koa/cors',
+          'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
           'graphql-tools', 'merge-graphql-schemas', 'apollo-server-koa',
           'noenv', 'lodash', 'glob'
         ].forEach((name) => {

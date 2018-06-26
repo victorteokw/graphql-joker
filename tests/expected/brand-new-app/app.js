@@ -5,7 +5,7 @@ const logger = require('koa-logger');
 const body = require('koa-body');
 const cors = require('@koa/cors');
 const configMiddleware = require('./middlewares/config');
-const mongoose = require('koa2-mongoose');
+const mongoose = require('koa-mon');
 const router = require('./middlewares/router');
 
 const app = module.exports = new Koa();
