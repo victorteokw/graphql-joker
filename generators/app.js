@@ -146,6 +146,6 @@ module.exports = ({ args, options, projDir }) => {
   ].map((dep) => install(dep));
 
   [
-    'eslint', 'nodemon', 'nonula', 'dobukulbira', 'jest', 'jest-cli'
+    'eslint', 'nodemon', 'nonula', 'dobukulbira', 'jest'
   ].map((dep) => install(dep, true));
 };
