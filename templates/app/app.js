@@ -19,10 +19,10 @@ app.use(cors());
 app.use(configMiddleware(config));
 
 app.use(mongoose({
+  modelDir: __dirname + '/models',
   url: config.database.url,
-  models: __dirname + '/models',
-  debug: config.database.debug,
-  options: {}
+  options: {},
+  debug: config.database.debug
 }));
 
 app.use(router.routes(), router.allowedMethods());
