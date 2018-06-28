@@ -2,5 +2,9 @@
   "extends": "man",
   "rules": {
     "max-len": ["warn", { "code": 200 }]
+  },
+  "plugins": ["jest"],
+  "env": {
+    "jest": true
   }
 }
