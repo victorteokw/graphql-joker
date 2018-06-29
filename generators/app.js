@@ -71,6 +71,13 @@ module.exports = ({ args, options, projDir }) => {
     template('app.js'),
     destination('app.js')
   );
+  // jest manifest file
+  if (!options.noTest) {
+    copyTpl(
+      template('jest.config.js'),
+      destination('jest.config.js')
+    );
+  }
 
   // Config directory
 
@@ -124,14 +131,31 @@ module.exports = ({ args, options, projDir }) => {
     destination('resolvers/Date.js')
   );
 
+  // tests
+  if (!options.noTest) {
+    copyTpl(
+      template('tests/modelEnv.js'),
+      destination('tests/modelEnv.js')
+    );
+    copyTpl(
+      template('tests/modelSuite.js'),
+      destination('tests/modelSuite.js')
+    );
+    copyTpl(
+      template('tests/integrationSuite.js'),
+      destination('tests/integrationSuite.js')
+    );
+  }
+
   // Make directories
 
   mkdir(destination('data'));
   mkdir(destination('models'));
   mkdir(destination('scripts'));
-  mkdir(destination('tests/fixtures'));
-  mkdir(destination('tests/models'));
-  mkdir(destination('tests/resolvers'));
+  if (!options.noTest) {
+    mkdir(destination('tests/models'));
+    mkdir(destination('tests/integration'));
+  }
 
   // INSTALL
   if (options['skip-install']) {
