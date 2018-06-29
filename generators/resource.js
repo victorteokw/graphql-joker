@@ -3,8 +3,10 @@ const mongooseSchemaBody = require('../utils/mongooseSchemaBody');
 const graphQLSchemaBody = require('../utils/graphQLSchemaBody');
 const graphQLExtraSchemaTypes = require('../utils/graphQLExtraSchemaTypes');
 const resolverBody = require('../utils/resolverBody');
+const generateModelTest = require('../utils/generateModelTest');
 const copyTpl = require('../utils/copyTpl');
 const rm = require('../utils/rm');
+const writeToFile = require('../utils/fs/writeToFile');
 
 module.exports = ({ args, options, projDir }) => {
   const descriptor = modelDescriptor(args);
@@ -38,6 +40,10 @@ module.exports = ({ args, options, projDir }) => {
       template('resolvers/_Base.js'),
       destination(`resolvers/${context.modelName}.js`),
       context
+    );
+    writeToFile(
+      generateModelTest(descriptor),
+      destination(`test/models/${descriptor.modelName}Test.js`)
     );
   }
 };
