@@ -137,14 +137,6 @@ module.exports = ({ args, options, projDir }) => {
       template('tests/modelEnv.js'),
       destination('tests/modelEnv.js')
     );
-    copyTpl(
-      template('tests/modelSuite.js'),
-      destination('tests/modelSuite.js')
-    );
-    copyTpl(
-      template('tests/integrationSuite.js'),
-      destination('tests/integrationSuite.js')
-    );
   }
 
   // Make directories
