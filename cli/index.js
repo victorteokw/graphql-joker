@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const help = require('./help');
 const parseArgs = require('./parseArgs');
+const wd = require('./wd');
 
 const { _: [ command, ...args ], ...options } = parseArgs();
 
@@ -24,7 +25,7 @@ if (fs.existsSync(generatorFile)) {
   } else {
     const generate = require(generatorFile);
     generate({
-      args, options, projDir: process.cwd()
+      args, options, projDir: wd(command)
     });
   }
 } else {
