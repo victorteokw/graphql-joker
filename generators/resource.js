@@ -25,6 +25,7 @@ module.exports = ({ args, options, projDir }) => {
     rm(destination(`${options.modelDir}/${context.modelName}.js`));
     rm(destination(`${options.schemaDir}/${context.modelName}.gql`));
     rm(destination(`${options.resolverDir}/${context.modelName}.js`));
+    rm(destination(`tests/models/${descriptor.modelName}Test.js`));
   } else {
     copyTpl(
       template('models/_Base.js'),
