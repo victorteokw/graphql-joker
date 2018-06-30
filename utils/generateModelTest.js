@@ -2,30 +2,27 @@ const heading = (descriptor) =>
   `const { ${descriptor.varName} } = require('mexpect/lib/descriptors');`;
 
 const indentEveryLine = (content, level = 1, space = 2) => {
+  if (!content) return content;
   const lines = content.split('\n');
   return lines.map((l) => ' '.repeat(level * space) + l).join('\n');
 };
 
 const describe = (title, callback) =>
-  ```
-    describe("${title}", () => {
-    ${indentEveryLine(callback())}
-    });
-  ```;
+  `describe("${title}", () => {
+${indentEveryLine(callback())}
+});`;
 
 const it = (title, context, f, matcher) =>
-  ```
-    it("${title}", () => {
-      expect(${[...context, f.name].join('.')}).${matcher};
-    });
-  ```;
+  `it("${title}", () => {
+  expect(${[...context, f.name].join('.')}).${matcher};
+});`;
 
 const wrapping = (descriptor, callback) =>
-  describe(`${descriptor.modelName}'s`, () => {
-    describe('fields: ', () => {
-      callback();
-    });
-  });
+  describe(`${descriptor.modelName}'s`, () =>
+    describe('fields: ', () =>
+      callback()
+    )
+  );
 
 const body = (fields, context) =>
   fields.map((f) =>
@@ -34,15 +31,13 @@ const body = (fields, context) =>
       blocks.push(it('exists', context, f, 'toBeExist()'));
 
       it(`is a ${f.jsType}`,context, f, `toBeA('${f.jsType}')`);
-      return blocks;
+      return blocks.join('\n');
     })
   ).join('\n');
 
-
 module.exports = (descriptor) => {
-  const header = heading();
+  const header = heading(descriptor);
   const main = wrapping(descriptor,
-    () => body(descriptor.fields, [descriptor.varName])
-  );
+    () => body(descriptor.fields, [descriptor.varName]));
   return `${header}\n\n${main}`;
 };

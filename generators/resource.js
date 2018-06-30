@@ -43,7 +43,7 @@ module.exports = ({ args, options, projDir }) => {
     );
     writeToFile(
       generateModelTest(descriptor),
-      destination(`test/models/${descriptor.modelName}Test.js`)
+      destination(`tests/models/${descriptor.modelName}Test.js`)
     );
   }
 };

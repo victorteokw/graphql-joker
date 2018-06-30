@@ -14,7 +14,7 @@ class ModelEnvironment extends NodeEnvironment {
     await super.setup();
     await setup(
       config.database.url,
-      path.join(__dirname, '../../models'),
+      path.join(__dirname, '../models'),
       mongoose,
       this
     );
