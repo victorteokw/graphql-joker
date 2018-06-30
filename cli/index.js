@@ -19,16 +19,18 @@ if (!command) {
 
 const generatorFile = path.join(__dirname, '../generators', command + '.js');
 
-if (fs.existsSync(generatorFile)) {
-  if (options.help) {
-    help(command);
-  } else {
-    const generate = require(generatorFile);
-    generate({
-      args, options, projDir: options.forceCwd ? process.cwd() : wd(command)
-    });
-  }
-} else {
+if (!fs.existsSync(generatorFile)) {
   process.stderr.write(`Unknown command '${command}'.\n`);
   process.exit(1);
 }
+
+if (options.help) {
+  help(command);
+  process.exit(0);
+}
+
+const generate = require(generatorFile);
+
+generate({
+  args, options, projDir: options.forceCwd ? process.cwd() : wd(command)
+});

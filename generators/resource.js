@@ -22,23 +22,23 @@ module.exports = ({ args, options, projDir }) => {
   const destination = require('../utils/destination')(projDir);
 
   if (options.destroy) {
-    rm(destination(`models/${context.modelName}.js`));
-    rm(destination(`schemas/${context.modelName}.gql`));
-    rm(destination(`resolvers/${context.modelName}.js`));
+    rm(destination(`${options.modelDir}/${context.modelName}.js`));
+    rm(destination(`${options.schemaDir}/${context.modelName}.gql`));
+    rm(destination(`${options.resolverDir}/${context.modelName}.js`));
   } else {
     copyTpl(
       template('models/_Base.js'),
-      destination(`models/${context.modelName}.js`),
+      destination(`${options.modelDir}/${context.modelName}.js`),
       context
     );
     copyTpl(
       template('schemas/_Base.gql'),
-      destination(`schemas/${context.modelName}.gql`),
+      destination(`${options.schemaDir}/${context.modelName}.gql`),
       context
     );
     copyTpl(
       template('resolvers/_Base.js'),
-      destination(`resolvers/${context.modelName}.js`),
+      destination(`${options.resolverDir}/${context.modelName}.js`),
       context
     );
     writeToFile(

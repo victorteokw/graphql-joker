@@ -1,5 +1,6 @@
 const minimist = require('minimist');
 const camelCase = require('camelcase');
+const defaultOpts = require('./defaultOpts');
 
 module.exports = () => {
   const argv = minimist(process.argv.slice(2), {
@@ -8,12 +9,7 @@ module.exports = () => {
       'd': 'destroy',
       'h': 'help'
     },
-    default: {
-      'modelDir': 'models',
-      'schemaDir': 'schemas',
-      'resolverDir': 'resolvers',
-      indent: 2
-    }
+    default: defaultOpts
   });
 
   Object.keys(argv).forEach((k) => {
