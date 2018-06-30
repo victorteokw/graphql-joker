@@ -9,9 +9,9 @@ module.exports = () => {
       'h': 'help'
     },
     default: {
-      models: 'models',
-      schemas: 'schemas',
-      resolvers: 'resolvers',
+      'modelDir': 'models',
+      'schemaDir': 'schemas',
+      'resolverDir': 'resolvers',
       indent: 2
     }
   });
