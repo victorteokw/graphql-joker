@@ -1,24 +1,10 @@
 #!/usr/bin/env node
-const minimist = require('minimist');
 const path = require('path');
 const fs = require('fs');
 const help = require('./help');
+const parseArgs = require('./parseArgs');
 
-const argv = minimist(process.argv.slice(2), {
-  alias: {
-    'v': 'version',
-    'd': 'destroy',
-    'h': 'help'
-  },
-  default: {
-    models: 'models',
-    schemas: 'schemas',
-    resolvers: 'resolvers',
-    indent: 2
-  }
-});
-
-const { _: [ command, ...args ], ...options } = argv;
+const { _: [ command, ...args ], ...options } = parseArgs();
 
 if (options.version) {
   const version = require(path.join(__dirname, '../package.json')).version;
