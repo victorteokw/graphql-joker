@@ -27,7 +27,9 @@ A field follows the following rules: \n\
 \n\tamur resource BillingInfo contact:{ phoneNo:String name:String } \\\
 \n\taddress:{ line1:String line2:String } order:Order\n`;
   } else if (command === 'schema') {
-    msg = ``;
+    msg = `\nUsage: amur schema SchemaName field1 [field2... fieldN]\n\
+\n\tIt creates reusable subschemas for other API resources. It follows \
+\n\tthe same field definition conventions with resource generator.\n`;
   } else {
     msg = '\nUsage: amur <command> [args...]\
     \n\nCommands:\
