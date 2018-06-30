@@ -25,7 +25,7 @@ if (fs.existsSync(generatorFile)) {
   } else {
     const generate = require(generatorFile);
     generate({
-      args, options, projDir: wd(command)
+      args, options, projDir: options.forceCwd ? process.cwd() : wd(command)
     });
   }
 } else {

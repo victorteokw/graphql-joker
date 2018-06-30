@@ -34,17 +34,18 @@ const resolverBody = (modelName, fields, indentSpace = 2) => {
     final += `${' '.repeat(indentSpace * 2)}async ${f.name}(root, _, ctx) {\n`;
     final += `${' '.repeat(indentSpace * 3)}const { ${f.jsType} } = ctx.models;\n`;
     if (f.foreignKey) {
+      const foreignKey = f.foreignKey.includes('.') ? `'${f.foreignKey}'` : f.foreignKey;
       if (f.foreignKeyIsArray) {
         if (f.isArray) {
-          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.find({ ${f.foreignKey}: root._id });\n`;
+          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.find({ ${foreignKey}: root._id });\n`;
         } else {
-          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.findOne({ ${f.foreignKey}: root._id });\n`;
+          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.findOne({ ${foreignKey}: root._id });\n`;
         }
       } else {
         if (f.isArray) {
-          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.find({ ${f.foreignKey}: root._id });\n`;
+          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.find({ ${foreignKey}: root._id });\n`;
         } else {
-          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.findOne({ ${f.foreignKey}: root._id });\n`;
+          final += `${' '.repeat(indentSpace * 3)}return await ${f.jsType}.findOne({ ${foreignKey}: root._id });\n`;
         }
       }
     } else {
