@@ -38,13 +38,16 @@ module.exports = ({ args, options, projDir }) => {
     template('_README.md'),
     destination('README.md'),
     {
-      name: name
+      name
     }
   );
   // eslintrc
   copyTpl(
-    template('.eslintrc'),
-    destination('.eslintrc')
+    template('_.eslintrc'),
+    destination('.eslintrc'),
+    {
+      eslintConfig: options.eslintConfig
+    }
   );
   // git
   copyTpl(
@@ -162,6 +165,6 @@ module.exports = ({ args, options, projDir }) => {
   ].map((dep) => install(dep));
 
   [
-    'eslint', 'eslint-config-man', 'nodemon', 'nonula', 'dobukulbira', 'jest', 'mexpect'
+    'eslint', `eslint-config-${options.eslintConfig}`, 'nodemon', 'nonula', 'dobukulbira', 'jest', 'mexpect'
   ].map((dep) => install(dep, true));
 };
