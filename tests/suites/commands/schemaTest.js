@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs-extra');
 const assert = require('assert');
-const runGenerator = require('./setup/runGenerator');
-const fileContent = require('./assertions/fileContent');
+const runGenerator = require('../../setup/runGenerator');
+const fileContent = require('../../assertions/fileContent');
 
 describe('amur schema', () => {
 

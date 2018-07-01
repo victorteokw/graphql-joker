@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra');
-const runGenerator = require('./setup/runGenerator');
-const fileContent = require('./assertions/fileContent');
+const runGenerator = require('../../setup/runGenerator');
+const fileContent = require('../../assertions/fileContent');
 
 describe('amur resource', () => {
   describe('supports string type', () => {

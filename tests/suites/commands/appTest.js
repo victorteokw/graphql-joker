@@ -2,8 +2,8 @@ const path = require('path');
 const fs = require('fs-extra');
 const glob = require('glob');
 const assert = require('assert');
-const fileContent = require('./assertions/fileContent');
-const runGenerator = require('./setup/runGenerator');
+const fileContent = require('../../assertions/fileContent');
+const runGenerator = require('../../setup/runGenerator');
 
 describe('amur app brand-new-app', () => {
 
