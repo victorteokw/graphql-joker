@@ -20,13 +20,10 @@
   "repository": "zhangkaiyulw/amur",
   "license": "GPL-3.0",
   "bin": {
-    "amur": "cli/index.js"
+    "amur": "lib/cli/index.js"
   },
   "files": [
-    "generators",
-    "utils",
-    "cli",
-    "templates"
+    "lib"
   ],
   "main": "cli/index.js",
   "keywords": [

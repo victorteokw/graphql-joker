@@ -1,4 +1,4 @@
-const quote = require('../utils/quote');
+const quote = require('../lib/utils/string/quote');
 const assert = require('assert');
 
 describe('quote', () => {

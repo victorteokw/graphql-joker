@@ -1,12 +1,12 @@
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
-const defaultOpts = require('../../cli/defaultOpts');
+const defaultOpts = require('../../lib/cli/defaultOpts');
 
 module.exports = (generatorName, args = [], options = {}) => {
   const generatorFile = path.resolve(
     __dirname,
-    '../../generators',
+    '../../lib/commands',
     generatorName + '.js'
   );
   const generator = require(generatorFile);

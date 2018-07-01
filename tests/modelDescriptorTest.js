@@ -1,4 +1,4 @@
-const modelDescriptor = require('../utils/modelDescriptor');
+const modelDescriptor = require('../lib/modelDescriptor');
 const assert = require('assert');
 
 describe('model descriptor', () => {
