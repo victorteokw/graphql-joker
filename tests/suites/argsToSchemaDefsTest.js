@@ -1,10 +1,10 @@
-const modelDescriptor = require('../../lib/modelDescriptor');
+const argsToSchemaDefs = require('../../lib/argsToSchemaDefs');
 const assert = require('assert');
 
-describe('model descriptor', () => {
-  it('creates correct descriptor', () => {
-    const desc = modelDescriptor(['User', 'name:String', 'age:Int', 'disabled:Boolean:false']);
-    assert.deepEqual(desc, {
+describe('model schemaDefsriptor', () => {
+  it('creates correct schemaDefsriptor', () => {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String', 'age:Int', 'disabled:Boolean:false']);
+    assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
       varName: 'user',
@@ -48,8 +48,8 @@ describe('model descriptor', () => {
   });
 
   it('handles plural model names', () => {
-    const desc = modelDescriptor(['Quiz', 'content:String!', 'answer:String!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['Quiz', 'content:String!', 'answer:String!']);
+    assert.deepEqual(schemaDefs, {
       modelName: 'Quiz',
       collectionName: 'quizzes',
       varName: 'quiz',
@@ -84,8 +84,8 @@ describe('model descriptor', () => {
   });
 
   it('handles uncountable model names', () => {
-    const desc = modelDescriptor(['Fish', 'name:String']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['Fish', 'name:String']);
+    assert.deepEqual(schemaDefs, {
       modelName: 'Fish',
       collectionName: 'fish',
       varName: 'fish',
@@ -106,8 +106,8 @@ describe('model descriptor', () => {
 
 
   it('handles references', () => {
-    const desc = modelDescriptor(['User', 'name:String!', 'posts:[Post]']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String!', 'posts:[Post]']);
+    assert.deepEqual(schemaDefs, {
       "modelName":"User",
       "collectionName":"users",
       "varName":"user",
@@ -142,8 +142,8 @@ describe('model descriptor', () => {
   });
 
   it('handles arrays', () => {
-    const desc = modelDescriptor(['User', 'name:[String]!^$:No Name', 'posts:[Post]']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:[String]!^$:No Name', 'posts:[Post]']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -181,8 +181,8 @@ describe('model descriptor', () => {
   });
 
   it('handle foreign keys', () => {
-    const desc = modelDescriptor(['User', 'posts:[Post]:author']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'posts:[Post]:author']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -204,8 +204,8 @@ describe('model descriptor', () => {
   });
 
   it('handle default value', () => {
-    const desc = modelDescriptor(['User', 'age:Number:18']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'age:Number:18']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -229,8 +229,8 @@ describe('model descriptor', () => {
   });
 
   it('handle index modifier', () => {
-    const desc = modelDescriptor(['User', 'name:String^']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String^']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -254,8 +254,8 @@ describe('model descriptor', () => {
   });
 
   it('handle required modifier', () => {
-    const desc = modelDescriptor(['User', 'name:String!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -280,8 +280,8 @@ describe('model descriptor', () => {
   });
 
   it('handle unique modifier', () => {
-    const desc = modelDescriptor(['User', 'name:String$']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String$']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -306,8 +306,8 @@ describe('model descriptor', () => {
   });
 
   it('handle combined modifiers', () => {
-    const desc = modelDescriptor(['User', 'name:String$^!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String$^!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -333,8 +333,8 @@ describe('model descriptor', () => {
   });
 
   it('handle string match modifiers', () => {
-    const desc = modelDescriptor(['User', 'name:String/\\w+/']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String/\\w+/']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -358,8 +358,8 @@ describe('model descriptor', () => {
   });
 
   it('string match modifiers should come before other modifiers', () => {
-    const desc = modelDescriptor(['User', 'name:String/\\w+/!^$']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'name:String/\\w+/!^$']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -386,8 +386,8 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Number', () => {
-    const desc = modelDescriptor(['User', 'age:Number']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'age:Number']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -409,8 +409,8 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Int', () => {
-    const desc = modelDescriptor(['User', 'age:Int']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'age:Int']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -432,8 +432,8 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Float', () => {
-    const desc = modelDescriptor(['User', 'rate:Float']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'rate:Float']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -455,8 +455,8 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input ID', () => {
-    const desc = modelDescriptor(['User', 'link:ID']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'link:ID']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -478,8 +478,8 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input ObjectId', () => {
-    const desc = modelDescriptor(['User', 'link:ObjectId']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'link:ObjectId']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -501,8 +501,8 @@ describe('model descriptor', () => {
   });
 
   it('handles nesting structure', () => {
-    const desc = modelDescriptor(['User', 'settings:{', 'sms:Boolean!:true', 'email:Boolean!:true', '}', 'name:String']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'settings:{', 'sms:Boolean!:true', 'email:Boolean!:true', '}', 'name:String']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -559,8 +559,8 @@ describe('model descriptor', () => {
   });
 
   it('handles nesting array structure', () => {
-    const desc = modelDescriptor(['User', 'settings:[{', 'sms:Boolean!:true', 'email:Boolean!:true', '}]', 'name:String']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'settings:[{', 'sms:Boolean!:true', 'email:Boolean!:true', '}]', 'name:String']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -617,14 +617,14 @@ describe('model descriptor', () => {
   });
 
   it('handles deep nesting structure', () => {
-    const desc = modelDescriptor([
+    const schemaDefs = argsToSchemaDefs([
       'User',
       'age:Int',
       'settings:[{', 'sms:Boolean!:true', 'email:Boolean!:true', 'pn:{',
       'ipad:Boolean!:true', 'iphone:Boolean!:true', '}',
       'webSocket:Boolean!:true', '}]', 'name:String'
     ]);
-    assert.deepEqual(desc, {
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -741,8 +741,8 @@ describe('model descriptor', () => {
   });
 
   it('handles enum', () => {
-    const desc = modelDescriptor(['User', 'gender:Enum{male,female}!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'gender:Enum{male,female}!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -770,8 +770,8 @@ describe('model descriptor', () => {
   });
 
   it('handles special chars in enum', () => {
-    const desc = modelDescriptor(['User', 'level:Enum{A+,A,A-,B+,B,B-}!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'level:Enum{A+,A,A-,B+,B,B-}!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -803,8 +803,8 @@ describe('model descriptor', () => {
   });
 
   it('handles enum in nested structure', () => {
-    const desc = modelDescriptor(['User', 'info:{', 'gender:Enum{male,female}!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['User', 'info:{', 'gender:Enum{male,female}!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "User",
       "collectionName": "users",
       "varName": "user",
@@ -839,8 +839,8 @@ describe('model descriptor', () => {
   });
 
   it('handles enum in nested array structure', () => {
-    const desc = modelDescriptor(['Building', 'users:[{', 'gender:Enum{male,female}!']);
-    assert.deepEqual(desc, {
+    const schemaDefs = argsToSchemaDefs(['Building', 'users:[{', 'gender:Enum{male,female}!']);
+    assert.deepEqual(schemaDefs, {
       "modelName": "Building",
       "collectionName": "buildings",
       "varName": "building",
