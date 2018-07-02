@@ -4,7 +4,7 @@
 With amur, you can create a full-fledged backend server with your complex app
 logic and running API in less than 3 minutes.
 
-Amur automate backend coding process.
+Amur automates backend coding process.
 
 Currently, amur support koa, mongoose and graphQL style API.
 
