@@ -41,6 +41,8 @@
     "ejs": "^2.6.1",
     "find-dominant-file": "^1.0.0",
     "fs-extra": "^6.0.1",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.isequal": "^4.5.0",
     "lodash.kebabcase": "^4.1.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
