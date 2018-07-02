@@ -6,21 +6,25 @@ logic and running API in less than 3 minutes.
 
 Amur automate backend coding process.
 
+Currently, amur support koa, mongoose and graphQL style API.
+
 ## Installation
 
 ```bash
 npm install -g amur
 ```
 
-## Setup an Amur Project
+## Usage
+
+### Create an Amur Project
 
 ```bash
-amur my-new-app
+amur app my-new-app
 ```
 
-If you don't specify app name, the app will be installed to your current working directory.
+If you don't specify app name, the app will be created at your current working directory.
 
-## Generate Resources
+### Generate Resources
 
 Amur resource generator follows this style
 
@@ -36,15 +40,54 @@ amur resource User name:String age:Int posts:[Post]:author
 amur resource Post title:String content:String author:User
 ```
 
-And then open `npm start` to try out auto generated API suite.
+#### Type Modifiers
+
+If you are doing a website which has authentication feature. You may want a
+user's email to match designated format and to be required and unique. You can
+specify type modifiers.
+
+``` bash
+amur resource User 'email:String/.*@.*\..*/!$'
+```
+
+In the above example, `/.*@.*\..*/` means that this field matches this regexp,
+`!` means required, and `$` means unique.
+
+#### Default Values
+
+You can specify default value to a field with the following syntax.
+
+``` bash
+amur resource Post 'title:String!:Untitled' 'lastUpdate:Date!:`Date.now`'
+```
+
+#### Nested Structure
+
+You can create nested structure with the following syntax.
+
+``` bash
+amur resource User posts:[{ title:String content:String comments:[{ \
+commenter:User content:String }] }] email:String password:String settings:{ \
+sms:Boolean email:Boolean pushNotification:Boolean }
+```
+
+#### Enums
+
+You can create enum fields with enum syntax.
+
+```bash
+amur resource User 'gender:Enum{male,female}!'
+```
 
 ## Destroy Resources
 
 If you mistakenly generated something or you spell something wrongly, you want to undo:
 
 ``` bash
-amur resource ResourceToDelete -d
+amur resource User -d
 ```
+
+The above example deletes all files related to User resource.
 
 [npm-image]: https://badge.fury.io/js/amur.svg
 [npm-url]: https://npmjs.org/package/amur
