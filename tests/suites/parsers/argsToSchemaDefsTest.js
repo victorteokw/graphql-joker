@@ -1,4 +1,4 @@
-const argsToSchemaDefs = require('../../lib/argsToSchemaDefs');
+const argsToSchemaDefs = require('../../../lib/parsers/argsToSchemaDefs');
 const assert = require('assert');
 
 describe('model schemaDefsriptor', () => {
