@@ -43,14 +43,7 @@ describe('model descriptor', () => {
         },
         foreignKey: undefined,
         foreignKeyIsArray: undefined
-      }],
-      sideEffects: {
-        requiresObjectId: false,
-        requiresDate: false,
-        needsResolverModelBody: false,
-        needsExtraSchemaTypes: false,
-        "schemaRequirements": []
-      }
+      }]
     });
   });
 
@@ -86,14 +79,7 @@ describe('model descriptor', () => {
         },
         foreignKey: undefined,
         foreignKeyIsArray: undefined
-      }],
-      sideEffects: {
-        requiresObjectId: false,
-        requiresDate: false,
-        needsResolverModelBody: false,
-        needsExtraSchemaTypes: false,
-        "schemaRequirements": []
-      }
+      }]
     });
   });
 
@@ -114,14 +100,7 @@ describe('model descriptor', () => {
         modifiers: {},
         foreignKey: undefined,
         foreignKeyIsArray: undefined
-      }],
-      sideEffects: {
-        requiresObjectId: false,
-        requiresDate: false,
-        needsResolverModelBody: false,
-        needsExtraSchemaTypes: false,
-        "schemaRequirements": []
-      }
+      }]
     });
   });
 
@@ -158,14 +137,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId":true,
-        "requiresDate":false,
-        "needsResolverModelBody":true,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -204,14 +176,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": true,
-        "requiresDate": false,
-        "needsResolverModelBody": true,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -234,14 +199,7 @@ describe('model descriptor', () => {
           "foreignKey": "author",
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": true,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -266,14 +224,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -298,14 +249,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -330,14 +274,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
 
   });
@@ -364,14 +301,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -398,14 +328,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -430,14 +353,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -465,14 +381,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -495,14 +404,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -525,14 +427,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -555,14 +450,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -585,14 +473,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": true,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -615,14 +496,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": true,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": false,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -680,14 +554,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -745,14 +612,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -876,14 +736,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -912,14 +765,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -952,14 +798,7 @@ describe('model descriptor', () => {
           foreignKey: undefined,
           foreignKeyIsArray: undefined
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -995,14 +834,7 @@ describe('model descriptor', () => {
             }
           ]
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
@@ -1038,14 +870,7 @@ describe('model descriptor', () => {
             }
           ]
         }
-      ],
-      "sideEffects": {
-        "requiresObjectId": false,
-        "requiresDate": false,
-        "needsResolverModelBody": false,
-        "needsExtraSchemaTypes": true,
-        "schemaRequirements": []
-      }
+      ]
     });
   });
 
