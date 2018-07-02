@@ -73,8 +73,17 @@ sms:Boolean email:Boolean pushNotification:Boolean }
 
 You can create enum fields with enum syntax.
 
-```bash
+``` bash
 amur resource User 'gender:Enum{male,female}!'
+```
+
+### Reusable schemas
+
+You can create a reusable schema and reference to it.
+
+``` bash
+amur schema Address line1:String line2:String country:String region:String
+amur resource User address:addressSchema name:String
 ```
 
 ## Destroy Resources
