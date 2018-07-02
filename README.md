@@ -1,7 +1,10 @@
 # Amur
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-Gimme a koa mongoose graphQL app
+With amur, you can create a full-fledged backend server with your complex app
+logic and running API in less than 3 minutes.
+
+Amur automate backend coding process.
 
 ## Installation
 

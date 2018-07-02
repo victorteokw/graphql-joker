@@ -1,7 +1,7 @@
 {
   "name": "amur",
   "version": "0.5.4",
-  "description": "Gimme a koa mongoose graphQL app.",
+  "description": "Amur automate backend coding process.",
   "homepage": "https://github.com/zhangkaiyulw/amur",
   "author": {
     "name": "Zhang Kaiyu",
