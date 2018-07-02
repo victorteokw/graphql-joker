@@ -14,9 +14,7 @@ Currently, amur support koa, mongoose and graphQL style API.
 npm install -g amur
 ```
 
-## Usage
-
-### Create an Amur Project
+## Create an Amur Project
 
 ```bash
 amur app my-new-app
@@ -24,7 +22,7 @@ amur app my-new-app
 
 If you don't specify app name, the app will be created at your current working directory.
 
-### Generate Resources
+## Generate Resources
 
 Amur resource generator follows this style
 
@@ -40,7 +38,7 @@ amur resource User name:String age:Int posts:[Post]:author
 amur resource Post title:String content:String author:User
 ```
 
-#### Type Modifiers
+### Type Modifiers
 
 If you are doing a website which has authentication feature. You may want a
 user's email to match designated format and to be required and unique. You can
@@ -53,7 +51,7 @@ amur resource User 'email:String/.*@.*\..*/!$'
 In the above example, `/.*@.*\..*/` means that this field matches this regexp,
 `!` means required, and `$` means unique.
 
-#### Default Values
+### Default Values
 
 You can specify default value to a field with the following syntax.
 
@@ -61,7 +59,7 @@ You can specify default value to a field with the following syntax.
 amur resource Post 'title:String!:Untitled' 'lastUpdate:Date!:`Date.now`'
 ```
 
-#### Nested Structure
+### Nested Structure
 
 You can create nested structure with the following syntax.
 
@@ -71,7 +69,7 @@ commenter:User content:String }] }] email:String password:String settings:{ \
 sms:Boolean email:Boolean pushNotification:Boolean }
 ```
 
-#### Enums
+### Enums
 
 You can create enum fields with enum syntax.
 
