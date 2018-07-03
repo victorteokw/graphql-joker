@@ -66,7 +66,7 @@ describe('amur app brand-new-app', () => {
         });
         [
           'koa', 'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
-          'koa-ass', 'koa-graphql-router', 'mongoose', 'noenv', 'lodash'
+          'koa-ass', 'koa-graphql-router', 'mongoose', 'noenv'
         ].forEach((name) => {
           it(`installs the dependency ${name}`, () => {
             const fileContents = fs.readFileSync(path.join(projDir, path.relative(expectedDir, f))).toString();
