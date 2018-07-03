@@ -65,7 +65,7 @@ describe('amur app brand-new-app', () => {
           });
         });
         [
-          'koa', 'mongoose', 'graphql',
+          'koa', 'mongoose', 'graphql', 'koa-ass',
           'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
           'graphql-tools', 'merge-graphql-schemas', 'apollo-server-koa',
           'noenv', 'lodash', 'glob'

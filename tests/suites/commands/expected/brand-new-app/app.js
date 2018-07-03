@@ -4,7 +4,7 @@ const Koa = require('koa');
 const logger = require('koa-logger');
 const body = require('koa-body');
 const cors = require('@koa/cors');
-const configMiddleware = require('./middlewares/config');
+const ass = require('koa-ass');
 const mongoose = require('koa-mon');
 const router = require('./middlewares/router');
 
@@ -16,7 +16,7 @@ app.use(body());
 
 app.use(cors());
 
-app.use(configMiddleware(config));
+app.use(ass({ config }));
 
 app.use(mongoose({
   modelDir: __dirname + '/models',
