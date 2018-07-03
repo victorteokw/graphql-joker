@@ -65,10 +65,8 @@ describe('amur app brand-new-app', () => {
           });
         });
         [
-          'koa', 'mongoose', 'graphql', 'koa-ass',
-          'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
-          'graphql-tools', 'merge-graphql-schemas', 'apollo-server-koa',
-          'noenv', 'lodash', 'glob'
+          'koa', 'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
+          'koa-ass', 'koa-graphql-router', 'mongoose', 'noenv', 'lodash'
         ].forEach((name) => {
           it(`installs the dependency ${name}`, () => {
             const fileContents = fs.readFileSync(path.join(projDir, path.relative(expectedDir, f))).toString();

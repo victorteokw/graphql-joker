@@ -1,14 +1,14 @@
 const config = require('noenv');
-const Koa = require('koa');
 
+const Koa = require('koa');
 const logger = require('koa-logger');
 const body = require('koa-body');
 const cors = require('@koa/cors');
 const ass = require('koa-ass');
 const mongoose = require('koa-mon');
-const router = require('./middlewares/router');
+const graphqlRouter = require('koa-graphql-router');
 
-const app = module.exports = new Koa();
+const app = new Koa();
 
 app.use(logger());
 
@@ -25,11 +25,16 @@ app.use(mongoose({
   debug: config.database.debug
 }));
 
-app.use(router.routes(), router.allowedMethods());
+app.use(graphqlRouter(
+  schemaDir: __dirname + '/schemas',
+  resolverDir: __dirname + '/resolvers'
+));
 
 // Export a module or start server
 if (!module.parent) {
   app.listen(config.app.port);
   console.log(`Using env ${config.env}...`);
   console.log(`Listening on port ${config.app.port}...`);
+} else {
+  module.exports = app;
 }
