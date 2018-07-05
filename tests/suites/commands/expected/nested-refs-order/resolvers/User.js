@@ -48,7 +48,7 @@ module.exports = {
     },
     async updateUser(root, { _id, input }, ctx) {
       const { User } = ctx.models;
-      return await User.findOneAndUpdate({ _id }, input, { new: true });
+      return await User.findByIdAndUpdateByMerge(_id, input);
     },
     async deleteUser(root, { _id }, ctx) {
       const { User } = ctx.models;

@@ -16,7 +16,7 @@ module.exports = {
     },
     async updateResult(root, { _id, input }, ctx) {
       const { Result } = ctx.models;
-      return await Result.findOneAndUpdate({ _id }, input, { new: true });
+      return await Result.findByIdAndUpdateByMerge(_id, input);
     },
     async deleteResult(root, { _id }, ctx) {
       const { Result } = ctx.models;

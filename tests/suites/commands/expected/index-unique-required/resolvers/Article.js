@@ -16,7 +16,7 @@ module.exports = {
     },
     async updateArticle(root, { _id, input }, ctx) {
       const { Article } = ctx.models;
-      return await Article.findOneAndUpdate({ _id }, input, { new: true });
+      return await Article.findByIdAndUpdateByMerge(_id, input);
     },
     async deleteArticle(root, { _id }, ctx) {
       const { Article } = ctx.models;
