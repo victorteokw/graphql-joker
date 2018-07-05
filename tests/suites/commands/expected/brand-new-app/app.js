@@ -25,10 +25,10 @@ app.use(mongoose({
   debug: config.database.debug
 }));
 
-app.use(graphqlRouter(
+app.use(graphqlRouter({
   schemaDir: __dirname + '/schemas',
   resolverDir: __dirname + '/resolvers'
-));
+}));
 
 // Export a module or start server
 if (!module.parent) {
