@@ -107,7 +107,8 @@ describe('amur app brand-new-app', () => {
           'nonula',
           'dobukulbira',
           'jest',
-          'mexpect'
+          'mexpect',
+          'prettier-eslint'
         ].forEach(name => {
           it(`installs the dev dependency ${name}`, () => {
             const fileContents = fs
