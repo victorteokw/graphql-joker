@@ -251,7 +251,12 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/multiple-args');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'name:String', 'age:Int', 'popularity:Float']);
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String',
+        'age:Int',
+        'popularity:Float'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -278,7 +283,12 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/index-unique-required');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['Article/articles', 'title:String!$', 'content:String!', 'keyName:String!^$']);
+      destDir = runGenerator('resource', [
+        'Article/articles',
+        'title:String!$',
+        'content:String!',
+        'keyName:String!^$'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -292,12 +302,16 @@ describe('amur resource', () => {
     });
 
     it('create correct schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Article.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Article.gql'))
+        .toString();
       assertFileContent('schemas/Article.gql', c);
     });
 
     it('create correct resolver file', () => {
-      const c = fs.readFileSync(path.join(dir, 'resolvers/Article.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/Article.js'))
+        .toString();
       assertFileContent('resolvers/Article.js', c);
     });
   });
@@ -305,7 +319,13 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/default-values');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'name:String!^$:Untitled', 'disabled:Boolean!:false', 'age:Int!:18', 'posts:[Post]:user']);
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String!^$:Untitled',
+        'disabled:Boolean!:false',
+        'age:Int!:18',
+        'posts:[Post]:user'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -332,7 +352,10 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/dynamic-default');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['Meeting', 'startedAt:Date!:`new Date()`']);
+      destDir = runGenerator('resource', [
+        'Meeting',
+        'startedAt:Date!:`new Date()`'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -346,12 +369,16 @@ describe('amur resource', () => {
     });
 
     it('create correct schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Meeting.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Meeting.gql'))
+        .toString();
       assertFileContent('schemas/Meeting.gql', c);
     });
 
     it('create correct resolver file', () => {
-      const c = fs.readFileSync(path.join(dir, 'resolvers/Meeting.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/Meeting.js'))
+        .toString();
       assertFileContent('resolvers/Meeting.js', c);
     });
   });
@@ -359,7 +386,10 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/string-match');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'email:String/^\\w+@\\w+\\.\\w+$/g!']);
+      destDir = runGenerator('resource', [
+        'User',
+        'email:String/^\\w+@\\w+\\.\\w+$/g!'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -387,7 +417,11 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/number-min-and-max');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['Result', 'score:Float<=100.0>=0.5', 'hexKey:Int<=0xabcd>=0x1234']);
+      destDir = runGenerator('resource', [
+        'Result',
+        'score:Float<=100.0>=0.5',
+        'hexKey:Int<=0xabcd>=0x1234'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -401,12 +435,16 @@ describe('amur resource', () => {
     });
 
     it('create correct schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Result.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Result.gql'))
+        .toString();
       assertFileContent('schemas/Result.gql', c);
     });
 
     it('create correct resolver file', () => {
-      const c = fs.readFileSync(path.join(dir, 'resolvers/Result.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/Result.js'))
+        .toString();
       assertFileContent('resolvers/Result.js', c);
     });
   });
@@ -471,9 +509,14 @@ describe('amur resource', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-model');
     beforeAll(() => {
-      destDir = runGenerator('resource', "User name:String settings:{ sms:Boolean email:Boolean \
+      destDir = runGenerator(
+        'resource',
+        'User name:String settings:{ sms:Boolean email:Boolean \
 push:{ first:Boolean second:Boolean } } age:Int address:{ city:String \
-province:String Region:String address:{ one:String two:String } }".split(' '));
+province:String Region:String address:{ one:String two:String } }'.split(
+            ' '
+          )
+      );
       assertFileContent = fileContent(destDir);
     });
 
@@ -501,8 +544,13 @@ province:String Region:String address:{ one:String two:String } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-model-array');
     beforeAll(() => {
-      destDir = runGenerator('resource', "User age:String roles:[{ name:String \
-permissions:[String] }] name:String".split(' '));
+      destDir = runGenerator(
+        'resource',
+        'User age:String roles:[{ name:String \
+permissions:[String] }] name:String'.split(
+            ' '
+          )
+      );
       assertFileContent = fileContent(destDir);
     });
 
@@ -530,9 +578,14 @@ permissions:[String] }] name:String".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/deep-nested-array-model');
     beforeAll(() => {
-      destDir = runGenerator('resource', "Product names:[{ langCode:String!:cn name:String! \
+      destDir = runGenerator(
+        'resource',
+        'Product names:[{ langCode:String!:cn name:String! \
 }] description:String! solds:Int comments:[{ title:String addresses:[{ \
-region:String! country:String! }] }]".split(' '));
+region:String! country:String! }] }]'.split(
+            ' '
+          )
+      );
       assertFileContent = fileContent(destDir);
     });
 
@@ -546,12 +599,16 @@ region:String! country:String! }] }]".split(' '));
     });
 
     it('create correct schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Product.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Product.gql'))
+        .toString();
       assertFileContent('schemas/Product.gql', c);
     });
 
     it('create correct resolver file', () => {
-      const c = fs.readFileSync(path.join(dir, 'resolvers/Product.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/Product.js'))
+        .toString();
       assertFileContent('resolvers/Product.js', c);
     });
   });
@@ -560,7 +617,10 @@ region:String! country:String! }] }]".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-refs');
     beforeAll(() => {
-      destDir = runGenerator('resource', "User article:{ post:Post comments:[Comment] }".split(' '));
+      destDir = runGenerator(
+        'resource',
+        'User article:{ post:Post comments:[Comment] }'.split(' ')
+      );
       assertFileContent = fileContent(destDir);
     });
 
@@ -588,9 +648,14 @@ region:String! country:String! }] }]".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-refs-order');
     beforeAll(() => {
-      destDir = runGenerator('resource', "User settings:{ push:PushSetting mobile:{ \
+      destDir = runGenerator(
+        'resource',
+        'User settings:{ push:PushSetting mobile:{ \
 ios:IOSSetting android:AndroidSetting } } articles:{ titles:[Title] \
-posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
+posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
+            ' '
+          )
+      );
       assertFileContent = fileContent(destDir);
     });
 
@@ -646,7 +711,15 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/enum-in-nested-structures');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['Account', 'email:String/.*@wtf\\.com/!', 'info:{', 'name:String!', 'gender:Enum{Male,Female}', '}', 'password:String!']);
+      destDir = runGenerator('resource', [
+        'Account',
+        'email:String/.*@wtf\\.com/!',
+        'info:{',
+        'name:String!',
+        'gender:Enum{Male,Female}',
+        '}',
+        'password:String!'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -660,12 +733,16 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     });
 
     it('create correct schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Account.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Account.gql'))
+        .toString();
       assertFileContent('schemas/Account.gql', c);
     });
 
     it('create correct resolver file', () => {
-      const c = fs.readFileSync(path.join(dir, 'resolvers/Account.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/Account.js'))
+        .toString();
       assertFileContent('resolvers/Account.js', c);
     });
   });
@@ -674,7 +751,12 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/enum-in-nested-arrays');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'posts:[{', 'title:String', 'kind:Enum{science,math,english}']);
+      destDir = runGenerator('resource', [
+        'User',
+        'posts:[{',
+        'title:String',
+        'kind:Enum{science,math,english}'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -702,7 +784,11 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/referencing-schema');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'address:addressSchema', 'addresses:[addressSchema]']);
+      destDir = runGenerator('resource', [
+        'User',
+        'address:addressSchema',
+        'addresses:[addressSchema]'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -730,10 +816,16 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/referencing-schema-and-models');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'name:String!',
-        'gender:Enum{male,female}', 'age:Int>=0<=200',
-        'addresses:[addressSchema]', 'phoneNo:String/1[358]\\d{9,10}/',
-        'email:String/.*@.*\\..*/', 'orders:[Order]:user']);
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String!',
+        'gender:Enum{male,female}',
+        'age:Int>=0<=200',
+        'addresses:[addressSchema]',
+        'phoneNo:String/1[358]\\d{9,10}/',
+        'email:String/.*@.*\\..*/',
+        'orders:[Order]:user'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -761,7 +853,11 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-foreign-key');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'name:String', 'posts:[Post]:staffs.author']);
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String',
+        'posts:[Post]:staffs.author'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -817,7 +913,11 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/mixed-object-id-same-line');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'experience:Mixed', 'post:Post']);
+      destDir = runGenerator('resource', [
+        'User',
+        'experience:Mixed',
+        'post:Post'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 

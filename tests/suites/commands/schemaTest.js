@@ -5,12 +5,17 @@ const runGenerator = require('../../setup/runGenerator');
 const fileContent = require('../../assertions/fileContent');
 
 describe('amur schema', () => {
-
   describe('simple schema', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/simple-schema');
     beforeAll(() => {
-      destDir = runGenerator('schema', ['Address', 'region:String', 'line1:String', 'line2:String', 'country:String']);
+      destDir = runGenerator('schema', [
+        'Address',
+        'region:String',
+        'line1:String',
+        'line2:String',
+        'country:String'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -19,16 +24,20 @@ describe('amur schema', () => {
     });
 
     it('create correct mongoose schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'models/addressSchema.js'))
+        .toString();
       assertFileContent('models/addressSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Address.gql'))
+        .toString();
       assertFileContent('schemas/Address.gql', c);
     });
 
-    it('doesn\'t create resolver file because it\'s not needed', () => {
+    it("doesn't create resolver file because it's not needed", () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
@@ -37,9 +46,17 @@ describe('amur schema', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/nested-schema');
     beforeAll(() => {
-      destDir = runGenerator('schema', ['Address', 'country:String', 'region:String', 'line:{',
-        'one:String!', 'two:String', '}', 'city:String!',
-        'postalCode:String']);
+      destDir = runGenerator('schema', [
+        'Address',
+        'country:String',
+        'region:String',
+        'line:{',
+        'one:String!',
+        'two:String',
+        '}',
+        'city:String!',
+        'postalCode:String'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -48,16 +65,20 @@ describe('amur schema', () => {
     });
 
     it('create correct mongoose schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'models/addressSchema.js'))
+        .toString();
       assertFileContent('models/addressSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Address.gql'))
+        .toString();
       assertFileContent('schemas/Address.gql', c);
     });
 
-    it('doesn\'t create resolver file because it\'s not needed', () => {
+    it("doesn't create resolver file because it's not needed", () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
@@ -66,8 +87,14 @@ describe('amur schema', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/schema-with-refs');
     beforeAll(() => {
-      destDir = runGenerator('schema', ['Post', 'comments:[Comment]', 'author:Author',
-        'title:String', 'content:String', 'subtitle:String']);
+      destDir = runGenerator('schema', [
+        'Post',
+        'comments:[Comment]',
+        'author:Author',
+        'title:String',
+        'content:String',
+        'subtitle:String'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -76,7 +103,9 @@ describe('amur schema', () => {
     });
 
     it('create correct mongoose schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'models/postSchema.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'models/postSchema.js'))
+        .toString();
       assertFileContent('models/postSchema.js', c);
     });
 
@@ -104,16 +133,20 @@ describe('amur schema', () => {
     });
 
     it('create correct mongoose schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'models/addressSchema.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'models/addressSchema.js'))
+        .toString();
       assertFileContent('models/addressSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Address.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Address.gql'))
+        .toString();
       assertFileContent('schemas/Address.gql', c);
     });
 
-    it('doesn\'t create resolver file because it\'s not needed', () => {
+    it("doesn't create resolver file because it's not needed", () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Address.js')));
     });
   });
@@ -122,7 +155,11 @@ describe('amur schema', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/referencing-schema-in-schema');
     beforeAll(() => {
-      destDir = runGenerator('schema', ['Person', 'address:addressSchema', 'name:String']);
+      destDir = runGenerator('schema', [
+        'Person',
+        'address:addressSchema',
+        'name:String'
+      ]);
       assertFileContent = fileContent(destDir);
     });
 
@@ -131,16 +168,20 @@ describe('amur schema', () => {
     });
 
     it('create correct mongoose schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'models/personSchema.js')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'models/personSchema.js'))
+        .toString();
       assertFileContent('models/personSchema.js', c);
     });
 
     it('create correct graphQL schema file', () => {
-      const c = fs.readFileSync(path.join(dir, 'schemas/Person.gql')).toString();
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/Person.gql'))
+        .toString();
       assertFileContent('schemas/Person.gql', c);
     });
 
-    it('doesn\'t create resolver file because it\'s not needed', () => {
+    it("doesn't create resolver file because it's not needed", () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Person.js')));
     });
   });

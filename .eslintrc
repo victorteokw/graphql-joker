@@ -1,7 +1,7 @@
 {
   "extends": "man",
   "rules": {
-    "max-len": ["warn", { "code": 200 }]
+    "max-len": "off"
   },
   "plugins": ["jest"],
   "env": {
