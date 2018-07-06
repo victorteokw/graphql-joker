@@ -87,7 +87,7 @@ Amur supports these primitive or scalar types:
 * Enum
 * Mixed
 
-When you are define a field with type mentioned above, amur will treat them as
+When you are defining a field with type mentioned above, amur will treat them as
 primitive type. When you refer to a type that is not included in the list, amur
 will treat it as a referecing to another model.
 
