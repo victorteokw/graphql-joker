@@ -33,7 +33,8 @@
     "graphql"
   ],
   "scripts": {
-    "test": "jest --silent"
+    "test": "jest --silent",
+    "test-cov": "jest --silent --coverage"
   },
   "dependencies": {
     "camelcase": "^5.0.0",
