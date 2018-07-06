@@ -784,4 +784,60 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }".split(' '));
       assertFileContent('resolvers/User.js', c);
     });
   });
+
+  describe('support mixed scalar type', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/mixed-scalar-type');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'experience:Mixed']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('requires mixed and objectId in same line', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/mixed-object-id-same-line');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'experience:Mixed', 'post:Post']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
 });
