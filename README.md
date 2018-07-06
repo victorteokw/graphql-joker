@@ -1,5 +1,9 @@
 # Amur
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![License][license-image]][license-url] [![PR Welcome][pr-image]][pr-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![License][license-image]][license-url]
+[![PR Welcome][pr-image]][pr-url]
 
 With amur, you can create a full-fledged backend server with your complex app
 logic and running API in less than 3 minutes.
