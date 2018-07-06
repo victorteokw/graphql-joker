@@ -1,5 +1,5 @@
 # Amur
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![License][license-image]][license-url]
 
 With amur, you can create a full-fledged backend server with your complex app
 logic and running API in less than 3 minutes.
@@ -102,3 +102,5 @@ The above example deletes all files related to User resource.
 [travis-url]: https://travis-ci.org/zhangkaiyulw/amur
 [daviddm-image]: https://david-dm.org/zhangkaiyulw/amur.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/zhangkaiyulw/amur
+[license-image]: https://img.shields.io/github/license/zhangkaiyulw/amur.svg
+[license-url]: https://github.com/zhangkaiyulw/amur/blob/master/LICENSE
