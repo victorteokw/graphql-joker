@@ -16,6 +16,8 @@ Currently, amur support koa, mongoose and graphQL style API.
 * [Installation](#installation)
 * [Create an Amur Project](#create-an-amur-project)
 * [Generate Resources](#generate-resources)
+  * [Types](#types)
+  * [Array Type](#array-type)
   * [Type Modifiers](#type-modifiers)
   * [Default Values](#default-values)
   * [Nested Structure](#nested-structure)
@@ -45,9 +47,22 @@ amur app my-new-app
 
 If you don't specify app name, the app will be created at your current working directory.
 
+You can overwrite default eslint config by adding flag `--eslint-config`.
+
+```bash
+amur app my-new-app --eslint-config=your-config
+```
+
+Appending a flag `--git-init`, amur will automatically run `git init` for you
+after setup your project.
+
+```bash
+amur app my-new-app --git-init
+```
+
 # Generate Resources
 
-Amur resource generator follows this style
+Amur resource generator follows this style:
 
 ``` bash
 amur resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
@@ -60,6 +75,39 @@ And you have a model named post, it has title, content and author. Just type lik
 amur resource User name:String age:Int posts:[Post]:author
 amur resource Post title:String content:String author:User
 ```
+
+## Types
+
+Amur supports these primitive or scalar types:
+* String
+* Int
+* Float
+* Boolean
+* Date
+* Enum
+* Mixed
+
+When you are define a field with type mentioned above, amur will treat them as
+primitive type. When you refer to a type that is not included in the list, amur
+will treat it as a referecing to another model.
+
+``` bash
+amur resource User disabled:Boolean:false name:String age:Int spouse:User
+```
+
+In the above example, obviously `disabled`, `name` and `age` are primitive
+types. `spouse` is a reference type which references to `User`.
+
+## Array Type
+
+Surround type with a pair of [], you get an array of that type, for example:
+
+```
+amur resource User spouse:User friends:[User] favoriteSayings:[String]
+```
+
+The field `friends` is an array of `User`s. And the field `favoriteSayings` is
+an array of `String`s.
 
 ## Type Modifiers
 
