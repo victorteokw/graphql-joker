@@ -14,11 +14,15 @@ Currently, amur support koa, mongoose and graphQL style API.
 
 # Installation
 
+Install amur command line tool globally with npm.
+
 ```bash
 npm install -g amur
 ```
 
 # Create an Amur Project
+
+Create an amur app with `amur app` command.
 
 ```bash
 amur app my-new-app
