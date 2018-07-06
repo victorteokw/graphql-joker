@@ -35,7 +35,8 @@
   "scripts": {
     "test": "jest --silent",
     "test-cov": "jest --silent --coverage",
-    "lint": "eslint ./lib"
+    "lint": "eslint ./lib",
+    "lint-fix": "eslint ./lib --fix"
   },
   "dependencies": {
     "camelcase": "^5.0.0",
