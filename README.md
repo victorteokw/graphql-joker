@@ -11,6 +11,17 @@ Currently, amur support koa, mongoose and graphQL style API.
 # Table of contents
 * [Installation](#installation)
 * [Create an Amur Project](#create-an-amur-project)
+* [Generate Resources](#generate-resources)
+  * [Type Modifiers](#type-modifiers)
+  * [Default Values](#default-values)
+  * [Nested Structure](#nested-structure)
+  * [Enums](#enums)
+  * [Reusable Schemas](#reusable-schemas)
+* [Destroy Resources](#destroy-resources)
+* [Integrate with Existing Project](#integrate-with-existing-project)
+  * [Customize Amur Behavior](#customize-amur-behavior)
+  * [Integrate Console Feature](#integrate-console-feature)
+  * [Integrate Data Seeding Feature](#integrate-data-seeding-feature)
 
 # Installation
 
@@ -85,7 +96,7 @@ You can create enum fields with enum syntax.
 amur resource User 'gender:Enum{male,female}!'
 ```
 
-## Reusable schemas
+## Reusable Schemas
 
 You can create a reusable schema and reference to it.
 
