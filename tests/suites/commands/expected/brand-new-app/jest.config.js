@@ -1,16 +1,16 @@
 module.exports = {
   projects: [
     {
-      "displayName": "Model Test",
-      "automock": false,
-      "testMatch": ["<rootDir>/tests/models/*Test.js"],
-      "setupTestFrameworkScriptFile": "mexpect",
-      "testEnvironment": "./tests/modelEnv"
+      displayName: 'Model Test',
+      automock: false,
+      testMatch: ['<rootDir>/tests/models/*Test.js'],
+      setupTestFrameworkScriptFile: 'mexpect',
+      testEnvironment: './tests/modelEnv'
     },
     {
-      "displayName": "Integration Test",
-      "automock": false,
-      "testMatch": ["<rootDir>/tests/integration/*Test.js"]
+      displayName: 'Integration Test',
+      automock: false,
+      testMatch: ['<rootDir>/tests/integration/*Test.js']
     }
   ]
 };

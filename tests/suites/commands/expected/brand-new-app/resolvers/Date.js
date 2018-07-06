@@ -1,9 +1,9 @@
-const { GraphQLScalarType, Kind } = require("graphql");
+const { GraphQLScalarType, Kind } = require('graphql');
 
 module.exports = {
   Date: new GraphQLScalarType({
-    name: "Date",
-    description: "Plain javaScript Date object",
+    name: 'Date',
+    description: 'Plain javaScript Date object',
     serialize(value) {
       return value.toISOString();
     },

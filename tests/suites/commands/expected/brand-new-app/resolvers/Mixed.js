@@ -1,7 +1,7 @@
-const { GraphQLScalarType, Kind } = require("graphql");
+const { GraphQLScalarType, Kind } = require('graphql');
 
 const parseAst = (ast) => {
-  switch(ast.kind) {
+  switch (ast.kind) {
     case Kind.NULL:
       return null;
     case Kind.STRING:
@@ -32,8 +32,8 @@ const parseAst = (ast) => {
 
 module.exports = {
   Mixed: new GraphQLScalarType({
-    name: "Mixed",
-    description: "Mixed Scalar Type",
+    name: 'Mixed',
+    description: 'Mixed Scalar Type',
     serialize(value) {
       return value;
     },
