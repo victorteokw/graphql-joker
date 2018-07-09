@@ -23,11 +23,12 @@ Currently, amur support koa, mongoose and graphQL style API.
   * [Nested Structure](#nested-structure)
   * [Enums](#enums)
   * [Reusable Schemas](#reusable-schemas)
-* [Destroy Resources](#destroy-resources)
+  * [Destroy Resources](#destroy-resources)
 * [Integrate with Existing Project](#integrate-with-existing-project)
   * [Customize Amur Behavior](#customize-amur-behavior)
   * [Integrate Console Feature](#integrate-console-feature)
   * [Integrate Data Seeding Feature](#integrate-data-seeding-feature)
+* [Issues and Helps](#issues-and-helps)
 
 # Installation
 
@@ -157,7 +158,7 @@ amur schema Address line1:String line2:String country:String region:String
 amur resource User address:addressSchema name:String
 ```
 
-# Destroy Resources
+## Destroy Resources
 
 If you mistakenly generated something or you spell something wrongly, you want to undo:
 
@@ -166,6 +167,59 @@ amur resource User -d
 ```
 
 The above example deletes all files related to User resource.
+
+# Integrate with Existing Project
+
+Amur is designed to be a generic tool. It does not require a project to be a
+amur project.
+
+## Customize Amur Behavior
+
+Create a file called `.amurrc.json` in project's root directory. And filling it
+like this:
+
+```json
+{
+  "schemaDir": "graphql",
+  "resolverDir": "graphql",
+  "test": false
+}
+```
+
+Amur will generate schema files and resolver files into graphql directory, and
+will not generate unit tests.
+
+## Integrate Console Feature
+
+Amur provides a nice console feature. It's a REPL with database connected and
+you can play with your database code within it. Let's say you want to integrate
+this feature to a existing project.
+
+```bash
+amur console
+```
+
+Amur will install the console dependencies for you and help you setup
+configuration file.
+
+## Integrate Data Seeding Feature
+
+Amur project have a nice data seeding tool that supports named it. If you want
+to integrate this feature into existing project. Use the following command:
+
+```bash
+amur seed
+```
+
+Again, amur will install the seeding tool for you and help you setup
+configuration file.
+
+# Issues and Helps
+
+Amur is not mature yet. If you find anything uncomfortable or confuses you.
+Any issue and pull request are welcome.
+
+Thanks.
 
 [npm-image]: https://badge.fury.io/js/amur.svg
 [npm-url]: https://npmjs.org/package/amur
