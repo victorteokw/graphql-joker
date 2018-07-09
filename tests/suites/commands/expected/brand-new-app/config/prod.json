@@ -1,6 +1,6 @@
 {
   "app": {
-    "port": "process.env.PORT || 4400"
+    "port": "process.env.PORT || 4000"
   },
   "database": {
     "url": "process.env.MONGO!",

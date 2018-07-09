@@ -1,6 +1,6 @@
 {
   "app": {
-    "port": "4500"
+    "port": "4100"
   },
   "database": {
     "url": "mongodb://127.0.0.1:27017/brand-new-app-test",
