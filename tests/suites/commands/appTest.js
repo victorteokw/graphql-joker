@@ -106,8 +106,6 @@ describe('amur app brand-new-app', () => {
           'nodemon',
           'nonula',
           'dobukulbira',
-          'jest',
-          'mexpect',
           'prettier-eslint'
         ].forEach(name => {
           it(`installs the dev dependency ${name}`, () => {
