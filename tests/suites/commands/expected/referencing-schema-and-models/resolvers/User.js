@@ -1,5 +1,3 @@
-const flat = require('mongoose-flat');
-
 module.exports = {
   User: {
     async orders(root, _, ctx) {
@@ -24,7 +22,7 @@ module.exports = {
     },
     async updateUser(root, { _id, input }, ctx) {
       const { User } = ctx.models;
-      return await User.findOneAndUpdate({ _id }, flat(input, User), { new: true });
+      return await (await User.findById(_id)).set(input).save();
     },
     async deleteUser(root, { _id }, ctx) {
       const { User } = ctx.models;

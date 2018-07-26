@@ -1,5 +1,3 @@
-const flat = require('mongoose-flat');
-
 module.exports = {
   Query: {
     async article(root, { _id }, ctx) {
@@ -18,7 +16,7 @@ module.exports = {
     },
     async updateArticle(root, { _id, input }, ctx) {
       const { Article } = ctx.models;
-      return await Article.findOneAndUpdate({ _id }, flat(input, Article), { new: true });
+      return await (await Article.findById(_id)).set(input).save();
     },
     async deleteArticle(root, { _id }, ctx) {
       const { Article } = ctx.models;
