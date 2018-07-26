@@ -20,7 +20,7 @@ module.exports = {
     },
     async deleteAccount(root, { _id }, ctx) {
       const { Account } = ctx.models;
-      return await Account.findByIdAndDelete(_id);
+      return await (await Account.findById(_id)).remove();
     }
   }
 };

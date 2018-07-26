@@ -52,7 +52,7 @@ module.exports = {
     },
     async deleteUser(root, { _id }, ctx) {
       const { User } = ctx.models;
-      return await User.findByIdAndDelete(_id);
+      return await (await User.findById(_id)).remove();
     }
   }
 };

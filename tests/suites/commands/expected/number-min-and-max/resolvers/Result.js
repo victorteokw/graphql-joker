@@ -20,7 +20,7 @@ module.exports = {
     },
     async deleteResult(root, { _id }, ctx) {
       const { Result } = ctx.models;
-      return await Result.findByIdAndDelete(_id);
+      return await (await Result.findById(_id)).remove();
     }
   }
 };

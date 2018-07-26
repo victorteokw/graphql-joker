@@ -20,7 +20,7 @@ module.exports = {
     },
     async deleteMeeting(root, { _id }, ctx) {
       const { Meeting } = ctx.models;
-      return await Meeting.findByIdAndDelete(_id);
+      return await (await Meeting.findById(_id)).remove();
     }
   }
 };
