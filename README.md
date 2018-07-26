@@ -86,7 +86,7 @@ Amur supports these primitive or scalar types:
 * Boolean
 * Date
 * Enum
-* Upload
+* File
 * Mixed
 
 When you are defining a field with type mentioned above, amur will treat them as

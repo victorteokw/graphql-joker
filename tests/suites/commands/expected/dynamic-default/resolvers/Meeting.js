@@ -1,3 +1,5 @@
+const flat = require('mongoose-flat');
+
 module.exports = {
   Query: {
     async meeting(root, { _id }, ctx) {
@@ -16,7 +18,7 @@ module.exports = {
     },
     async updateMeeting(root, { _id, input }, ctx) {
       const { Meeting } = ctx.models;
-      return await Meeting.findByIdAndUpdateByMerge(_id, input);
+      return await Meeting.findOneAndUpdate({ _id }, flat(input), { new: true });
     },
     async deleteMeeting(root, { _id }, ctx) {
       const { Meeting } = ctx.models;
