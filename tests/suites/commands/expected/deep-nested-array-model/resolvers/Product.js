@@ -18,7 +18,7 @@ module.exports = {
     },
     async updateProduct(root, { _id, input }, ctx) {
       const { Product } = ctx.models;
-      return await Product.findOneAndUpdate({ _id }, flat(input), { new: true });
+      return await Product.findOneAndUpdate({ _id }, flat(input, Product), { new: true });
     },
     async deleteProduct(root, { _id }, ctx) {
       const { Product } = ctx.models;

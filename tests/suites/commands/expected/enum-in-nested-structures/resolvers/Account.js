@@ -18,7 +18,7 @@ module.exports = {
     },
     async updateAccount(root, { _id, input }, ctx) {
       const { Account } = ctx.models;
-      return await Account.findOneAndUpdate({ _id }, flat(input), { new: true });
+      return await Account.findOneAndUpdate({ _id }, flat(input, Account), { new: true });
     },
     async deleteAccount(root, { _id }, ctx) {
       const { Account } = ctx.models;
