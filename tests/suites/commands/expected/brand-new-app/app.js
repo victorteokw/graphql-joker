@@ -8,8 +8,6 @@ const ass = require('koa-ass');
 const mongoose = require('koa-mon');
 const graphqlRouter = require('koa-graphql-router');
 
-const File = require('mongoose-type-file');
-
 const app = new Koa();
 
 app.use(logger());
@@ -22,7 +20,6 @@ app.use(ass({ config }));
 
 app.use(mongoose({
   modelDir: __dirname + '/models',
-  types: [File],
   url: config.database.url,
   options: {},
   debug: config.database.debug
