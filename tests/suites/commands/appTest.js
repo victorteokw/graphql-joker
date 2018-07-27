@@ -89,6 +89,7 @@ describe('amur app brand-new-app', () => {
           'koa-ass',
           'koa-graphql-router',
           'mongoose',
+          'mongoose-uploader',
           'noenv'
         ].forEach(name => {
           it(`installs the dependency ${name}`, () => {
