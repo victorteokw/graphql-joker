@@ -1,0 +1,14 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const { File } = Schema.Types;
+const AvatarUploader = require('../uploaders/AvatarUploader');
+
+const userSchema = new Schema({
+  name: String,
+  avatar: { type: File, uploader: AvatarUploader }
+}, {
+  timestamps: true,
+  collection: 'users'
+});
+
+module.exports = mongoose.model('User', userSchema);

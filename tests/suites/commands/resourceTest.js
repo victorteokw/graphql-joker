@@ -940,4 +940,165 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
       assertFileContent('resolvers/User.js', c);
     });
   });
+
+  describe('generates file field', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/file');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String',
+        'avatar:AvatarUploader'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('requires mixed, objectId, and file in same line', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/same-line-require');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'experience:Mixed',
+        'post:Post',
+        'avatar:AvatarUploader'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('put uploaders after schema requirements', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/sub-schema-and-uploader');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'experience:experienceSchema',
+        'avatar:AvatarUploader'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('generates array of files', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/array-of-files');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'photos:[PhotoUploader]'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('generates files in nested structure', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/nested-file');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'info:{',
+        'photo:PhotoUploader',
+        '}'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
 });

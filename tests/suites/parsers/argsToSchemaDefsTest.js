@@ -910,4 +910,45 @@ describe('model schemaDefsriptor', () => {
       ]
     });
   });
+
+  it('handles file type', () => {
+    const schemaDefs = argsToSchemaDefs([
+      'User',
+      'name:String',
+      'avatar:AvatarUploader'
+    ]);
+    console.log(JSON.stringify(schemaDefs));
+    assert.deepEqual(schemaDefs, {
+      modelName: 'User',
+      collectionName: 'users',
+      varName: 'user',
+      pluralVarName: 'users',
+      fields: [
+        {
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined,
+          graphQLType: 'String',
+          isArray: false,
+          jsType: 'String',
+          modifiers: {},
+          name: 'name',
+          primitive: true,
+          type: 'String'
+        },
+        {
+          foreignKey: undefined,
+          foreignKeyIsArray: undefined,
+          graphQLType: 'File',
+          isArray: false,
+          jsType: 'File',
+          modifiers: {
+            uploader: 'AvatarUploader'
+          },
+          name: 'avatar',
+          primitive: true,
+          type: 'File'
+        }
+      ]
+    });
+  });
 });
