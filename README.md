@@ -33,6 +33,7 @@ logic and running API in less than 3 minutes.
   * [Integrate Console Feature](#integrate-console-feature)
   * [Integrate Data Seeding Feature](#integrate-data-seeding-feature)
 * [Issues and Helps](#issues-and-helps)
+* [Roadmap](#roadmap)
 
 # Motivation
 
@@ -382,9 +383,24 @@ configuration file.
 # Issues and Helps
 
 Amur is not mature yet. If you find anything uncomfortable or confuses you.
-Any issue and pull request are welcome.
+Any discuss, issue and pull request are welcome.
 
-Thanks.
+# Roadmap
+
+Amur is an ambitious project and it still has a long way to go.
+
+- Version 0.8
+  - CLI user experience
+  - configurability
+  - more cli behavior tests
+  - use eslint to transform user generated code if available
+  - dependencies reliability
+- Version 0.9
+  - query filter, sorting and pagination feature
+- Version 1.0
+  - the first stable release
+  - website should goes online
+  - publicize and popularize this project
 
 [npm-image]: https://badge.fury.io/js/amur.svg
 [npm-url]: https://npmjs.org/package/amur
