@@ -34,6 +34,7 @@ logic and running API in less than 3 minutes.
   * [Integrate Data Seeding Feature](#integrate-data-seeding-feature)
 * [Issues and Helps](#issues-and-helps)
 * [Roadmap](#roadmap)
+* [License](#license)
 
 # Motivation
 
@@ -401,6 +402,10 @@ Amur is an ambitious project and it still has a long way to go.
   - the first stable release
   - website should goes online
   - publicize and popularize this project
+
+# License
+
+[The GNU General Public License v3.0](license-url).
 
 [npm-image]: https://badge.fury.io/js/amur.svg
 [npm-url]: https://npmjs.org/package/amur
