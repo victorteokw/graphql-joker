@@ -5,18 +5,22 @@
 [![License][license-image]][license-url]
 [![PR Welcome][pr-image]][pr-url]
 
+Amur is the ultimate GraphQL scaffolding tool.
+
+It automates coding process to save your precious time, enhance your work and
+life experience. In other words, amur write code for you with commands you
+specified.
+
 With amur, you can create a full-fledged backend server with your complex app
 logic and running API in less than 3 minutes.
 
-Amur automates backend coding process.
-
-Currently, amur support koa, mongoose and graphQL style API.
-
-# Table of contents
+# Documentation
+* [Motivation](#motivation)
+* [Design Concept](#design-concept)
 * [Installation](#installation)
 * [Create an Amur Project](#create-an-amur-project)
 * [Generate Resources](#generate-resources)
-  * [Types](#types)
+  * [Supported Types](#supported-types)
   * [Array Type](#array-type)
   * [Type Modifiers](#type-modifiers)
   * [Default Values](#default-values)
@@ -30,9 +34,35 @@ Currently, amur support koa, mongoose and graphQL style API.
   * [Integrate Data Seeding Feature](#integrate-data-seeding-feature)
 * [Issues and Helps](#issues-and-helps)
 
+# Motivation
+
+When working on GraphQL projects, we need to define database schema and GraphQL
+twice. We need to create resolvers for the standardized API. A lot of copying
+and pasting are going on. It's not elegant to copy code around and find-replace
+all occurrences. It's also error prone. And sometimes causing unnoticeable
+errors which wastes time.
+
+Wouldn't be nice if we could have a tool just like Ruby on Rails' scaffold tool
+to generate code for us?
+
+# Design Concept
+
+Amur is designed to provide features at least Ruby on Rails scaffold tool has.
+Aka, generate boilerplate business logic code as much as possible for you.
+
+However, unlike Ruby on Rails, amur is not a full-fledged framework and will
+never provide a framework for you. It focus on business logic generation.
+Although amur also has project generation feature, it's trying to hook up the
+industry standard and battle-tested libraries and components together for you.
+And it's configurable. To split features into small core chunks and make them
+combinable and adaptable is a good practice and especially popular in node.js
+ecosystem, amur embraces this practice. That's what makes amur outstanding and
+what makes amur really a flexible and configurable scaffolding tool.
+
+
 # Installation
 
-Install amur command line tool globally with npm.
+Amur is a general command line tool, thus you should install it globally.
 
 ```bash
 npm install -g amur
@@ -40,22 +70,28 @@ npm install -g amur
 
 # Create an Amur Project
 
-Create an amur app with `amur app` command.
+To create an amur project, use `amur app` command.
 
 ```bash
 amur app my-new-app
 ```
 
-If you don't specify app name, the app will be created at your current working directory.
+This will generate your app in 'my-new-app' folder. If you don't specify app
+name, the app will be created at your current working directory.
 
-You can overwrite default eslint config by adding flag `--eslint-config`.
+Options:
+- `--port` On which port this app is listening on.
+- `--git-init` Automatically run 'git init' after project generated.
+- `--skip-install` Do not install dependencies.
+- `--eslint-config` Changing the default eslint config.
+
+To change default eslint config being used:
 
 ```bash
 amur app my-new-app --eslint-config=your-config
 ```
 
-Appending a flag `--git-init`, amur will automatically run `git init` for you
-after setup your project.
+To automatically run `git init`:
 
 ```bash
 amur app my-new-app --git-init
@@ -63,46 +99,155 @@ amur app my-new-app --git-init
 
 # Generate Resources
 
-Amur resource generator follows this style:
+API resource generation is the core feature of amur. It's syntax is rather
+simple and extensible. It follows this basic style:
 
 ``` bash
-amur resource YourModelName field1:Type1 field2:Type2 ref1:RefType1 ref2:RefType2:foreignKey
+amur resource ModelName[/optionalPluralVariableName] \
+primitiveField[[:Type[typeModifiers]]:defaultValue]... \
+referenceField[[:ReferenceType[typeModifiers]]:foreignKey]...
 ```
 
-Let's say you have a model named user, and user has a name, age and also a list of posts.
-And you have a model named post, it has title, content and author. Just type like this:
+This arguments specification is obscure to see. Let's see some examples.
+
+Let's say you have a model named user, and user has a name, an age and also a
+list of posts. And you have a model named post, it has title, content and
+author. Just type like this:
 
 ``` bash
 amur resource User name:String age:Int posts:[Post]:author
 amur resource Post title:String content:String author:User
 ```
 
-## Types
+Here we specified our first model 'User', with following fields:
+- `name` which is a String
+- `age` which is an Int
+- `posts` which is a list of Posts through foreign key named author
 
-Amur supports these primitive or scalar types:
-* String
-* Int
-* Float
-* Boolean
-* Date
-* Enum
-* File
-* Mixed
+We defined our second model named 'Post', with following fields:
+- `title` which is a String
+- `content` which is also a String
+- `author` which references to User
+
+This creates six files in total, three for User and three for Post. The three
+files are mongoose model, GraphQL schema and GraphQL resolver.
+
+The autogenerated models/User.js looks like this:
+```js
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const userSchema = new Schema({
+  name: String,
+  age: Number
+}, {
+  timestamps: true,
+  collection: 'users'
+});
+
+module.exports = mongoose.model('User', userSchema);
+```
+
+The autogenerated schemas/User.gql looks like this:
+```graphql
+type User {
+  _id: ID!
+  name: String
+  age: Int
+  posts: [Post]
+  createdAt: Date
+  updatedAt: Date
+}
+
+input UserInput {
+  name: String
+  age: Int
+}
+
+type Query {
+  user(_id: ID!): User
+  users: [User]
+}
+
+type Mutation {
+  createUser(input: UserInput): User
+  updateUser(_id: ID!, input: UserInput): User
+  deleteUser(_id: ID!): User
+}
+```
+
+The autogenerated resolvers/User.js looks like this:
+```js
+module.exports = {
+  User: {
+    async posts(root, _, ctx) {
+      const { Post } = ctx.models;
+      return await Post.find({ author: root._id });
+    }
+  },
+  Query: {
+    async user(root, { _id }, ctx) {
+      const { User } = ctx.models;
+      return await User.findById(_id);
+    },
+    async users(root, { _ }, ctx) {
+      const { User } = ctx.models;
+      return await User.find();
+    }
+  },
+  Mutation: {
+    async createUser(root, { input }, ctx) {
+      const { User } = ctx.models;
+      return await User.create(input);
+    },
+    async updateUser(root, { _id, input }, ctx) {
+      const { User } = ctx.models;
+      return await (await User.findById(_id)).set(input).save();
+    },
+    async deleteUser(root, { _id }, ctx) {
+      const { User } = ctx.models;
+      return await (await User.findById(_id)).remove();
+    }
+  }
+};
+```
+
+Besides your schema definition, 5 API are created for you. Those are:
+- `users` query all users
+- `user` query a user by id
+- `createUser` create a new user
+- `updateUser` modify an existing user
+- `deleteUser` delete an existing user
+
+Now you can CRUD your resources through API.
+
+## Supported Types
+
+Amur supports a wide range of primitive types:
+* `String` string type
+* `Int` integer type
+* `Float` float type
+* `Boolean` bool type
+* `Date` date type
+* `Enum` enum type, the type specifier has a different syntax
+* `File` upload typem the type specifier has a different syntax
+* `Mixed` mixed type includes string, int, float, boolean, date, array and
+objects
 
 When you are defining a field with type mentioned above, amur will treat them as
-primitive type. When you refer to a type that is not included in the list, amur
+primitive types. When you refer to a type that is not included in the list, amur
 will treat it as a referecing to another model.
 
 ``` bash
-amur resource User disabled:Boolean:false name:String age:Int spouse:User
+amur resource User disabled:Boolean name:String description:Mixed spouse:User
 ```
 
-In the above example, obviously `disabled`, `name` and `age` are primitive
-types. `spouse` is a reference type which references to `User`.
+In the above example, obviously `disabled`, `name` and `description` are
+primitive types. `spouse` is a reference type which references to `User`.
 
 ## Array Type
 
-Surround type with a pair of [], you get an array of that type, for example:
+Surround a type with a pair of [], you get an array of that type, for example:
 
 ```
 amur resource User spouse:User friends:[User] favoriteSayings:[String]
@@ -113,9 +258,9 @@ an array of `String`s.
 
 ## Type Modifiers
 
-If you are doing a website which has authentication feature. You may want a
-user's email to match designated format and to be required and unique. You can
-specify type modifiers.
+In the real world practices, fields should be validated. For example, You may
+want a user's email to match designated format and to be required and unique.
+You can specify type modifiers.
 
 ``` bash
 amur resource User 'email:String/.*@.*\..*/!$'
@@ -124,17 +269,29 @@ amur resource User 'email:String/.*@.*\..*/!$'
 In the above example, `/.*@.*\..*/` means that this field matches this regexp,
 `!` means required, and `$` means unique.
 
+Existing type modifiers includes:
+- `!` required
+- `^` index
+- `$` unique
+- `/regexp/` string only, matches the regexp or not
+- `<=n` max for number types, maxlength for string type
+- `>=n` min for number types, minlength for string type
+
 ## Default Values
 
-You can specify default value to a field with the following syntax.
+You can specify default value to a primitive field with the following syntax.
 
 ``` bash
 amur resource Post 'title:String!:Untitled' 'lastUpdate:Date!:`Date.now`'
 ```
 
+Here, title's default value is `'Untitled'`, and lastUpdate's default value is
+`Date.now`. It's a calculated default value, so surround with a pair of
+back ticks.
+
 ## Nested Structure
 
-You can create nested structure with the following syntax.
+To create nested structure, use the following syntax:
 
 ``` bash
 amur resource User posts:[{ title:String content:String comments:[{ \
@@ -142,9 +299,13 @@ commenter:User content:String }] }] email:String password:String settings:{ \
 sms:Boolean email:Boolean pushNotification:Boolean }
 ```
 
+Specify type as `{` or `[{`, you are going into a nested context. All field
+defined after this goes into the nested structure. Use plain `}` and `}]` tokens
+to jump out the nesting context.
+
 ## Enums
 
-You can create enum fields with enum syntax.
+To create enum fields, use enum syntax like this:
 
 ``` bash
 amur resource User 'gender:Enum{male,female}!'
@@ -152,22 +313,25 @@ amur resource User 'gender:Enum{male,female}!'
 
 ## Reusable Schemas
 
-You can create a reusable schema and reference to it.
+Amur supports reusable schemas and referencing them.
 
 ``` bash
 amur schema Address line1:String line2:String country:String region:String
 amur resource User address:addressSchema name:String
 ```
 
+Specify the lowercase schema name append by 'Schema', amur will treat the type
+as a subschema reference.
+
 ## Destroy Resources
 
-If you mistakenly generated something or you spell something wrongly, you want to undo:
+If you mistakenly generated something or you spell something wrongly, use the
+following syntax to delete the autogenerated files.
 
 ``` bash
 amur resource User -d
 ```
-
-The above example deletes all files related to User resource.
+It's equivalent to `amur resource User --destroy`.
 
 # Integrate with Existing Project
 
