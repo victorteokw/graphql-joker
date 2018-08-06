@@ -1,6 +1,7 @@
 # Amur
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Test Coverage][cov-image]][cov-url]
 [![Dependency Status][daviddm-image]][daviddm-url]
 [![License][license-image]][license-url]
 [![PR Welcome][pr-image]][pr-url]
@@ -411,6 +412,8 @@ Amur is an ambitious project and it still has a long way to go.
 [npm-url]: https://npmjs.org/package/amur
 [travis-image]: https://travis-ci.org/zhangkaiyulw/amur.svg?branch=master
 [travis-url]: https://travis-ci.org/zhangkaiyulw/amur
+[cov-image]: https://codecov.io/gh/zhangkaiyulw/amur/branch/master/graph/badge.svg
+[cov-url]: https://codecov.io/gh/zhangkaiyulw/amur
 [daviddm-image]: https://david-dm.org/zhangkaiyulw/amur.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/zhangkaiyulw/amur
 [license-image]: https://img.shields.io/github/license/zhangkaiyulw/amur.svg
