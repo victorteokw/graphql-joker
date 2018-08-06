@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const assert = require('assert');
 const runGenerator = require('../../setup/runGenerator');
+const runGenerators = require('../../setup/runGenerators');
 const fileContent = require('../../assertions/fileContent');
 
 describe('amur schema', () => {
@@ -183,6 +184,34 @@ describe('amur schema', () => {
 
     it("doesn't create resolver file because it's not needed", () => {
       assert(!fs.existsSync(path.join(destDir, 'resolvers/Person.js')));
+    });
+  });
+
+  describe('command line option behaviors', () => {
+    describe('removes generated files with --destory', () => {
+      let destDir, assertFileContent;
+      const dir = path.join(__dirname, 'expected/destroy-schema');
+      beforeAll(() => {
+        destDir = runGenerators([
+          ['schema', ['User', 'name:String']],
+          ['schema', ['Post', 'title:String']],
+          ['schema', ['User'], { destroy: true }]
+        ]);
+        assertFileContent = fileContent(destDir);
+      });
+
+      afterAll(() => {
+        fs.removeSync(destDir);
+      });
+
+      it('removes correct model file', () => {
+        assert(!fs.existsSync(path.join(destDir, 'models/userSchema.js')));
+      });
+
+      it('keeps unrelated model file', () => {
+        const c = fs.readFileSync(path.join(dir, 'models/postSchema.js')).toString();
+        assertFileContent('models/postSchema.js', c);
+      });
     });
   });
 });

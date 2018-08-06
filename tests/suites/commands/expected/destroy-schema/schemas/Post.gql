@@ -1,0 +1,8 @@
+type Post {
+  _id: ID!
+  title: String
+}
+
+input PostInput {
+  title: String
+}
