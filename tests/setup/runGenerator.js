@@ -12,7 +12,7 @@ module.exports = (generatorName, args = [], options = {}) => {
   const generator = require(generatorFile);
   const projDir = path.join(
     os.tmpdir(),
-    crypto.randomBytes(16).toString("hex")
+    crypto.randomBytes(16).toString('hex')
   );
   generator({
     args,

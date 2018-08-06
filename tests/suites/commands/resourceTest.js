@@ -1,7 +1,9 @@
 const path = require('path');
 const fs = require('fs-extra');
 const runGenerator = require('../../setup/runGenerator');
+const runGenerators = require('../../setup/runGenerators');
 const fileContent = require('../../assertions/fileContent');
+const assert = require('assert');
 
 describe('amur resource', () => {
   describe('supports string type', () => {
@@ -1099,6 +1101,52 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
     it('create correct resolver file', () => {
       const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
       assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('command line option behaviors', () => {
+    describe('removes generated files with --destory', () => {
+      let destDir, assertFileContent;
+      const dir = path.join(__dirname, 'expected/destroy');
+      beforeAll(() => {
+        destDir = runGenerators([
+          ['resource', ['User', 'name:String']],
+          ['resource', ['Post', 'title:String']],
+          ['resource', ['User'], { destroy: true }]
+        ]);
+        assertFileContent = fileContent(destDir);
+      });
+
+      afterAll(() => {
+        fs.removeSync(destDir);
+      });
+
+      it('removes correct model file', () => {
+        assert(!fs.existsSync(path.join(destDir, 'models/User.js')));
+      });
+
+      it('keeps unrelated model file', () => {
+        const c = fs.readFileSync(path.join(dir, 'models/Post.js')).toString();
+        assertFileContent('models/Post.js', c);
+      });
+
+      it('removes correct schema file', () => {
+        assert(!fs.existsSync(path.join(destDir, 'schemas/User.js')));
+      });
+
+      it('keeps unrelated schema file', () => {
+        const c = fs.readFileSync(path.join(dir, 'schemas/Post.gql')).toString();
+        assertFileContent('schemas/Post.gql', c);
+      });
+
+      it('removes correct resolver file', () => {
+        assert(!fs.existsSync(path.join(destDir, 'resolvers/User.js')));
+      });
+
+      it('keeps unrelated resolver file', () => {
+        const c = fs.readFileSync(path.join(dir, 'resolvers/Post.js')).toString();
+        assertFileContent('resolvers/Post.js', c);
+      });
     });
   });
 });
