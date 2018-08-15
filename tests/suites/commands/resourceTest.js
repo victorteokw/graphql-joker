@@ -317,6 +317,43 @@ describe('amur resource', () => {
       assertFileContent('resolvers/Article.js', c);
     });
   });
+
+  describe('supports modifier on reference field', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/reference-modifier');
+    beforeAll(() => {
+      destDir = runGenerator('resource', [
+        'User',
+        'name:String',
+        'post:Post!'
+      ]);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs
+        .readFileSync(path.join(dir, 'schemas/User.gql'))
+        .toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs
+        .readFileSync(path.join(dir, 'resolvers/User.js'))
+        .toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
   describe('supports default values', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/default-values');

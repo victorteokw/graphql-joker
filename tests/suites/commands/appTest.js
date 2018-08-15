@@ -171,21 +171,21 @@ describe('experimental test generation', () => {
   });
 });
 
-describe('option --git-init', () => {  const expectedDir = path.join(__dirname, 'expected/brand-new-app-with-tests');
-  let destDir;
-  beforeAll(() => {
-    destDir = runGenerator('app', ['app-generator-'], {
-      gitInit: true,
-      skipInstall: true
-    });
-  });
-  afterAll(() => {
-    fs.removeSync(destDir);
-  });
-  it('has .git directory', () => {
-    // jest.mock('find-dominant-file');
-    // const fdf = require('find-dominant-file');
-    // fdf.mockImplementation(() => false);
-    // assert(fs.existsSync(path.join(destDir, '.git')));
-  });
-});
+// describe('option --git-init', () => {
+//   let destDir;
+//   beforeAll(() => {
+//     destDir = runGenerator('app', ['app-generator-'], {
+//       gitInit: true,
+//       skipInstall: true
+//     });
+//   });
+//   afterAll(() => {
+//     fs.removeSync(destDir);
+//   });
+//   it('has .git directory', () => {
+//     // jest.mock('find-dominant-file');
+//     // const fdf = require('find-dominant-file');
+//     // fdf.mockImplementation(() => false);
+//     // assert(fs.existsSync(path.join(destDir, '.git')));
+//   });
+// });
