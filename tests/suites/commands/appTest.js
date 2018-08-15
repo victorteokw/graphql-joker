@@ -142,6 +142,9 @@ describe('experimental test generation', () => {
     projDir = path.join(destDir, 'brand-new-app-with-tests');
     assertFileContent = fileContent(projDir);
   });
+  afterAll(() => {
+    fs.removeSync(destDir);
+  });
   it('creates config/test.json', () => {
     assertFileContent(
       'config/test.json',
@@ -165,5 +168,24 @@ describe('experimental test generation', () => {
       'jest.config.js',
       fs.readFileSync(path.join(expectedDir, 'jest.config.js')).toString()
     );
+  });
+});
+
+describe('option --git-init', () => {  const expectedDir = path.join(__dirname, 'expected/brand-new-app-with-tests');
+  let destDir;
+  beforeAll(() => {
+    destDir = runGenerator('app', ['app-generator-'], {
+      gitInit: true,
+      skipInstall: true
+    });
+  });
+  afterAll(() => {
+    fs.removeSync(destDir);
+  });
+  it('has .git directory', () => {
+    // jest.mock('find-dominant-file');
+    // const fdf = require('find-dominant-file');
+    // fdf.mockImplementation(() => false);
+    // assert(fs.existsSync(path.join(destDir, '.git')));
   });
 });
