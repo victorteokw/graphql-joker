@@ -303,6 +303,63 @@ describe('amur resource', () => {
       assertFileContent('resolvers/User.js', c);
     });
   });
+
+  describe('supports reference type through association model', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/assoc');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'courses:[Course]:Favorite.course.user']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
+  describe('supports self reference type through association model', () => {
+    let destDir, assertFileContent;
+    const dir = path.join(__dirname, 'expected/assoc-self');
+    beforeAll(() => {
+      destDir = runGenerator('resource', ['User', 'name:String', 'followers:[User]:Follow.follower.followee', 'followees:[User]:Follow.followee.follower']);
+      assertFileContent = fileContent(destDir);
+    });
+
+    afterAll(() => {
+      fs.removeSync(destDir);
+    });
+
+    it('create correct model file', () => {
+      const c = fs.readFileSync(path.join(dir, 'models/User.js')).toString();
+      assertFileContent('models/User.js', c);
+    });
+
+    it('create correct schema file', () => {
+      const c = fs.readFileSync(path.join(dir, 'schemas/User.gql')).toString();
+      assertFileContent('schemas/User.gql', c);
+    });
+
+    it('create correct resolver file', () => {
+      const c = fs.readFileSync(path.join(dir, 'resolvers/User.js')).toString();
+      assertFileContent('resolvers/User.js', c);
+    });
+  });
+
   describe('supports custom collection name', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/custom-collection-name');
