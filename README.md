@@ -21,7 +21,8 @@ logic and running API in less than 3 minutes.
 * [Installation](#installation)
 * [Create an Amur Project](#create-an-amur-project)
 * [Generate Resources](#generate-resources)
-  * [Supported Types](#supported-types)
+  * [Supported Primitive Types](#supported-primitive-types)
+  * [Reference Types](#reference-types)
   * [Array Type](#array-type)
   * [Type Modifiers](#type-modifiers)
   * [Default Values](#default-values)
@@ -224,7 +225,7 @@ Besides your schema definition, 5 API are created for you. Those are:
 
 Now you can CRUD your resources through API.
 
-## Supported Types
+## Supported Primitive Types
 
 Amur supports a wide range of primitive types:
 * `String` string type
@@ -247,6 +248,62 @@ amur resource User disabled:Boolean name:String description:Mixed spouse:User
 
 In the above example, obviously `disabled`, `name` and `description` are
 primitive types. `spouse` is a reference type which references to `User`.
+
+## Reference Types
+
+There are several ways to implement your own reference types.
+
+### one-to-one
+
+The simplest case is one-to-one relation ship.
+
+```bash
+amur resource User address:Address
+amur resource Address user:User:address
+```
+
+In this case, we save the reference into user model, and on address model, we
+use the foreign key on user model to fetch the user value.
+
+### one-to-many
+
+We have two ways to implement this relationship.
+
+```bash
+amur resource User posts:[Post]:owner
+amur resource Post user:User:owner
+```
+
+This is the most common case. We save the reference on the 'many' side, and
+fetch on the 'many' side model.
+
+```bash
+amur resource User posts:[Post]
+amur resource Post user:User:[posts]
+```
+
+In this case, we are saving the references on the 'one' side, and on 'many'
+side, we use a pair of [] to indicate it's an array. Be careful of performance
+when you are doing this way.
+
+### many-to-many
+
+In simple cases, we can just do like this.
+
+```bash
+amur resource User courses:[Course]
+amur resource Course users:[User]:[courses]
+```
+
+If there are tons of records, then you may want to use association table.
+
+```bash
+amur resource Favorite user:User course:Course
+amur resource User courses:[Course]:Favorite
+amur resource Course users:[User]:Favorite
+```
+
+In this case, we specified a relationship that is have many ... through ...
 
 ## Array Type
 
