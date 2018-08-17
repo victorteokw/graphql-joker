@@ -23,8 +23,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'age',
@@ -34,8 +32,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'disabled',
@@ -47,8 +43,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             default: false
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -76,8 +70,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'answer',
@@ -89,8 +81,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -112,8 +102,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -141,8 +129,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'posts',
@@ -152,8 +138,6 @@ describe('model schemaDefsriptor', () => {
           isArray: true,
           primitive: false,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -184,8 +168,6 @@ describe('model schemaDefsriptor', () => {
             unique: true,
             default: "'No Name'"
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'posts',
@@ -195,8 +177,6 @@ describe('model schemaDefsriptor', () => {
           isArray: true,
           primitive: false,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -219,7 +199,6 @@ describe('model schemaDefsriptor', () => {
           primitive: false,
           modifiers: {},
           foreignKey: 'author',
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -243,8 +222,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             default: 18
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -268,8 +245,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             index: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -293,8 +268,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -319,8 +292,6 @@ describe('model schemaDefsriptor', () => {
             unique: true,
             sparse: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -346,8 +317,6 @@ describe('model schemaDefsriptor', () => {
             index: true,
             unique: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -371,8 +340,6 @@ describe('model schemaDefsriptor', () => {
           modifiers: {
             match: '/\\w+/'
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -399,8 +366,6 @@ describe('model schemaDefsriptor', () => {
             index: true,
             unique: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -422,8 +387,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -445,8 +408,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -468,8 +429,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -491,8 +450,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -514,8 +471,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -552,8 +507,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             },
             {
               name: 'email',
@@ -566,8 +519,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             }
           ]
         },
@@ -579,8 +530,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -617,8 +566,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             },
             {
               name: 'email',
@@ -631,8 +578,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             }
           ]
         },
@@ -644,8 +589,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -680,8 +623,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         },
         {
           name: 'settings',
@@ -699,8 +640,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             },
             {
               name: 'email',
@@ -713,8 +652,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             },
             {
               name: 'pn',
@@ -732,8 +669,6 @@ describe('model schemaDefsriptor', () => {
                     required: true,
                     default: true
                   },
-                  foreignKey: undefined,
-                  foreignKeyIsArray: undefined
                 },
                 {
                   name: 'iphone',
@@ -746,8 +681,6 @@ describe('model schemaDefsriptor', () => {
                     required: true,
                     default: true
                   },
-                  foreignKey: undefined,
-                  foreignKeyIsArray: undefined
                 }
               ]
             },
@@ -762,8 +695,6 @@ describe('model schemaDefsriptor', () => {
                 required: true,
                 default: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             }
           ]
         },
@@ -775,8 +706,6 @@ describe('model schemaDefsriptor', () => {
           isArray: false,
           primitive: true,
           modifiers: {},
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -801,8 +730,6 @@ describe('model schemaDefsriptor', () => {
             enum: ["'male'", "'female'"],
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -830,8 +757,6 @@ describe('model schemaDefsriptor', () => {
             enum: ["'A+'", "'A'", "'A-'", "'B+'", "'B'", "'B-'"],
             required: true
           },
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined
         }
       ]
     });
@@ -865,8 +790,6 @@ describe('model schemaDefsriptor', () => {
                 enum: ["'male'", "'female'"],
                 required: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             }
           ]
         }
@@ -902,8 +825,6 @@ describe('model schemaDefsriptor', () => {
                 enum: ["'male'", "'female'"],
                 required: true
               },
-              foreignKey: undefined,
-              foreignKeyIsArray: undefined
             }
           ]
         }
@@ -917,7 +838,6 @@ describe('model schemaDefsriptor', () => {
       'name:String',
       'avatar:AvatarUploader'
     ]);
-    console.log(JSON.stringify(schemaDefs));
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -925,8 +845,6 @@ describe('model schemaDefsriptor', () => {
       pluralVarName: 'users',
       fields: [
         {
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined,
           graphQLType: 'String',
           isArray: false,
           jsType: 'String',
@@ -936,8 +854,6 @@ describe('model schemaDefsriptor', () => {
           type: 'String'
         },
         {
-          foreignKey: undefined,
-          foreignKeyIsArray: undefined,
           graphQLType: 'File',
           isArray: false,
           jsType: 'File',
@@ -950,5 +866,33 @@ describe('model schemaDefsriptor', () => {
         }
       ]
     });
+  });
+
+  it('handles association tables', () => {
+    const schemaDefs = argsToSchemaDefs([
+      'User',
+      'courses:[Course]:Favorite.course.user'
+    ]);
+    assert.deepEqual(schemaDefs, {
+      modelName: 'User',
+      collectionName: 'users',
+      varName: 'user',
+      pluralVarName: 'users',
+      fields: [
+        {
+          name: 'courses',
+          type: 'Course',
+          jsType: 'Course',
+          graphQLType: 'Course',
+          isArray: true,
+          primitive: false,
+          modifiers: {},
+          assocModel: 'Favorite',
+          selfKey: 'user',
+          destKey: 'course'
+        }
+      ]
+    });
+
   });
 });
