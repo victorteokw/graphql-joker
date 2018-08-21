@@ -28,10 +28,10 @@ app.use(mongoose({
   debug: config.database.debug
 }));
 
-app.use(setupGraphQL({
+setupGraphQL({
   schemaDir: __dirname + '/schemas',
   resolverDir: __dirname + '/resolvers'
-}));
+}).applyMiddleware({ app });
 
 app.listen(config.app.port);
 console.log(`Using env ${config.env}...`);
