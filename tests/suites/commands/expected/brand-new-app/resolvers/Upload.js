@@ -1,4 +1,4 @@
-const { GraphQLUpload } = require('apollo-server-koa');
+const { GraphQLUpload } = require('apollo-server');
 
 module.exports = {
   Upload: GraphQLUpload
