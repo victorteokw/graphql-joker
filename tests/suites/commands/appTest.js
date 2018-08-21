@@ -82,9 +82,8 @@ describe('amur app brand-new-app', () => {
         [
           'koa', 'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
           'koa-ass', 'mongoose', 'mongoose-uploader', 'noenv', 'graphql',
-          'apollo-server-koa', 'apollo-upload-server', 'graphql-tools',
-          'merge-graphql-schemas', 'graphql-middleware', 'glob',
-          'lodash.merge', 'lodash.map'
+          'apollo-server-koa', 'merge-graphql-schemas', 'graphql-middleware',
+          'glob', 'lodash.merge', 'lodash.map'
         ].forEach(name => {
           it(`installs the dependency ${name}`, () => {
             const fileContents = fs
