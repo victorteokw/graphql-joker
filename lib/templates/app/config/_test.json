@@ -3,7 +3,6 @@
     "port": "<%- port + 100 %>"
   },
   "database": {
-    "url": "mongodb://127.0.0.1:27017/<%- name %>-test",
-    "debug": false
+    "url": "mongodb://127.0.0.1:27017/<%- name %>-test"
   }
 }

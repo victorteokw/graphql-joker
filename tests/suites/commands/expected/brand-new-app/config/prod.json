@@ -3,7 +3,6 @@
     "port": "process.env.PORT || 4000"
   },
   "database": {
-    "url": "process.env.MONGO!",
-    "debug": false
+    "url": "process.env.MONGO!"
   }
 }

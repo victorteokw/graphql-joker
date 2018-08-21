@@ -3,9 +3,9 @@
   "title": "<%- title %>",
   "version": "0.0.1",
   "private": true,
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon server.js",
     "console": "dobukulbira",
     "test": "jest",
     "seed": "nonula seed",

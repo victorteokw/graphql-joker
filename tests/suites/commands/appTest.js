@@ -59,12 +59,12 @@ describe('amur app brand-new-app', () => {
           const j = JSON.parse(fileContents);
           assert(j.private === true);
         });
-        it('has a main file called app.js', () => {
+        it('has a main file called server.js', () => {
           const fileContents = fs
             .readFileSync(path.join(projDir, path.relative(expectedDir, f)))
             .toString();
           const j = JSON.parse(fileContents);
-          assert(j.main === 'app.js');
+          assert(j.main === 'server.js');
         });
         it('sets correct scripts', () => {
           const fileContents = fs
@@ -72,7 +72,7 @@ describe('amur app brand-new-app', () => {
             .toString();
           const j = JSON.parse(fileContents);
           assert.deepEqual(j.scripts, {
-            start: 'nodemon app.js',
+            start: 'nodemon server.js',
             console: 'dobukulbira',
             test: 'jest',
             seed: 'nonula seed',
@@ -80,9 +80,8 @@ describe('amur app brand-new-app', () => {
           });
         });
         [
-          'koa', 'koa-body', 'koa-logger', 'koa-router', 'koa-mon', '@koa/cors',
-          'koa-ass', 'mongoose', 'mongoose-uploader', 'noenv', 'graphql',
-          'apollo-server-koa', 'merge-graphql-schemas', 'graphql-middleware',
+          'mongoose', 'mongoose-uploader', 'noenv', 'graphql',
+          'apollo-server', 'merge-graphql-schemas', 'graphql-middleware',
           'glob', 'lodash.merge', 'lodash.map'
         ].forEach(name => {
           it(`installs the dependency ${name}`, () => {
