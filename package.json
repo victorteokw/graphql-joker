@@ -17,7 +17,7 @@
   ],
   "main": "cli/index.js",
   "keywords": [
-    "koa",
+    "apollo-server",
     "mongoose",
     "generator",
     "graphql"
