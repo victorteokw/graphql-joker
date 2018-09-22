@@ -6,6 +6,9 @@ const glob = require('glob');
 
 const mongoose = require('mongoose');
 const mongooseUploader = require('mongoose-uploader');
+mongoose.Types.ObjectId.prototype.valueOf = function () {
+  return this.toString();
+};
 
 const { ApolloServer, makeExecutableSchema } = require('apollo-server');
 const { mergeTypes } = require('merge-graphql-schemas');
