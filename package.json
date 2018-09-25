@@ -40,7 +40,8 @@
     "lodash.merge": "^4.6.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "pluralize": "^7.0.0"
+    "pluralize": "^7.0.0",
+    "snake-case": "^2.1.0"
   },
   "devDependencies": {
     "eslint": "^5.0.1",

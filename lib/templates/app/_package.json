@@ -5,10 +5,7 @@
   "private": true,
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "console": "dobukulbira",
-    "seed": "nonula seed",
-    "drop": "nonula drop"
+    "start": "nodemon server.js"
   },
   "dependencies": {},
   "devDependencies": {}
