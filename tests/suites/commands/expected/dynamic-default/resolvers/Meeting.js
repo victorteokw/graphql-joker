@@ -1,25 +1,20 @@
 module.exports = {
   Query: {
-    async meeting(root, { _id }, ctx) {
-      const { Meeting } = ctx.models;
+    async meeting(root, { _id }, { Meeting }) {
       return await Meeting.findById(_id);
     },
-    async meetings(root, { _ }, ctx) {
-      const { Meeting } = ctx.models;
+    async meetings(root, { _ }, { Meeting }) {
       return await Meeting.find();
     }
   },
   Mutation: {
-    async createMeeting(root, { input }, ctx) {
-      const { Meeting } = ctx.models;
+    async createMeeting(root, { input }, { Meeting }) {
       return await Meeting.create(input);
     },
-    async updateMeeting(root, { _id, input }, ctx) {
-      const { Meeting } = ctx.models;
+    async updateMeeting(root, { _id, input }, { Meeting }) {
       return await (await Meeting.findById(_id)).set(input).save();
     },
-    async deleteMeeting(root, { _id }, ctx) {
-      const { Meeting } = ctx.models;
+    async deleteMeeting(root, { _id }, { Meeting }) {
       return await (await Meeting.findById(_id)).remove();
     }
   }

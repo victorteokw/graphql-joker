@@ -1,25 +1,20 @@
 module.exports = {
   Query: {
-    async result(root, { _id }, ctx) {
-      const { Result } = ctx.models;
+    async result(root, { _id }, { Result }) {
       return await Result.findById(_id);
     },
-    async results(root, { _ }, ctx) {
-      const { Result } = ctx.models;
+    async results(root, { _ }, { Result }) {
       return await Result.find();
     }
   },
   Mutation: {
-    async createResult(root, { input }, ctx) {
-      const { Result } = ctx.models;
+    async createResult(root, { input }, { Result }) {
       return await Result.create(input);
     },
-    async updateResult(root, { _id, input }, ctx) {
-      const { Result } = ctx.models;
+    async updateResult(root, { _id, input }, { Result }) {
       return await (await Result.findById(_id)).set(input).save();
     },
-    async deleteResult(root, { _id }, ctx) {
-      const { Result } = ctx.models;
+    async deleteResult(root, { _id }, { Result }) {
       return await (await Result.findById(_id)).remove();
     }
   }

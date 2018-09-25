@@ -1,35 +1,28 @@
 module.exports = {
   UserArticle: {
-    async post(root, _, ctx) {
-      const { Post } = ctx.models;
+    async post(root, _, { Post }) {
       return await Post.findById(root.post);
     },
-    async comments(root, _, ctx) {
-      const { Comment } = ctx.models;
+    async comments(root, _, { Comment }) {
       return await Comment.find({ _id: { $in: root.comments }});
     }
   },
   Query: {
-    async user(root, { _id }, ctx) {
-      const { User } = ctx.models;
+    async user(root, { _id }, { User }) {
       return await User.findById(_id);
     },
-    async users(root, { _ }, ctx) {
-      const { User } = ctx.models;
+    async users(root, { _ }, { User }) {
       return await User.find();
     }
   },
   Mutation: {
-    async createUser(root, { input }, ctx) {
-      const { User } = ctx.models;
+    async createUser(root, { input }, { User }) {
       return await User.create(input);
     },
-    async updateUser(root, { _id, input }, ctx) {
-      const { User } = ctx.models;
+    async updateUser(root, { _id, input }, { User }) {
       return await (await User.findById(_id)).set(input).save();
     },
-    async deleteUser(root, { _id }, ctx) {
-      const { User } = ctx.models;
+    async deleteUser(root, { _id }, { User }) {
       return await (await User.findById(_id)).remove();
     }
   }

@@ -1,37 +1,30 @@
 module.exports = {
   User: {
-    async followers(root, _, ctx) {
-      const { Follow, User } = ctx.models;
+    async followers(root, _, { Follow, User }) {
       const follows = await Follow.find({ followee: root._id });
       return await User.find({ _id: { $in: follows.map((f) => f.follower) }});
     },
-    async followees(root, _, ctx) {
-      const { Follow, User } = ctx.models;
+    async followees(root, _, { Follow, User }) {
       const follows = await Follow.find({ follower: root._id });
       return await User.find({ _id: { $in: follows.map((f) => f.followee) }});
     }
   },
   Query: {
-    async user(root, { _id }, ctx) {
-      const { User } = ctx.models;
+    async user(root, { _id }, { User }) {
       return await User.findById(_id);
     },
-    async users(root, { _ }, ctx) {
-      const { User } = ctx.models;
+    async users(root, { _ }, { User }) {
       return await User.find();
     }
   },
   Mutation: {
-    async createUser(root, { input }, ctx) {
-      const { User } = ctx.models;
+    async createUser(root, { input }, { User }) {
       return await User.create(input);
     },
-    async updateUser(root, { _id, input }, ctx) {
-      const { User } = ctx.models;
+    async updateUser(root, { _id, input }, { User }) {
       return await (await User.findById(_id)).set(input).save();
     },
-    async deleteUser(root, { _id }, ctx) {
-      const { User } = ctx.models;
+    async deleteUser(root, { _id }, { User }) {
       return await (await User.findById(_id)).remove();
     }
   }

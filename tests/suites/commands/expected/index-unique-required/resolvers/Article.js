@@ -1,25 +1,20 @@
 module.exports = {
   Query: {
-    async article(root, { _id }, ctx) {
-      const { Article } = ctx.models;
+    async article(root, { _id }, { Article }) {
       return await Article.findById(_id);
     },
-    async articles(root, { _ }, ctx) {
-      const { Article } = ctx.models;
+    async articles(root, { _ }, { Article }) {
       return await Article.find();
     }
   },
   Mutation: {
-    async createArticle(root, { input }, ctx) {
-      const { Article } = ctx.models;
+    async createArticle(root, { input }, { Article }) {
       return await Article.create(input);
     },
-    async updateArticle(root, { _id, input }, ctx) {
-      const { Article } = ctx.models;
+    async updateArticle(root, { _id, input }, { Article }) {
       return await (await Article.findById(_id)).set(input).save();
     },
-    async deleteArticle(root, { _id }, ctx) {
-      const { Article } = ctx.models;
+    async deleteArticle(root, { _id }, { Article }) {
       return await (await Article.findById(_id)).remove();
     }
   }
