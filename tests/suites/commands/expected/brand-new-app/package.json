@@ -7,7 +7,6 @@
   "scripts": {
     "start": "nodemon server.js",
     "console": "dobukulbira",
-    "test": "jest",
     "seed": "nonula seed",
     "drop": "nonula drop"
   },

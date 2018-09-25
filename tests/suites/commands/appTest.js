@@ -74,7 +74,6 @@ describe('amur app brand-new-app', () => {
           assert.deepEqual(j.scripts, {
             start: 'nodemon server.js',
             console: 'dobukulbira',
-            test: 'jest',
             seed: 'nonula seed',
             drop: 'nonula drop'
           });
@@ -120,46 +119,6 @@ describe('amur app brand-new-app', () => {
         });
       }
     }
-  });
-});
-
-describe('experimental test generation', () => {
-  const expectedDir = path.join(__dirname, 'expected/brand-new-app-with-tests');
-  let destDir, projDir, assertFileContent;
-  beforeAll(() => {
-    destDir = runGenerator('app', ['brand-new-app-with-tests'], {
-      test: true,
-      skipInstall: true
-    });
-    projDir = path.join(destDir, 'brand-new-app-with-tests');
-    assertFileContent = fileContent(projDir);
-  });
-  afterAll(() => {
-    fs.removeSync(destDir);
-  });
-  it('creates config/test.json', () => {
-    assertFileContent(
-      'config/test.json',
-      fs.readFileSync(path.join(expectedDir, 'config/test.json')).toString()
-    );
-  });
-  it('creates config/test.json', () => {
-    assertFileContent(
-      'config/test.json',
-      fs.readFileSync(path.join(expectedDir, 'config/test.json')).toString()
-    );
-  });
-  it('creates tests/modelEnv.js', () => {
-    assertFileContent(
-      'tests/modelEnv.js',
-      fs.readFileSync(path.join(expectedDir, 'tests/modelEnv.js')).toString()
-    );
-  });
-  it('creates jest.config.js', () => {
-    assertFileContent(
-      'jest.config.js',
-      fs.readFileSync(path.join(expectedDir, 'jest.config.js')).toString()
-    );
   });
 });
 
