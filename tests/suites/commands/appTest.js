@@ -124,7 +124,7 @@ describe('amur app brand-new-app', () => {
 describe('option --git-init', () => {
   let destDir;
   beforeAll(() => {
-    destDir = runGenerator('app', ['app-generator-'], {
+    destDir = runGenerator('app', ['git-init'], {
       gitInit: true,
       skipInstall: true
     });
