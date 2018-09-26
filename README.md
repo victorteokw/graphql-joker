@@ -88,6 +88,7 @@ Options:
 - `--git-init` Automatically run 'git init' after project generated.
 - `--skip-install` Do not install dependencies.
 - `--eslint-config` Changing the default eslint config.
+- `--main` Changing the entry filename.
 
 To change default eslint config being used:
 
