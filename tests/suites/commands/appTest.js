@@ -96,8 +96,7 @@ describe('amur app brand-new-app', () => {
           'eslint-config-man',
           'nodemon',
           'nonula',
-          'dobukulbira',
-          'prettier-eslint'
+          'dobukulbira'
         ].forEach(name => {
           it(`installs the dev dependency ${name}`, () => {
             const fileContents = fs
@@ -134,9 +133,6 @@ describe('option --git-init', () => {
     fs.removeSync(destDir);
   });
   it('has .git directory', () => {
-    // jest.mock('find-dominant-file');
-    // const fdf = require('find-dominant-file');
-    // fdf.mockImplementation(() => false);
-    // assert(fs.existsSync(path.join(destDir, '.git')));
+    assert(fs.existsSync(path.join(destDir, '.git')));
   });
 });

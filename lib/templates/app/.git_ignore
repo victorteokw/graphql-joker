@@ -1,5 +1,2 @@
 # local node modules
 node_modules
-
-# dobukulbira REPL tool's history file
-.dobukulbira.history
