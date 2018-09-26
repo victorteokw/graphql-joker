@@ -1,5 +1,0 @@
-module.exports = {
-  "models": "models", // You model dir
-  "data": "data", // Your seed data dir
-  "mongourl": 'your_db_url' // Your db url
-};
