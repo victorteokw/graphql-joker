@@ -128,7 +128,7 @@ describe('option --git-init', () => {
       gitInit: true,
       skipInstall: true
     });
-    projDir = path.join(destDir, 'brand-new-app');
+    projDir = path.join(destDir, 'git-init');
   });
   afterAll(() => {
     fs.removeSync(destDir);
