@@ -122,17 +122,18 @@ describe('amur app brand-new-app', () => {
 });
 
 describe('option --git-init', () => {
-  let destDir;
+  let destDir, projDir;
   beforeAll(() => {
     destDir = runGenerator('app', ['git-init'], {
       gitInit: true,
       skipInstall: true
     });
+    projDir = path.join(destDir, 'brand-new-app');
   });
   afterAll(() => {
     fs.removeSync(destDir);
   });
   it('has .git directory', () => {
-    assert(fs.existsSync(path.join(destDir, '.git')));
+    assert(fs.existsSync(path.join(projDir, '.git')));
   });
 });

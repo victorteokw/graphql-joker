@@ -1,8 +1,0 @@
-{
-  "app": {
-    "port": "<%- port %>"
-  },
-  "database": {
-    "url": "mongodb://127.0.0.1:27017/<%- name %>-dev"
-  }
-}
