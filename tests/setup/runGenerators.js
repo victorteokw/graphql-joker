@@ -2,6 +2,8 @@ const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
 const defaultOpts = require('../../lib/cli/defaultOpts');
+const orms = require('../../lib/orms');
+const merge = require('lodash.merge');
 
 module.exports = (generators) => {
   const projDir = path.join(
@@ -15,9 +17,11 @@ module.exports = (generators) => {
       g[0] + '.js'
     );
     const generator = require(generatorFile);
+    let options = Object.assign({}, defaultOpts, g[2] || {});
+    options = merge({}, orms[options.orm].defaultOpts, options);
     generator({
       args: g[1] || [],
-      options: Object.assign({}, defaultOpts, g[2] || {}),
+      options,
       projDir
     });
   });
