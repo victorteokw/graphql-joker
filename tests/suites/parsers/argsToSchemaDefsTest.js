@@ -1,8 +1,10 @@
-const argsToSchemaDefs = require('../../../lib/parsers/argsToSchemaDefs');
+const original = require('../../../lib/parsers/argsToSchemaDefs');
+const orms = require('../../../lib/orms');
+const argsToSchemaDefs = args => original(args, orms.mongoose);
 const assert = require('assert');
 
-describe('model schemaDefsriptor', () => {
-  it('creates correct schemaDefsriptor', () => {
+describe('model descriptor', () => {
+  it('creates correct descriptor', () => {
     const schemaDefs = argsToSchemaDefs([
       'User',
       'name:String',
@@ -17,32 +19,38 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         },
         {
           name: 'age',
-          type: 'Int',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Int',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         },
         {
           name: 'disabled',
-          type: 'Boolean',
+          isEnum: false,
+          isFile: false,
           jsType: 'Boolean',
           graphQLType: 'Boolean',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             default: false
-          },
+          }
         }
       ]
     });
@@ -62,25 +70,29 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'content',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true
-          },
+          }
         },
         {
           name: 'answer',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true
-          },
+          }
         }
       ]
     });
@@ -96,12 +108,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -121,23 +135,27 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true
-          },
+          }
         },
         {
           name: 'posts',
-          type: 'Post',
+          isEnum: false,
+          isFile: false,
           jsType: 'Post',
           graphQLType: 'Post',
           isArray: true,
           primitive: false,
-          modifiers: {},
+          reference: true,
+          modifiers: {}
         }
       ]
     });
@@ -157,26 +175,30 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: true,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true,
             index: true,
             unique: true,
             default: "'No Name'"
-          },
+          }
         },
         {
           name: 'posts',
-          type: 'Post',
+          isEnum: false,
+          isFile: false,
           jsType: 'Post',
           graphQLType: 'Post',
           isArray: true,
           primitive: false,
-          modifiers: {},
+          reference: true,
+          modifiers: {}
         }
       ]
     });
@@ -192,13 +214,16 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'posts',
-          type: 'Post',
+          isEnum: false,
+          isFile: false,
           jsType: 'Post',
           graphQLType: 'Post',
           isArray: true,
           primitive: false,
+          reference: true,
           modifiers: {},
           foreignKey: 'author',
+          foreignKeyIsArray: false
         }
       ]
     });
@@ -214,14 +239,16 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'age',
-          type: 'Number',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Int',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             default: 18
-          },
+          }
         }
       ]
     });
@@ -237,14 +264,16 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             index: true
-          },
+          }
         }
       ]
     });
@@ -260,14 +289,16 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true
-          },
+          }
         }
       ]
     });
@@ -283,15 +314,17 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             unique: true,
             sparse: true
-          },
+          }
         }
       ]
     });
@@ -307,16 +340,18 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             required: true,
             index: true,
             unique: true
-          },
+          }
         }
       ]
     });
@@ -332,14 +367,16 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             match: '/\\w+/'
-          },
+          }
         }
       ]
     });
@@ -355,17 +392,19 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             match: '/\\w+/',
             required: true,
             index: true,
             unique: true
-          },
+          }
         }
       ]
     });
@@ -381,12 +420,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'age',
-          type: 'Number',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Int',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -402,12 +443,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'age',
-          type: 'Int',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Int',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -423,12 +466,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'rate',
-          type: 'Float',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Float',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -444,12 +489,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'link',
-          type: 'ID',
+          isEnum: false,
+          isFile: false,
           jsType: 'ObjectId',
           graphQLType: 'ID',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -465,12 +512,14 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'link',
-          type: 'ObjectId',
+          isEnum: false,
+          isFile: false,
           jsType: 'ObjectId',
           graphQLType: 'ID',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -493,43 +542,51 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'settings',
+          isEnum: false,
+          isFile: false,
           isObject: true,
           isArray: false,
           fields: [
             {
               name: 'sms',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             },
             {
               name: 'email',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             }
           ]
         },
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -552,43 +609,51 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'settings',
+          isEnum: false,
+          isFile: false,
           isObject: true,
           isArray: true,
           fields: [
             {
               name: 'sms',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             },
             {
               name: 'email',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             }
           ]
         },
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
@@ -617,102 +682,120 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'age',
-          type: 'Int',
+          isEnum: false,
+          isFile: false,
           jsType: 'Number',
           graphQLType: 'Int',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         },
         {
           name: 'settings',
+          isEnum: false,
+          isFile: false,
           isObject: true,
           isArray: true,
           fields: [
             {
               name: 'sms',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             },
             {
               name: 'email',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             },
             {
               name: 'pn',
+              isEnum: false,
+              isFile: false,
               isObject: true,
               isArray: false,
               fields: [
                 {
                   name: 'ipad',
-                  type: 'Boolean',
+                  isEnum: false,
+                  isFile: false,
                   jsType: 'Boolean',
                   graphQLType: 'Boolean',
                   isArray: false,
                   primitive: true,
+                  reference: false,
                   modifiers: {
                     required: true,
                     default: true
-                  },
+                  }
                 },
                 {
                   name: 'iphone',
-                  type: 'Boolean',
+                  isEnum: false,
+                  isFile: false,
                   jsType: 'Boolean',
                   graphQLType: 'Boolean',
                   isArray: false,
                   primitive: true,
+                  reference: false,
                   modifiers: {
                     required: true,
                     default: true
-                  },
+                  }
                 }
               ]
             },
             {
               name: 'webSocket',
-              type: 'Boolean',
+              isEnum: false,
+              isFile: false,
               jsType: 'Boolean',
               graphQLType: 'Boolean',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 required: true,
                 default: true
-              },
+              }
             }
           ]
         },
         {
           name: 'name',
-          type: 'String',
+          isEnum: false,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'String',
           isArray: false,
           primitive: true,
-          modifiers: {},
+          reference: false,
+          modifiers: {}
         }
       ]
     });
   });
 
   it('handles enum', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'gender:Enum{male,female}!']);
+    const schemaDefs = argsToSchemaDefs(['User', 'gender:Enum(male,female)!']);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -721,15 +804,17 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'gender',
-          type: 'UserGender',
+          isEnum: true,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'UserGender',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             enum: ["'male'", "'female'"],
             required: true
-          },
+          }
         }
       ]
     });
@@ -738,7 +823,7 @@ describe('model schemaDefsriptor', () => {
   it('handles special chars in enum', () => {
     const schemaDefs = argsToSchemaDefs([
       'User',
-      'level:Enum{A+,A,A-,B+,B,B-}!'
+      'level:Enum(A+,A,A-,B+,B,B-)!'
     ]);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
@@ -748,15 +833,17 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'level',
-          type: 'UserLevel',
+          isEnum: true,
+          isFile: false,
           jsType: 'String',
           graphQLType: 'UserLevel',
           isArray: false,
           primitive: true,
+          reference: false,
           modifiers: {
             enum: ["'A+'", "'A'", "'A-'", "'B+'", "'B'", "'B-'"],
             required: true
-          },
+          }
         }
       ]
     });
@@ -766,7 +853,7 @@ describe('model schemaDefsriptor', () => {
     const schemaDefs = argsToSchemaDefs([
       'User',
       'info:{',
-      'gender:Enum{male,female}!'
+      'gender:Enum(male,female)!'
     ]);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
@@ -776,20 +863,24 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'info',
+          isEnum: false,
+          isFile: false,
           isObject: true,
           isArray: false,
           fields: [
             {
               name: 'gender',
-              type: 'UserInfoGender',
+              isEnum: true,
+              isFile: false,
               jsType: 'String',
               graphQLType: 'UserInfoGender',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 enum: ["'male'", "'female'"],
                 required: true
-              },
+              }
             }
           ]
         }
@@ -801,7 +892,7 @@ describe('model schemaDefsriptor', () => {
     const schemaDefs = argsToSchemaDefs([
       'Building',
       'users:[{',
-      'gender:Enum{male,female}!'
+      'gender:Enum(male,female)!'
     ]);
     assert.deepEqual(schemaDefs, {
       modelName: 'Building',
@@ -811,20 +902,24 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'users',
+          isEnum: false,
+          isFile: false,
           isObject: true,
           isArray: true,
           fields: [
             {
               name: 'gender',
-              type: 'BuildingUserGender',
+              isEnum: true,
+              isFile: false,
               jsType: 'String',
               graphQLType: 'BuildingUserGender',
               isArray: false,
               primitive: true,
+              reference: false,
               modifiers: {
                 enum: ["'male'", "'female'"],
                 required: true
-              },
+              }
             }
           ]
         }
@@ -850,8 +945,10 @@ describe('model schemaDefsriptor', () => {
           jsType: 'String',
           modifiers: {},
           name: 'name',
+          isEnum: false,
+          isFile: false,
           primitive: true,
-          type: 'String'
+          reference: false
         },
         {
           graphQLType: 'File',
@@ -861,8 +958,10 @@ describe('model schemaDefsriptor', () => {
             uploader: 'AvatarUploader'
           },
           name: 'avatar',
+          isEnum: false,
+          isFile: true,
           primitive: true,
-          type: 'File'
+          reference: false
         }
       ]
     });
@@ -881,18 +980,20 @@ describe('model schemaDefsriptor', () => {
       fields: [
         {
           name: 'courses',
-          type: 'Course',
+          isEnum: false,
+          isFile: false,
           jsType: 'Course',
           graphQLType: 'Course',
           isArray: true,
           primitive: false,
+          reference: true,
           modifiers: {},
           assocModel: 'Favorite',
           selfKey: 'user',
-          destKey: 'course'
+          destKey: 'course',
+          foreignKeyIsArray: false
         }
       ]
     });
-
   });
 });

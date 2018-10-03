@@ -690,7 +690,7 @@ describe('amur resource', () => {
         'resource',
         'User name:String settings:{ sms:Boolean email:Boolean \
 push:{ first:Boolean second:Boolean } } age:Int address:{ city:String \
-province:String Region:String address:{ one:String two:String } }'.split(
+province:String region:String address:{ one:String two:String } }'.split(
             ' '
           )
       );
@@ -860,7 +860,7 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/enum');
     beforeAll(() => {
-      destDir = runGenerator('resource', ['User', 'gender:Enum{male,female}!']);
+      destDir = runGenerator('resource', ['User', 'gender:Enum(male,female)!']);
       assertFileContent = fileContent(destDir);
     });
 
@@ -893,7 +893,7 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
         'email:String/.*@wtf\\.com/!',
         'info:{',
         'name:String!',
-        'gender:Enum{Male,Female}',
+        'gender:Enum(Male,Female)',
         '}',
         'password:String!'
       ]);
@@ -932,7 +932,7 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
         'User',
         'posts:[{',
         'title:String',
-        'kind:Enum{science,math,english}'
+        'kind:Enum(science,math,english)'
       ]);
       assertFileContent = fileContent(destDir);
     });
@@ -996,7 +996,7 @@ posts:[Post] comments:{ contents:[{ commentor:User }] } }'.split(
       destDir = runGenerator('resource', [
         'User',
         'name:String!',
-        'gender:Enum{male,female}',
+        'gender:Enum(male,female)',
         'age:Int>=0<=200',
         'addresses:[addressSchema]',
         'phoneNo:String/1[358]\\d{9,10}/',

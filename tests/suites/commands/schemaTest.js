@@ -125,7 +125,7 @@ describe('amur schema', () => {
     let destDir, assertFileContent;
     const dir = path.join(__dirname, 'expected/enum-in-schema');
     beforeAll(() => {
-      destDir = runGenerator('schema', ['Address', 'country:Enum{China,US}']);
+      destDir = runGenerator('schema', ['Address', 'country:Enum(China,US)']);
       assertFileContent = fileContent(destDir);
     });
 

@@ -374,7 +374,7 @@ to jump out the nesting context.
 To create enum fields, use enum syntax like this:
 
 ``` bash
-amur resource User 'gender:Enum{male,female}!'
+amur resource User 'gender:Enum(male,female)!'
 ```
 
 ## Reusable Schemas
