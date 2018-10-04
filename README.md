@@ -440,17 +440,14 @@ Any discuss, issue and pull request are welcome.
 Amur is an ambitious project and it still has a long way to go.
 
 - Version 0.8
-  - CLI user experience
-  - configurability
-  - more cli behavior tests
-  - use eslint to transform user generated code if available
-  - dependencies reliability
+  - Basic sequelize support
 - Version 0.9
+  - CLI user experience
+  - use eslint to transform user generated code if available
+  - configurability
+  - dependencies reliability
+- Version 0.10
   - query filter, sorting and pagination feature
-- Version 1.0
-  - the first stable release
-  - website should goes online
-  - publicize and popularize this project
 
 # License
 
