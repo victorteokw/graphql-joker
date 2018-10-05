@@ -4,6 +4,5 @@ module.exports = {
     '/node_modules/',
     '/tests/suites/commands/expected/'
   ],
-  setupTestFrameworkScriptFile: './jest.setup.js',
   'testEnvironment': 'node'
 };

@@ -11,7 +11,9 @@ describe('amur app brand-new-app', () => {
   let destDir, projDir, assertFileContent;
 
   beforeAll(() => {
-    destDir = runGenerator('app', ['brand-new-app']);
+    destDir = runGenerator('app', ['brand-new-app'], {
+      mockInstall: true
+    });
     projDir = path.join(destDir, 'brand-new-app');
     assertFileContent = fileContent(projDir);
   });
