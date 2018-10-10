@@ -1,7 +1,7 @@
 {
   "name": "amur",
   "version": "0.8.0-alpha.1",
-  "description": "Amur automates backend coding process.",
+  "description": "Amur is the ultimate GraphQL scaffolding tool.",
   "homepage": "https://github.com/zhangkaiyulw/amur",
   "author": {
     "name": "Zhang Kaiyu",
@@ -10,17 +10,18 @@
   "repository": "zhangkaiyulw/amur",
   "license": "GPL-3.0",
   "bin": {
-    "amur": "lib/cli/index.js"
+    "amur": "lib/amur.js"
   },
   "files": [
     "lib"
   ],
-  "main": "cli/index.js",
   "keywords": [
     "apollo-server",
-    "mongoose",
+    "graphql",
+    "scaffold",
     "generator",
-    "graphql"
+    "mongoose",
+    "sequelize"
   ],
   "scripts": {
     "test": "jest --silent",
@@ -37,6 +38,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.isequal": "^4.5.0",
     "lodash.kebabcase": "^4.1.1",
+    "lodash.map": "^4.6.0",
     "lodash.merge": "^4.6.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
