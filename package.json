@@ -48,6 +48,6 @@
     "prettier-eslint": "^8.8.2"
   },
   "engines": {
-    "node": ">= 9.0.0"
+    "node": ">= 8.0.0"
   }
 }
