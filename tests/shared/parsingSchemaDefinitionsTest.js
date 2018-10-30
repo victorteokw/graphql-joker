@@ -1,5 +1,5 @@
-const original = require('../../../lib/parsers/argsToSchemaDefs');
-const orms = require('../../../lib/orms');
+const original = require('../../lib/shared/parsingSchemaDefinitions');
+const orms = require('../../lib/orms');
 const argsToSchemaDefs = args => original(args, orms.mongoose);
 const assert = require('assert');
 
