@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "eslint": "^5.0.1",
-    "eslint-config-man": "^1.0.3",
+    "eslint-config-man": "^1.0.4",
     "eslint-plugin-jest": "^21.17.0",
     "fs-extra": "^7.0.0",
     "glob": "^7.1.2",
