@@ -33,7 +33,7 @@
     "ejs": "^2.6.1",
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
-    "scaffold-kit": "0.0.18",
+    "scaffold-kit": "0.0.19",
     "snake-case": "^2.1.0"
   },
   "devDependencies": {
