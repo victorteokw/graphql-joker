@@ -2,9 +2,8 @@ const path = require('path');
 const {
   setupTest,
   cleanUpTest,
-  executeTest,
-  compareDirectory,
-  iterateFile
+  runTest,
+  iterateFiles
 } = require('scaffold-kit-quality-testing');
 const app = require('../../lib/app');
 

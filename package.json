@@ -43,7 +43,8 @@
     "fs-extra": "^7.0.0",
     "glob": "^7.1.2",
     "jest": "^23.3.0",
-    "prettier-eslint": "^8.8.2"
+    "prettier-eslint": "^8.8.2",
+    "scaffold-kit-quality-testing": "0.0.6"
   },
   "engines": {
     "node": ">= 8.0.0"
