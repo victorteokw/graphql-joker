@@ -24,8 +24,8 @@
     "sequelize"
   ],
   "scripts": {
-    "test": "jest --silent",
-    "test-cov": "jest --silent --coverage",
+    "test": "jest",
+    "test-cov": "jest --coverage",
     "lint": "eslint ./lib",
     "lint-fix": "eslint ./lib --fix"
   },
