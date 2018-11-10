@@ -29,7 +29,7 @@ logic and running API in less than 3 minutes.
   * [Default Values](#default-values)
   * [Nested Structure](#nested-structure)
   * [Enums](#enums)
-  * [Reusable Schemas](#reusable-schemas)
+  * [Reusable Nestables](#reusable-nestables)
   * [Destroy Resources](#destroy-resources)
 * [Generate Uploader](#generate-uploader)
 * [Integrate with Existing Project](#integrate-with-existing-project)
@@ -377,16 +377,16 @@ To create enum fields, use enum syntax like this:
 amur resource User 'gender:Enum(male,female)!'
 ```
 
-## Reusable Schemas
+## Reusable Nestables
 
-Amur supports reusable schemas and referencing them.
+Amur supports reusable nestables and referencing them.
 
 ``` bash
-amur schema Address line1:String line2:String country:String region:String
+amur nestable Address line1:String line2:String country:String region:String
 amur resource User address:addressSchema name:String
 ```
 
-Specify the lowercase schema name append by 'Schema', amur will treat the type
+Specify the lowercase nestable name append by 'Schema', amur will treat the type
 as a subschema reference.
 
 ## Destroy Resources
