@@ -5,7 +5,7 @@ const {
   executeTest,
   compareDirectory,
   iterateFile
-} = require('scaffold-kit/test');
+} = require('scaffold-kit-quality-testing');
 const app = require('../../lib/app');
 
 beforeAll(setupTest(app, 'nestable'));

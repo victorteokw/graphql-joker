@@ -1,34 +1,43 @@
+const fs = require('fs');
 const path = require('path');
 const {
   setupTest,
   cleanUpTest,
-  executeTest,
-  compareDirectory,
-  existDirectory,
-  iterateFile,
-  givenDestDir
-} = require('scaffold-kit/test');
+  runTest,
+  generatedFileContent,
+  expectedFileContent,
+  iterateFiles,
+  getDirectory,
+} = require('scaffold-kit-quality-testing');
 const app = require('../../lib/app');
 
-beforeAll(setupTest(app, 'app'));
+beforeAll(setupTest('app', app, path.join(__dirname, '../expected/app')));
 
 afterAll(cleanUpTest('app'));
 
-executeTest('app', (run) => {
-  describe('app command: ', () => {
-    describe('creates an app in given directory', () => {
-      run('app brand-new-app', iterateFile((arg) => {
-        it(`creates file "${arg.fileName}"`, () => {
-          compareDirectory(path.join(__dirname, '../expected/app/brand-new-app'), arg);
-        });
-      }));
+describe('app command: ', () => {
+  describe('creates an app in given directory', () => {
+    beforeAll(runTest({
+      group: 'app',
+      template: 'brand-new-app',
+      command: 'app brand-new-app'
+    }));
+    iterateFiles('app', 'brand-new-app', (filename) => {
+      it(`creates file '${filename}'`, () => {
+        expect(generatedFileContent(filename))
+          .toBe(expectedFileContent(filename));
+      });
     });
-    describe('options: ', () => {
-      run('app git-init --git-init', givenDestDir((arg) => {
-        it('creates directory ".git"', () => {
-          existDirectory('.git', arg);
-        });
-      }));
+  });
+  describe('options: ', () => {
+    beforeAll(runTest({
+      group: 'app',
+      template: 'git-init',
+      command: 'app git-init --git-init'
+    }));
+    it('creates directory ".git"', () => {
+      const where = getDirectory('app', 'git-init');
+      expect(fs.existsSync(path.join(where, '.git'))).toBe(true);
     });
   });
 });
