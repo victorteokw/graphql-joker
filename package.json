@@ -1,6 +1,6 @@
 {
   "name": "amur",
-  "version": "0.8.0-alpha.3",
+  "version": "0.8.0",
   "description": "Amur is the ultimate GraphQL scaffolding tool.",
   "homepage": "https://github.com/zhangkaiyulw/amur",
   "author": {
