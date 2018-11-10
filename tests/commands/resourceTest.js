@@ -385,7 +385,7 @@ describe('resource command: ', () => {
     beforeAll(runTest({
       group: 'resource',
       template: 'supports-dynamic-default-date-value',
-      command: 'resource Meeting startedAt:Date!:`new Date()`'
+      command: ['resource', 'Meeting', 'startedAt:Date!:`new Date()`']
     }));
     iterateFiles('resource', 'supports-dynamic-default-date-value', ({ filename, expected, generated }) => {
       it(`creates file '${filename}'`, () => {
@@ -476,7 +476,7 @@ describe('resource command: ', () => {
     beforeAll(runTest({
       group: 'resource',
       template: 'enum-in-nested-array-model-has-singularized-prefixed-name',
-      command: 'resource User posts:[{ title:String title:String kind:Enum(science,math,english)'
+      command: 'resource User posts:[{ title:String kind:Enum(science,math,english)'
     }));
     iterateFiles('resource', 'enum-in-nested-array-model-has-singularized-prefixed-name', ({ filename, expected, generated }) => {
       it(`creates file '${filename}'`, () => {

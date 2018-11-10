@@ -43,7 +43,7 @@ describe('nestable command: ', () => {
     beforeAll(runTest({
       group: 'nestable',
       template: 'supports-nested-model',
-      command: 'nestable Address country:String region:String line:{ one:String two:String } city:String! postalCode:String'
+      command: 'nestable Address country:String region:String line:{ one:String! two:String } city:String! postalCode:String'
     }));
     iterateFiles('nestable', 'supports-nested-model', ({ filename, expected, generated }) => {
       it(`creates file '${filename}'`, () => {
