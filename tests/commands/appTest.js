@@ -11,7 +11,7 @@ const app = require('../../lib/app');
 
 beforeAll(setupTest('app', app, path.join(__dirname, '../expected/app')));
 
-//afterAll(cleanUpTest('app'));
+afterAll(cleanUpTest('app'));
 
 describe('app command: ', () => {
   describe('creates an app in given directory', () => {
