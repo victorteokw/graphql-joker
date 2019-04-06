@@ -1,6 +1,6 @@
 {
   "name": "amur",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Amur is the ultimate GraphQL scaffolding tool.",
   "homepage": "https://github.com/zhangkaiyulw/amur",
   "author": {
@@ -33,7 +33,7 @@
     "ejs": "^2.6.1",
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
-    "scaffold-kit": "0.1.13",
+    "scaffold-kit": "1.0.0",
     "snake-case": "^2.1.0"
   },
   "devDependencies": {
@@ -44,7 +44,7 @@
     "glob": "^7.1.2",
     "jest": "^23.3.0",
     "prettier-eslint": "^8.8.2",
-    "scaffold-kit-quality-testing": "0.1.13"
+    "scaffold-kit-quality-testing": "1.0.0"
   },
   "engines": {
     "node": ">= 8.0.0"
