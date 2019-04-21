@@ -1,4 +1,4 @@
-# Amur
+# GraphQL Joker
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Test Coverage][cov-image]][cov-url]
@@ -6,20 +6,20 @@
 [![License][license-image]][license-url]
 [![PR Welcome][pr-image]][pr-url]
 
-Amur is the ultimate GraphQL scaffolding tool.
+GraphQL Joker is the ultimate GraphQL scaffolding tool.
 
 It automates coding process to save your precious time, enhance your work and
-life experience. In other words, amur write code for you with commands you
-specified.
+life experience. In other words, GraphQL Joker write code for you with commands
+you specified.
 
-With amur, you can create a full-fledged backend server with your complex app
-logic and running API in less than 3 minutes.
+With GraphQL Joker, you can create a full-fledged backend server with your
+complex app logic and running API in less than 3 minutes.
 
 # Documentation
 * [Motivation](#motivation)
 * [Design Concept](#design-concept)
 * [Installation](#installation)
-* [Create an Amur Project](#create-an-amur-project)
+* [Create an GraphQL Project](#create-an-graphql-project)
 * [Generate Resources](#generate-resources)
   * [Primitive Types](#primitive-types)
   * [Array Type](#array-type)
@@ -33,7 +33,7 @@ logic and running API in less than 3 minutes.
   * [Destroy Resources](#destroy-resources)
 * [Generate Uploader](#generate-uploader)
 * [Integrate with Existing Project](#integrate-with-existing-project)
-  * [Customize Amur Behavior](#customize-amur-behavior)
+  * [Customize GraphQL Joker Behavior](#customize-graphql-joker-behavior)
 * [Issues and Helps](#issues-and-helps)
 * [Roadmap](#roadmap)
 * [License](#license)
@@ -51,33 +51,36 @@ to generate code for us?
 
 # Design Concept
 
-Amur is designed to provide features at least Ruby on Rails scaffold tool has.
-Aka, generate boilerplate business logic code as much as possible for you.
+GraphQL Joker is designed to provide features at least Ruby on Rails scaffold
+tool has. Aka, generate boilerplate business logic code as much as possible for
+you.
 
-However, unlike Ruby on Rails, amur is not a full-fledged framework and will
-never provide a framework for you. It focus on business logic generation.
-Although amur also has project generation feature, it's trying to hook up the
-industry standard and battle-tested libraries and components together for you.
-And it's configurable. To split features into small core chunks and make them
-combinable and adaptable is a good practice and especially popular in node.js
-ecosystem, amur embraces this practice. That's what makes amur outstanding and
-what makes amur really a flexible and configurable scaffolding tool.
+However, unlike Ruby on Rails, GraphQL Joker is not a full-fledged framework and
+will never provide a framework for you. It focus on business logic generation.
+Although GraphQL Joker also has project generation feature, it's trying to hook
+up the industry standard and battle-tested libraries and components together for
+you. And it's configurable. To split features into small core chunks and make
+them combinable and adaptable is a good practice and especially popular in
+node.js ecosystem, GraphQL Joker embraces this practice. That's what makes
+GraphQL Joker outstanding and what makes GraphQL Joker really a flexible and
+configurable scaffolding tool.
 
 
 # Installation
 
-Amur is a general command line tool, thus you should install it globally.
+GraphQL Joker is a general command line tool, thus you should install it
+globally.
 
 ```bash
-npm install -g amur
+npm install -g graphql-joker
 ```
 
-# Create an Amur Project
+# Create an GraphQL Project
 
-To create an amur project, use `amur app` command.
+To create an GraphQL project, use `joker app` command.
 
 ```bash
-amur app my-new-app
+joker app my-new-app
 ```
 
 This will generate your app in 'my-new-app' folder. If you don't specify app
@@ -93,22 +96,22 @@ Options:
 To change default eslint config being used:
 
 ```bash
-amur app my-new-app --eslint-config=your-config
+joker app my-new-app --eslint-config=your-config
 ```
 
 To automatically run `git init`:
 
 ```bash
-amur app my-new-app --git-init
+joker app my-new-app --git-init
 ```
 
 # Generate Resources
 
-API resource generation is the core feature of amur. It's syntax is rather
-simple and extensible. It follows this basic style:
+API resource generation is the core feature of GraphQL Joker. It's syntax is
+rather simple and extensible. It follows this basic style:
 
 ``` bash
-amur resource ModelName[/optionalPluralVariableName] \
+joker resource ModelName[/optionalPluralVariableName] \
 primitiveField[[:Type[typeModifiers]]:defaultValue]... \
 referenceField[[:ReferenceType[typeModifiers]]:foreignKey]...
 ```
@@ -120,8 +123,8 @@ list of posts. And you have a model named post, it has title, content and
 author. Just type like this:
 
 ``` bash
-amur resource User name:String age:Int posts:[Post]:author
-amur resource Post title:String content:String author:User
+joker resource User name:String age:Int posts:[Post]:author
+joker resource Post title:String content:String author:User
 ```
 
 Here we specified our first model 'User', with following fields:
@@ -222,7 +225,7 @@ Now you can CRUD your resources through API.
 
 ## Primitive Types
 
-Amur supports a wide range of primitive types:
+GraphQL Joker supports a wide range of primitive types:
 * `String` string type
 * `Int` integer type
 * `Float` float type
@@ -233,12 +236,12 @@ Amur supports a wide range of primitive types:
 * `Mixed` mixed type includes string, int, float, boolean, date, array and
 objects
 
-When you are defining a field with type mentioned above, amur will treat them as
-primitive types. When you refer to a type that is not included in the list, amur
-will treat it as a referecing to another model.
+When you are defining a field with type mentioned above, GraphQL Joker will
+treat them as primitive types. When you refer to a type that is not included in
+the list, GraphQL Joker will treat it as a referecing to another model.
 
 ``` bash
-amur resource User disabled:Boolean name:String description:Mixed spouse:User
+joker resource User disabled:Boolean name:String description:Mixed spouse:User
 ```
 
 In the above example, obviously `disabled`, `name` and `description` are
@@ -249,7 +252,7 @@ primitive types. `spouse` is a reference type which references to `User`.
 Surround a type with a pair of [], you get an array of that type, for example:
 
 ```
-amur resource User spouse:User friends:[User] favoriteSayings:[String]
+joker resource User spouse:User friends:[User] favoriteSayings:[String]
 ```
 
 The field `friends` is an array of `User`s. And the field `favoriteSayings` is
@@ -264,8 +267,8 @@ There are several ways to implement your own reference types.
 The simplest case is one-to-one relation ship.
 
 ```bash
-amur resource User address:Address
-amur resource Address user:User:address
+joker resource User address:Address
+joker resource Address user:User:address
 ```
 
 In this case, we save the reference into user model, and on address model, we
@@ -276,16 +279,16 @@ use the foreign key on user model to fetch the user value.
 We have two ways to implement this relationship.
 
 ```bash
-amur resource User posts:[Post]:owner
-amur resource Post user:User:owner
+joker resource User posts:[Post]:owner
+joker resource Post user:User:owner
 ```
 
 This is the most common case. We save the reference on the 'many' side, and
 fetch on the 'many' side model.
 
 ```bash
-amur resource User posts:[Post]
-amur resource Post user:User:[posts]
+joker resource User posts:[Post]
+joker resource Post user:User:[posts]
 ```
 
 In this case, we are saving the references on the 'one' side, and on 'many'
@@ -297,16 +300,16 @@ when you are doing this way.
 In simple cases, we can just do like this.
 
 ```bash
-amur resource User courses:[Course]
-amur resource Course users:[User]:[courses]
+joker resource User courses:[Course]
+joker resource Course users:[User]:[courses]
 ```
 
 If there are tons of records, then you may want to use association table.
 
 ```bash
-amur resource Favorite user:User course:Course
-amur resource User courses:[Course]:Favorite
-amur resource Course users:[User]:Favorite
+joker resource Favorite user:User course:Course
+joker resource User courses:[Course]:Favorite
+joker resource Course users:[User]:Favorite
 ```
 
 In this case, we specified a relationship that is have many ... through ...
@@ -317,7 +320,7 @@ To create an uploading field, use `...Uploader` as type name. See the following
 example:
 
 ```bash
-amur resource User avatar:AvatarUploader
+joker resource User avatar:AvatarUploader
 ```
 
 To create an uploader, see [Generate Uploader](#generate-uploader)
@@ -329,7 +332,7 @@ want a user's email to match designated format and to be required and unique.
 You can specify type modifiers.
 
 ``` bash
-amur resource User 'email:String/.*@.*\..*/!$'
+joker resource User 'email:String/.*@.*\..*/!$'
 ```
 
 In the above example, `/.*@.*\..*/` means that this field matches this regexp,
@@ -348,7 +351,7 @@ Existing type modifiers includes:
 You can specify default value to a primitive field with the following syntax.
 
 ``` bash
-amur resource Post 'title:String!:Untitled' 'lastUpdate:Date!:`Date.now`'
+joker resource Post 'title:String!:Untitled' 'lastUpdate:Date!:`Date.now`'
 ```
 
 Here, title's default value is `'Untitled'`, and lastUpdate's default value is
@@ -360,7 +363,7 @@ back ticks.
 To create nested structure, use the following syntax:
 
 ``` bash
-amur resource User posts:[{ title:String content:String comments:[{ \
+joker resource User posts:[{ title:String content:String comments:[{ \
 commenter:User content:String }] }] email:String password:String settings:{ \
 sms:Boolean email:Boolean pushNotification:Boolean }
 ```
@@ -374,20 +377,20 @@ to jump out the nesting context.
 To create enum fields, use enum syntax like this:
 
 ``` bash
-amur resource User 'gender:Enum(male,female)!'
+joker resource User 'gender:Enum(male,female)!'
 ```
 
 ## Reusable Nestables
 
-Amur supports reusable nestables and referencing them.
+GraphQL Joker supports reusable nestables and referencing them.
 
 ``` bash
-amur nestable Address line1:String line2:String country:String region:String
-amur resource User address:addressSchema name:String
+joker nestable Address line1:String line2:String country:String region:String
+joker resource User address:addressSchema name:String
 ```
 
-Specify the lowercase nestable name append by 'Schema', amur will treat the type
-as a subschema reference.
+Specify the lowercase nestable name append by 'Schema', joker will treat the
+type as a subschema reference.
 
 ## Destroy Resources
 
@@ -396,27 +399,27 @@ If you mistakenly generated something or you spell something wrongly, use the
 the original command, it automatically destroys the generated content.
 
 ``` bash
-amur destroy resource User name:String
+joker destroy resource User name:String
 ```
 
 ## Generate Uploader
 
-To generate an uploader, use `amur uploader` command.
+To generate an uploader, use `joker uploader` command.
 
 ```bash
-amur uploader FileUploader extends AliOSSUploader bucket=your-bucket-name region=your-region
+joker uploader FileUploader extends AliOSSUploader bucket=your-bucket-name region=your-region
 ```
 
 This generates an base file uploader for you.
 
 # Integrate with Existing Project
 
-Amur is designed to be a generic tool. It does not require a project to be a
-amur project.
+GraphQL Joker is designed to be a generic tool. It does not require a project to
+be a GraphQL Joker project.
 
-## Customize Amur Behavior
+## Customize GraphQL Joker Behavior
 
-Create a file called `.amurrc.json` in project's root directory. And filling it
+Create a file called `.jokerrc.json` in project's root directory. And filling it
 like this:
 
 ```json
@@ -427,17 +430,17 @@ like this:
 }
 ```
 
-Amur will generate schema files and resolver files into graphql directory, and
-will not generate unit tests.
+GraphQL Joker will generate schema files and resolver files into graphql
+directory, and will not generate unit tests.
 
 # Issues and Helps
 
-Amur is not mature yet. If you find anything uncomfortable or confuses you.
-Any discuss, issue and pull request are welcome.
+GraphQL Joker is not mature yet. If you find anything uncomfortable or confuses
+you. Any discuss, issue and pull request are welcome.
 
 # Roadmap
 
-Amur is an ambitious project and it still has a long way to go.
+GraphQL Joker is an ambitious project and it still has a long way to go.
 
 - Version 0.8
   - Basic sequelize support
@@ -453,15 +456,15 @@ Amur is an ambitious project and it still has a long way to go.
 
 [The GNU General Public License v3.0](license-url).
 
-[npm-image]: https://badge.fury.io/js/amur.svg
-[npm-url]: https://npmjs.org/package/amur
-[travis-image]: https://travis-ci.org/zhangkaiyulw/amur.svg?branch=master
-[travis-url]: https://travis-ci.org/zhangkaiyulw/amur
-[cov-image]: https://codecov.io/gh/zhangkaiyulw/amur/branch/master/graph/badge.svg
-[cov-url]: https://codecov.io/gh/zhangkaiyulw/amur
-[daviddm-image]: https://david-dm.org/zhangkaiyulw/amur.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/zhangkaiyulw/amur
-[license-image]: https://img.shields.io/github/license/zhangkaiyulw/amur.svg
-[license-url]: https://github.com/zhangkaiyulw/amur/blob/master/LICENSE
+[npm-image]: https://badge.fury.io/js/graphql-joker.svg
+[npm-url]: https://npmjs.org/package/graphql-joker
+[travis-image]: https://travis-ci.org/zhangkaiyulw/graphql-joker.svg?branch=master
+[travis-url]: https://travis-ci.org/zhangkaiyulw/graphql-joker
+[cov-image]: https://codecov.io/gh/zhangkaiyulw/graphql-joker/branch/master/graph/badge.svg
+[cov-url]: https://codecov.io/gh/zhangkaiyulw/graphql-joker
+[daviddm-image]: https://david-dm.org/zhangkaiyulw/graphql-joker.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/zhangkaiyulw/graphql-joker
+[license-image]: https://img.shields.io/github/license/zhangkaiyulw/graphql-joker.svg
+[license-url]: https://github.com/zhangkaiyulw/graphql-joker/blob/master/LICENSE
 [pr-image]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
-[pr-url]: https://github.com/zhangkaiyulw/amur/blob/master/CONTRIBUTING.md
+[pr-url]: https://github.com/zhangkaiyulw/graphql-joker/blob/master/CONTRIBUTING.md

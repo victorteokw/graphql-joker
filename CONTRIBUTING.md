@@ -1,1 +1,1 @@
-# Contributing to Amur
+# Contributing to GraphQL Joker

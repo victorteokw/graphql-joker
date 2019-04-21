@@ -1,16 +1,16 @@
 {
-  "name": "amur",
+  "name": "graphql-joker",
   "version": "0.8.6",
-  "description": "Amur is the ultimate GraphQL scaffolding tool.",
-  "homepage": "https://github.com/zhangkaiyulw/amur",
+  "description": "GraphQL Joker is the ultimate GraphQL scaffolding tool.",
+  "homepage": "https://github.com/zhangkaiyulw/graphql-joker",
   "author": {
     "name": "Zhang Kaiyu",
     "email": "yeannylam@gmail.com"
   },
-  "repository": "zhangkaiyulw/amur",
+  "repository": "zhangkaiyulw/graphql-joker",
   "license": "GPL-3.0",
   "bin": {
-    "amur": "lib/amur.js"
+    "joker": "lib/joker.js"
   },
   "files": [
     "lib"
