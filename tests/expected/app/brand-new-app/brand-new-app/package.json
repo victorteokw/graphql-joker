@@ -5,15 +5,16 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "console": "dobukulbira",
-    "seed": "nonula seed",
-    "drop": "nonula drop"
+    "console": "db-console",
+    "seed": "seedgoose seed",
+    "reseed": "seedgoose reseed",
+    "unseed": "seedgoose unseed"
   },
   "dependencies": {
     "apollo-server": "^2.0.0",
     "glob": "latest",
     "graphql": "^14.0.0",
-    "graphql-middleware": "^1.0.0",
+    "graphql-middleware": "^3.0.0",
     "lodash.map": "latest",
     "lodash.merge": "latest",
     "merge-graphql-schemas": "^1.0.0",
@@ -22,10 +23,10 @@
     "noenv": "latest"
   },
   "devDependencies": {
-    "dobukulbira": "0.0.8",
+    "db-console": "^1.0.0",
     "eslint": "latest",
     "eslint-config-man": "latest",
     "nodemon": "latest",
-    "nonula": "0.2.2"
+    "seedgoose": "^1.0.0"
   }
 }
