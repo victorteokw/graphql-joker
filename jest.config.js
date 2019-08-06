@@ -1,5 +1,9 @@
 module.exports = {
-  testRegex: '/tests/.*Test\\.js',
+  'transform': {
+    '^.+\\.(t|j)sx?$': 'ts-jest'
+  },
+  'testRegex': '/tests/.*Test\\.ts',
+  'moduleFileExtensions': ['ts', 'tsx', 'js', 'jsx', 'node'],
   testPathIgnorePatterns: [
     '/node_modules/',
     '/tests/expected/'

@@ -1,5 +1,5 @@
-const unquote = require('../../../lib/utils/string/unquote');
-const assert = require('assert');
+import unquote from '../../../src/utils/string/unquote';
+import assert = require('assert');
 
 describe('quote', () => {
   it('strips string quoted by "', () => {

@@ -9,4 +9,4 @@ const primitiveGraphQLTypes = [
   'File'
 ];
 
-module.exports = primitiveGraphQLTypes;
+export default primitiveGraphQLTypes;

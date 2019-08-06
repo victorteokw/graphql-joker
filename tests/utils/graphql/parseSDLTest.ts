@@ -1,16 +1,61 @@
-const original = require('../../lib/shared/parsingSchemaDefinitions');
-const orms = require('../../lib/orms');
-const argsToSchemaDefs = args => original(args, orms.mongoose);
-const assert = require('assert');
+import parseSDL from '../../../src/utils/graphql/parseSDL';
+import assert = require('assert');
+
+const ormSetting = {
+  graphQLTypeFromORMType: (type: string): string => {
+    switch (type) {
+      case 'String':
+        return 'String';
+      case 'Boolean':
+        return 'Boolean';
+      case 'Number':
+        return 'Int';
+      case 'ObjectId':
+        return 'ID';
+      case 'Date':
+        return 'Date';
+      case 'Mixed':
+        return 'Mixed';
+    }
+    return '';
+  },
+  ormTypeFromGraphQLType: (type: string): string => {
+    switch (type) {
+      case 'String':
+        return 'String';
+      case 'Boolean':
+        return 'Boolean';
+      case 'Float':
+        return 'Number';
+      case 'Int':
+        return 'Number';
+      case 'ID':
+        return 'ObjectId';
+      case 'Date':
+        return 'Date';
+      case 'Mixed':
+        return 'Mixed';
+    }
+    return '';
+  },
+  supportedPrimitiveTypes: [
+    'String',
+    'Boolean',
+    'Number',
+    'ObjectId',
+    'Date',
+    'Mixed'
+  ]
+};
 
 describe('model descriptor', () => {
   it('creates correct descriptor', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'name:String',
       'age:Int',
       'disabled:Boolean:false'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -57,11 +102,11 @@ describe('model descriptor', () => {
   });
 
   it('handles plural model names', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'Quiz',
       'content:String!',
       'answer:String!'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'Quiz',
       collectionName: 'quizzes',
@@ -99,7 +144,7 @@ describe('model descriptor', () => {
   });
 
   it('handles uncountable model names', () => {
-    const schemaDefs = argsToSchemaDefs(['Fish', 'name:String']);
+    const schemaDefs = parseSDL(['Fish', 'name:String'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'Fish',
       collectionName: 'fish',
@@ -122,11 +167,11 @@ describe('model descriptor', () => {
   });
 
   it('handles references', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'name:String!',
       'posts:[Post]'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -162,11 +207,11 @@ describe('model descriptor', () => {
   });
 
   it('handles arrays', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'name:[String]!^$:No Name',
       'posts:[Post]'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -205,7 +250,7 @@ describe('model descriptor', () => {
   });
 
   it('handle foreign keys', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'posts:[Post]:author']);
+    const schemaDefs = parseSDL(['User', 'posts:[Post]:author'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -230,7 +275,7 @@ describe('model descriptor', () => {
   });
 
   it('handle default value', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'age:Number:18']);
+    const schemaDefs = parseSDL(['User', 'age:Number:18'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -255,7 +300,7 @@ describe('model descriptor', () => {
   });
 
   it('handle index modifier', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String^']);
+    const schemaDefs = parseSDL(['User', 'name:String^'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -280,7 +325,7 @@ describe('model descriptor', () => {
   });
 
   it('handle required modifier', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String!']);
+    const schemaDefs = parseSDL(['User', 'name:String!'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -305,7 +350,7 @@ describe('model descriptor', () => {
   });
 
   it('handle unique modifier', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String$']);
+    const schemaDefs = parseSDL(['User', 'name:String$'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -331,7 +376,7 @@ describe('model descriptor', () => {
   });
 
   it('handle combined modifiers', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String$^!']);
+    const schemaDefs = parseSDL(['User', 'name:String$^!'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -358,7 +403,7 @@ describe('model descriptor', () => {
   });
 
   it('handle string match modifiers', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String/\\w+/']);
+    const schemaDefs = parseSDL(['User', 'name:String/\\w+/'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -383,7 +428,7 @@ describe('model descriptor', () => {
   });
 
   it('string match modifiers should come before other modifiers', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'name:String/\\w+/!^$']);
+    const schemaDefs = parseSDL(['User', 'name:String/\\w+/!^$'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -411,7 +456,7 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Number', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'age:Number']);
+    const schemaDefs = parseSDL(['User', 'age:Number'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -434,7 +479,7 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Int', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'age:Int']);
+    const schemaDefs = parseSDL(['User', 'age:Int'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -457,7 +502,7 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input Float', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'rate:Float']);
+    const schemaDefs = parseSDL(['User', 'rate:Float'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -480,7 +525,7 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input ID', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'link:ID']);
+    const schemaDefs = parseSDL(['User', 'link:ID'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -503,7 +548,7 @@ describe('model descriptor', () => {
   });
 
   it('set correct types for user input ObjectId', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'link:ObjectId']);
+    const schemaDefs = parseSDL(['User', 'link:ObjectId'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -526,14 +571,14 @@ describe('model descriptor', () => {
   });
 
   it('handles nesting structure', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'settings:{',
       'sms:Boolean!:true',
       'email:Boolean!:true',
       '}',
       'name:String'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -593,14 +638,14 @@ describe('model descriptor', () => {
   });
 
   it('handles nesting array structure', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'settings:[{',
       'sms:Boolean!:true',
       'email:Boolean!:true',
       '}]',
       'name:String'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -660,7 +705,7 @@ describe('model descriptor', () => {
   });
 
   it('handles deep nesting structure', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'age:Int',
       'settings:[{',
@@ -673,7 +718,7 @@ describe('model descriptor', () => {
       'webSocket:Boolean!:true',
       '}]',
       'name:String'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -795,7 +840,7 @@ describe('model descriptor', () => {
   });
 
   it('handles enum', () => {
-    const schemaDefs = argsToSchemaDefs(['User', 'gender:Enum(male,female)!']);
+    const schemaDefs = parseSDL(['User', 'gender:Enum(male,female)!'], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -822,10 +867,10 @@ describe('model descriptor', () => {
   });
 
   it('handles special chars in enum', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'level:Enum(A+,A,A-,B+,B,B-)!'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -852,11 +897,11 @@ describe('model descriptor', () => {
   });
 
   it('handles enum in nested structure', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'info:{',
       'gender:Enum(male,female)!'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -892,11 +937,11 @@ describe('model descriptor', () => {
   });
 
   it('handles enum in nested array structure', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'Building',
       'users:[{',
       'gender:Enum(male,female)!'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'Building',
       collectionName: 'buildings',
@@ -932,11 +977,11 @@ describe('model descriptor', () => {
   });
 
   it('handles file type', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'name:String',
       'avatar:AvatarUploader'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',
@@ -972,10 +1017,10 @@ describe('model descriptor', () => {
   });
 
   it('handles association tables', () => {
-    const schemaDefs = argsToSchemaDefs([
+    const schemaDefs = parseSDL([
       'User',
       'courses:[Course]:Favorite.course.user'
-    ]);
+    ], ormSetting);
     assert.deepEqual(schemaDefs, {
       modelName: 'User',
       collectionName: 'users',

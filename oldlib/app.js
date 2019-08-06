@@ -1,7 +1,6 @@
 const path = require('path');
 const appPackage = require('../package.json');
 const { createApp } = require('scaffold-kit/app');
-const { setExecutorOption } = require('scaffold-kit/executor');
 
 const app = createApp({
   appName: 'GraphQL Joker',
@@ -18,27 +17,6 @@ const app = createApp({
       alias: 'o',
       saveToPreference: true,
       behavioral: true
-    },
-    {
-      name: 'overwrite',
-      type: Boolean,
-      description: 'whether overwrite existing file.',
-      defaultValue: false,
-      saveToPreference: false
-    },
-    {
-      name: 'mockInstall',
-      type: Boolean,
-      description: 'update dependency list without installing.',
-      defaultValue: false,
-      saveToPreference: false
-    },
-    {
-      name: 'silent',
-      type: Boolean,
-      description: 'whether suppress output.',
-      defaultValue: false,
-      saveToPreference: false
     }
   ],
   behaviorals: [
@@ -96,28 +74,7 @@ const app = createApp({
         }
       ]
     }
-  ],
-  commands: {
-    'app': path.join(__dirname, './commands/app'),
-    'model': path.join(__dirname, './commands/model'),
-    'schema': path.join(__dirname, './commands/schema'),
-    'resolver': path.join(__dirname, './commands/resolver'),
-    'resource': path.join(__dirname, './commands/resource'),
-    'nestable': path.join(__dirname, './commands/nestable'),
-    'uploader': path.join(__dirname, './commands/uploader'),
-    'destroy': path.join(__dirname, './commands/destroy')
-  },
-  beforeExecution: ({ options }) => {
-    if (options.overwrite) {
-      setExecutorOption('overwrite', true);
-    }
-    if (options.silent) {
-      setExecutorOption('silent', true);
-    }
-    if (options.mockInstall) {
-      setExecutorOption('mock', true);
-    }
-  }
+  ]
 });
 
 module.exports = app;

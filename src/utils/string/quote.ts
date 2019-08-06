@@ -1,4 +1,4 @@
-module.exports = (str) => {
+function quote(str: string) {
   if (str.match(/'/)) {
     return JSON.stringify(str);
   } else {
@@ -6,3 +6,5 @@ module.exports = (str) => {
     return `'${str}'`;
   }
 };
+
+export default quote;

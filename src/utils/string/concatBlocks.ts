@@ -1,5 +1,5 @@
-const concatBlocks = (blocks) => {
-  const nonEmptyBlocks = [];
+const concatBlocks = (blocks: string[]): string => {
+  const nonEmptyBlocks: string[] = [];
   blocks.forEach((block) => {
     if ((block !== undefined) && (block !== '')) {
       nonEmptyBlocks.push(block);
@@ -19,4 +19,4 @@ const concatBlocks = (blocks) => {
   return retval;
 };
 
-module.exports = concatBlocks;
+export default concatBlocks;

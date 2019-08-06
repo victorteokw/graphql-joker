@@ -1,5 +1,5 @@
-const quote = require('../../../lib/utils/string/quote');
-const assert = require('assert');
+import quote from '../../../src/utils/string/quote';
+import assert = require('assert');
 
 describe('quote', () => {
   it('converts string to quoted string with single quote', () => {

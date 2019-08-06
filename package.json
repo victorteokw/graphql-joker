@@ -1,6 +1,6 @@
 {
   "name": "graphql-joker",
-  "version": "0.8.9",
+  "version": "1.0.0-alpha.0",
   "description": "GraphQL Joker is the ultimate GraphQL scaffolding tool.",
   "homepage": "https://github.com/zhangkaiyulw/graphql-joker",
   "author": {
@@ -13,7 +13,8 @@
     "joker": "lib/joker.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "templates"
   ],
   "keywords": [
     "apollo-server",
@@ -24,27 +25,36 @@
     "sequelize"
   ],
   "scripts": {
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "test": "jest",
     "test-cov": "jest --coverage",
-    "lint": "eslint ./lib",
-    "lint-fix": "eslint ./lib --fix"
+    "prepare": "npm run build",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "ejs": "^2.6.1",
-    "lodash": "^4.17.11",
-    "pluralize": "^7.0.0",
-    "scaffold-kit": "1.0.3",
+    "ejs": "^2.6.2",
+    "lodash": "^4.17.15",
+    "pluralize": "^8.0.0",
+    "scaffold-kit": "^2.0.0-alpha.5",
     "snake-case": "^2.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.0.1",
-    "eslint-config-man": "^1.0.4",
-    "eslint-plugin-jest": "^21.17.0",
-    "fs-extra": "^7.0.0",
-    "glob": "^7.1.2",
-    "jest": "^23.3.0",
-    "prettier-eslint": "^8.8.2",
-    "scaffold-kit-quality-testing": "1.0.3"
+    "@types/jest": "^24.0.17",
+    "@types/lodash": "^4.14.136",
+    "@types/node": "^12.6.9",
+    "@types/pluralize": "0.0.29",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.4",
+    "jest": "^24.8.0",
+    "prettier-eslint": "^9.0.0",
+    "scaffold-kit-quality-testing": "^2.0.0-alpha.4",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3"
   },
   "engines": {
     "node": ">= 8.0.0"

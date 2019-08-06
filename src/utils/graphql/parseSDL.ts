@@ -1,29 +1,82 @@
-const cloneDeep = require('lodash/cloneDeep');
-const uncapitalize = require('../utils/string/uncapitalize');
-const capitalize = require('../utils/string/capitalize');
-const lowercase = require('../utils/string/lowercase');
-const pluralize = require('pluralize');
+import { cloneDeep } from 'lodash';
+import uncapitalize from '../../utils/string/uncapitalize';
+import capitalize from '../../utils/string/capitalize';
+import lowercase from '../../utils/string/lowercase';
+import pluralize = require('pluralize');
 const { singular } = pluralize;
-const quote = require('../utils/string/quote');
-const removeUndefined = require('../utils/object/removeUndefined');
-const primitiveGraphQLTypes = require('./primitiveGraphQLTypes');
+import quote from '../../utils/string/quote';
+import removeUndefined from '../../utils/object/removeUndefined';
+import primitiveGraphQLTypes from './primitiveTypes';
+import ParseSDLError from './ParseSDLError';
+
+interface ModelName {
+  modelName: string,
+  varName: string,
+  pluralVarName: string,
+  collectionName: string
+}
+
+interface Field {
+  name: string,
+  jsType?: string,
+  graphQLType?: string,
+  isArray?: boolean,
+  isObject?: boolean,
+  isSchema?: boolean,
+  isEnum?: boolean,
+  isFile?: boolean,
+  fields?: Field[],
+  primitive?: boolean,
+  reference?: boolean,
+  jsTypeArg?: string,
+  modifiers?: Modifier,
+  foreignKey?: string,
+  foreignKeyIsArray?: boolean,
+  assocModel?: string,
+  selfKey?: string,
+  destKey?: string
+}
+
+interface NestingContext {
+  name: string,
+  singularName: string
+}
+
+interface Modifier {
+  match?: string,
+  enum?: string[],
+  uploader?: string,
+  required?: boolean,
+  index?: boolean,
+  autoIncrement?: boolean,
+  unique?: boolean,
+  sparse?: boolean,
+  default?: any
+}
+
+interface ORMSetting {
+  ormTypeFromGraphQLType: (graphQLType: string) => string,
+  graphQLTypeFromORMType: (ORMType: string) => string,
+  supportedPrimitiveTypes: string[]
+}
 
 // Find a nesting context for current argument
-const getCurrentContext = (fields, nestingContext) => {
+const getCurrentContext = (fields: Field[], nestingContext: NestingContext[]) => {
   nestingContext.forEach((context) => {
-    fields = fields.find((f) => (f.name === context.name) && f.isObject).fields;
+    fields = ((fields.find((f) => (f.name === context.name) && f.isObject) as Field).fields as Field[]);
   });
   return fields;
 };
 
-const parsingModelName = (arg0) => {
+// Get model name from user's arg zero
+const parsingModelName = (arg0: string): ModelName => {
   if (!arg0.match(/^[a-zA-Z]\w*(\/[a-zA-Z]\w*)?$/)) {
-    throw `Unexpected Model/pluralVariableName '${arg0}'.`;
+    throw new ParseSDLError(`Unexpected model name \`${arg0}'.`);
   }
   let [modelName, pluralVarName] = arg0.split('/');
   modelName = capitalize(modelName);
   const varName = uncapitalize(modelName);
-  !pluralVarName && (pluralVarName = pluralize(varName));
+  if (!pluralVarName) pluralVarName = pluralize(varName);
   const collectionName = lowercase(pluralVarName);
   if (pluralVarName === varName) {
     pluralVarName = `all${capitalize(pluralVarName)}`;
@@ -36,13 +89,16 @@ const parsingModelName = (arg0) => {
   };
 };
 
-module.exports = (args, ormSetting) => {
+const parseSDL = (args: string[], ormSetting: ORMSetting) => {
 
   args = cloneDeep(args);
   ormSetting = cloneDeep(ormSetting);
 
   // Parsing model names
   const arg0 = args.shift();
+  if (!arg0) {
+    throw new ParseSDLError(`Missing model name argument.`);
+  }
   const {
     modelName,
     varName,
@@ -52,12 +108,13 @@ module.exports = (args, ormSetting) => {
 
   // Parsing fields
 
-  const fields = [], nestingContext = [];
+  const fields: Field[] = [];
+  const nestingContext: NestingContext[] = [];
 
   args.forEach((arg) => {
     const tokens = arg.split(':');
     if (tokens.length > 3) {
-      throw `Unexpected field descriptor '${arg}'.`;
+      throw new ParseSDLError(`Unexpected field descriptor '${arg}'.`);
     } else if (tokens.length === 1) {
       // set default type GraphQL String
       tokens.push('String');
@@ -76,18 +133,18 @@ module.exports = (args, ormSetting) => {
     // Push nesting structure
     const nestingMatcher = token1.match(/^(\[)?{$/);
     if (nestingMatcher) {
-      const isArray = !!nestingMatcher[1];
+      const nIsArray = !!nestingMatcher[1];
       getCurrentContext(fields, nestingContext).push({
         name: token0,
         isObject: true,
-        isArray,
+        isArray: nIsArray,
         isEnum: false,
         isFile: false,
         fields: []
       });
       nestingContext.push({
         name: token0,
-        singularName: isArray ? singular(tokens[0]) : tokens[0]
+        singularName: nIsArray ? singular(tokens[0]) : tokens[0]
       });
       return;
     }
@@ -96,14 +153,14 @@ module.exports = (args, ormSetting) => {
 
     const reusableMatcher = token1.match(/^(\[)?(.+)Schema(\])?$/);
     if (reusableMatcher) {
-      const isArray = !!(reusableMatcher[1] && reusableMatcher[3]);
-      const graphQLType = capitalize(reusableMatcher[2]);
-      const jsType = uncapitalize(graphQLType) + 'Schema';
+      const rIsArray = !!(reusableMatcher[1] && reusableMatcher[3]);
+      const rGraphQLType = capitalize(reusableMatcher[2]);
+      const rJsType = uncapitalize(rGraphQLType) + 'Schema';
       getCurrentContext(fields, nestingContext).push({
         name: token0,
-        jsType,
-        graphQLType,
-        isArray,
+        jsType: rJsType,
+        graphQLType: rGraphQLType,
+        isArray: rIsArray,
         isEnum: false,
         isFile: false,
         isSchema: true
@@ -115,16 +172,19 @@ module.exports = (args, ormSetting) => {
 
     const name = token0;
     const typeMatcherRegExp = /^(\[)?([\w\d\.]+)(\((.+)\))?(\])?(.*)?$/;
-    const typeMatcher = token1.match(typeMatcherRegExp);
+    const typeMatcher = token1.match(typeMatcherRegExp) as RegExpMatchArray;
     const isArray = Boolean(typeMatcher[1] && typeMatcher[5]);
     let modifier = typeMatcher[6] || '';
     const rawType = typeMatcher[2];
     const mainRawType = rawType.split('.')[0];
     const typeArgument = typeMatcher[4];
-    let graphQLType, jsType,
-      isEnum = false, isFile = false,
-      primitive = false, reference = false;
-    const modifiers = {};
+    let graphQLType: string | undefined;
+    let jsType: string | undefined;
+    let isEnum = false;
+    let isFile = false;
+    let primitive = false;
+    let reference = false;
+    const modifiers: Modifier = {};
 
     // Special Primitive Types
 
@@ -137,7 +197,7 @@ module.exports = (args, ormSetting) => {
       isEnum = true;
       // Update this later
       jsType = 'String';
-      modifiers['enum'] = typeArgument.split(',').map(quote);
+      modifiers.enum = typeArgument.split(',').map(quote);
     }
 
     // Upload type
@@ -145,7 +205,7 @@ module.exports = (args, ormSetting) => {
       primitive = true;
       isFile = true;
       // Update this later
-      modifiers['uploader'] = rawType;
+      modifiers.uploader = rawType;
       jsType = graphQLType = 'File';
     }
 
@@ -175,7 +235,7 @@ module.exports = (args, ormSetting) => {
 
     // String regexp match modifier
     if ((graphQLType === 'String') && modifier.match(/\/(.*)\/(.*)/)) {
-      const matchData = modifier.match(/(\/.*\/[\w]*)(.*)/);
+      const matchData = modifier.match(/(\/.*\/[\w]*)(.*)/) as RegExpMatchArray;
       const regex = matchData[1];
       modifier = matchData[2];
       modifiers.match = regex;
@@ -186,12 +246,12 @@ module.exports = (args, ormSetting) => {
     const maxChecker = /<=([\da-fx\.]*)/;
     if (modifier.match(minChecker)) {
       modifiers[graphQLType === 'String' ? 'minlength' : 'min']
-        = modifier.match(minChecker)[1];
+        = (modifier.match(minChecker) as RegExpMatchArray)[1];
       modifier = modifier.replace(minChecker, '');
     }
     if (modifier.match(maxChecker)) {
       modifiers[graphQLType === 'String' ? 'maxlength' : 'max']
-        = modifier.match(maxChecker)[1];
+        = (modifier.match(maxChecker) as RegExpMatchArray)[1];
       modifier = modifier.replace(maxChecker, '');
     }
 
@@ -225,34 +285,37 @@ module.exports = (args, ormSetting) => {
     if (token2 && primitive) {
       const calValMatcher = token2.match(/`(.*)`/);
       if (calValMatcher) {
-        modifiers['default'] = calValMatcher[1];
+        modifiers.default = calValMatcher[1];
       } else {
         if (graphQLType === 'String') {
-          modifiers['default'] = quote(token2);
-        } else if (['Int', 'Float'].includes(graphQLType)) {
-          modifiers['default'] = parseFloat(token2);
+          modifiers.default = quote(token2);
+        } else if (['Int', 'Float'].includes(graphQLType as string)) {
+          modifiers.default = parseFloat(token2);
         } else if (graphQLType === 'Boolean') {
-          modifiers['default'] = JSON.parse(token2);
+          modifiers.default = JSON.parse(token2);
         } else if (graphQLType === 'Date') {
           if (token2.match(/^[0-9]+$/)) {
-            modifiers['default'] = new Date(parseFloat(token2));
+            modifiers.default = new Date(parseFloat(token2));
           } else {
-            modifiers['default'] = new Date(token2);
+            modifiers.default = new Date(token2);
           }
         }
       }
     }
 
-    let foreignKey, foreignKeyIsArray;
-    let assocModel, selfKey, destKey;
+    let foreignKey: string | undefined;
+    let foreignKeyIsArray: boolean | undefined;
+    let assocModel: string | undefined;
+    let selfKey: string | undefined;
+    let destKey: string | undefined;
     if (token2 && reference) {
       const foreignKeyMatcher = token2.match(/^(\[)?([\w\d\.]+)(\])?$/);
-      foreignKeyIsArray = Boolean(foreignKeyMatcher[1] && foreignKeyMatcher[3]);
-      const foreignKeyRawValue = foreignKeyMatcher[2];
+      foreignKeyIsArray = Boolean((foreignKeyMatcher as RegExpMatchArray)[1] && (foreignKeyMatcher as RegExpMatchArray)[3]);
+      const foreignKeyRawValue = (foreignKeyMatcher as RegExpMatchArray)[2];
       if (foreignKeyRawValue.match(/^[A-Z]/)) {
         const assocInfo = token2.split('.');
         assocModel = assocInfo[0];
-        destKey = assocInfo[1] || uncapitalize(jsType);
+        destKey = assocInfo[1] || uncapitalize(jsType as string);
         selfKey = assocInfo[2] || uncapitalize(modelName);
       } else {
         foreignKey = foreignKeyRawValue;
@@ -287,3 +350,5 @@ module.exports = (args, ormSetting) => {
     fields
   });
 };
+
+export default parseSDL;
