@@ -27,6 +27,6 @@
     "eslint": "latest",
     "eslint-config-man": "latest",
     "nodemon": "latest",
-    "seedgoose": "^1.0.0"
+    "seedgoose": "^2.0.0"
   }
 }
