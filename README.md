@@ -1,3 +1,7 @@
+# Deprecated
+
+This package is deprecated in favor of [TEO](https://github.com/teocloud/teo).
+
 # GraphQL Joker
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
